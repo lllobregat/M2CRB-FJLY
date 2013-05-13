@@ -392,7 +392,7 @@ public class MainSmartphone extends javax.swing.JFrame {
 
         mainPanel.add(EcranAccueil, "EcranAccueil");
 
-        jLabel1.setIcon(new javax.swing.ImageIcon("C:\\Users\\pc-jfred\\Desktop\\CORBA\\721-museum-toulouse100x100.jpg")); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/Images/721-museum-toulouse100x100.jpg"))); // NOI18N
         jLabel1.setText("jLabel1");
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N

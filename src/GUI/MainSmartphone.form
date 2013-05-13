@@ -630,7 +630,7 @@
             <Component class="javax.swing.JLabel" name="jLabel1">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="2" name="C:\Users\pc-jfred\Desktop\CORBA\721-museum-toulouse100x100.jpg"/>
+                  <Image iconType="3" name="/GUI/Images/721-museum-toulouse100x100.jpg"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="jLabel1"/>
               </Properties>
