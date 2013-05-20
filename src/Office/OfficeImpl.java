@@ -14,7 +14,7 @@ import org.omg.CosNaming.NamingContextPackage.*;
  *
  * @author Lydia
  */
-public abstract class OfficeImpl extends OfficePOA {
+public class OfficeImpl extends OfficePOA {
    
     public OfficeImpl() {
         

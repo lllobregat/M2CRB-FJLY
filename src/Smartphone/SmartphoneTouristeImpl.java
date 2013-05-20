@@ -8,7 +8,7 @@ import GestionAssitanceTouristique.*;
  *
  * @author Lydia
  */
-public abstract class SmartphoneTouristeImpl extends SmartphoneTouristePOA {
+public class SmartphoneTouristeImpl extends SmartphoneTouristePOA {
     
     //readonly attribute
     private short idCarte;
@@ -20,4 +20,9 @@ public abstract class SmartphoneTouristeImpl extends SmartphoneTouristePOA {
     public void notifierAvisVisite(Visite visite, Site site) {
         
     }
+
+    public short idCarteAchetee() {
+        return this.idCarte;
+    }
+  
 }

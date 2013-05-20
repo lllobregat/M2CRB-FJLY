@@ -119,7 +119,7 @@ public class ClientSmartphone extends javax.swing.JFrame {
             }
         });
 
-        labelLogo.setFont(new java.awt.Font("Brush Script Std", 0, 24)); // NOI18N
+        labelLogo.setFont(new java.awt.Font("Brush Script MT", 0, 24)); // NOI18N
         labelLogo.setForeground(new java.awt.Color(255, 0, 0));
         labelLogo.setText("Ticket'Me !");
 

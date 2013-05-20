@@ -8,7 +8,7 @@ import GestionAssitanceTouristique.*;
  *
  * @author Lydia
  */
-public abstract class ServiceBancaireImpl extends ServiceBancairePOA {
+public class ServiceBancaireImpl extends ServiceBancairePOA {
     
     public ServiceBancaireImpl() {
         

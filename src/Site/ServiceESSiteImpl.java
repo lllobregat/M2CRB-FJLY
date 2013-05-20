@@ -8,7 +8,7 @@ import GestionAssitanceTouristique.*;
  *
  * @author Lydia
  */
-public abstract class ServiceESSiteImpl extends ServiceESSitePOA {
+public class ServiceESSiteImpl extends ServiceESSitePOA {
  
     public ServiceESSiteImpl() {
         

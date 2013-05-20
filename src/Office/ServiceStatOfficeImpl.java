@@ -8,7 +8,7 @@ import GestionAssitanceTouristique.*;
  *
  * @author Lydia
  */
-public abstract class ServiceStatOfficeImpl extends ServiceStatOfficePOA {
+public class ServiceStatOfficeImpl extends ServiceStatOfficePOA {
     
     public ServiceStatOfficeImpl() {
         
