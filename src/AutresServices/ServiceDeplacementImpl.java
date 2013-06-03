@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 package AutresServices;
-import GestionAssitanceTouristique.*;
+import AssistanceTouristique.*;
 /**
  *
  * @author Lydia
@@ -14,7 +14,7 @@ public class ServiceDeplacementImpl extends ServiceDeplacementPOA {
         
     }
     
-    public int calculerDureeTrajet(GestionAssitanceTouristique.Coordonnees coordGPS_A, GestionAssitanceTouristique.Coordonnees coordGPS_B, String mode) {
+    public int calculerDureeTrajet(Coordonnees coordGPS_A, Coordonnees coordGPS_B, String mode) {
         return 0;
         
     }

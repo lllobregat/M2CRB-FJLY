@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 package Office;
-import GestionAssitanceTouristique.*;
+import AssistanceTouristique.*;
 
 import org.omg.CORBA.*; 
 import org.omg.PortableServer.*; 

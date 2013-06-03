@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 package AutresServices;
-import GestionAssitanceTouristique.*;
+import AssistanceTouristique.*;
 /**
  *
  * @author Lydia
@@ -11,11 +11,11 @@ import GestionAssitanceTouristique.*;
 public class ServiceBancaireImpl extends ServiceBancairePOA {
     
     public ServiceBancaireImpl() {
-        
     }
     
     public boolean verifierPaiement(float montant) {
-        return false;
-        
+        if(montant>0)   
+            return true;
+        return true;   
     }
 }

@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 package Smartphone;
-import GestionAssitanceTouristique.*;
+import AssistanceTouristique.*;
 /**
  *
  * @author Lydia

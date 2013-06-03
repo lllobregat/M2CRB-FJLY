@@ -10,26 +10,32 @@ import org.omg.PortableServer.*;
  *
  * @author Lydia
  */
-public class ServeurSmartphone {
+public class ServeurSmartphone implements Runnable {
+    private org.omg.CORBA.ORB orb;
+    private AssistanceTouristique.SmartphoneTouriste smartphone;
+    
+    public ServeurSmartphone(org.omg.CORBA.ORB orb) {
+        this.orb=orb; 
+    }
     
      public void enregistrerVisite(int idSite) {
         
      }
    
-     public static void main(String[] args) {
+     public void run() {
          try {
             //1 
-             org.omg.CORBA.ORB orb = org.omg.CORBA.ORB.init(args, null);
+             org.omg.CORBA.ORB orb = org.omg.CORBA.ORB.init();
              
              /****** Gestion du POA ******/
              //2
              POA rootPOA = POAHelper.narrow(orb.resolve_initial_references("RootPOA"));
              
              //3
-             SmartphoneTouristeImpl monSmarphone = new SmartphoneTouristeImpl();
+             SmartphoneTouristeImpl monSmartphone = new SmartphoneTouristeImpl();
              
              //4
-             byte[] monSmartphoneId = rootPOA.activate_object(monSmarphone);
+             byte[] monSmartphoneId = rootPOA.activate_object(monSmartphone);
              
              //5
              rootPOA.the_POAManager().activate();
@@ -43,7 +49,7 @@ public class ServeurSmartphone {
              nameToRegister[0] = new org.omg.CosNaming.NameComponent("MonSmatphone", "");
              
              //Enregistrement du nom de l'objet corba dans le service de nom
-             nameRoot.rebind(nameToRegister, rootPOA.servant_to_reference(monSmarphone));
+             nameRoot.rebind(nameToRegister, rootPOA.servant_to_reference(monSmartphone));
              
              //7
              orb.run();      

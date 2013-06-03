@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 package Site;
-import GestionAssitanceTouristique.*;
+import AssistanceTouristique.*;
 /**
  *
  * @author Lydia
