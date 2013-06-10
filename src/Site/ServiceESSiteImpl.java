@@ -36,12 +36,12 @@ public class ServiceESSiteImpl extends ServiceESSitePOA {
         
     }
     
-    public Visite[] getInfosES() {
+    public Visite[] getInfosES(String nom) {
         return null;
         
     }
     
-    public short getAffluenceCourante() {
+    public short getAffluenceCourante(String nom) {
         return 0;
         
     }

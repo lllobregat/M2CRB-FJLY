@@ -244,7 +244,7 @@ public class _ServiceESSiteStub extends org.omg.CORBA.portable.ObjectImpl
     /**
      * Operation getInfosES
      */
-    public AssistanceTouristique.Visite[] getInfosES()
+    public AssistanceTouristique.Visite[] getInfosES(String nom)
     {
         while(true)
         {
@@ -254,6 +254,7 @@ public class _ServiceESSiteStub extends org.omg.CORBA.portable.ObjectImpl
                 try
                 {
                     org.omg.CORBA.portable.OutputStream _output = this._request("getInfosES",true);
+                    _output.write_string(nom);
                     _input = this._invoke(_output);
                     AssistanceTouristique.Visite[] _arg_ret = AssistanceTouristique.t_listeVisitesHelper.read(_input);
                     return _arg_ret;
@@ -280,7 +281,7 @@ public class _ServiceESSiteStub extends org.omg.CORBA.portable.ObjectImpl
                 AssistanceTouristique.ServiceESSiteOperations _self = (AssistanceTouristique.ServiceESSiteOperations) _so.servant;
                 try
                 {
-                    return _self.getInfosES();
+                    return _self.getInfosES( nom);
                 }
                 finally
                 {
@@ -293,7 +294,7 @@ public class _ServiceESSiteStub extends org.omg.CORBA.portable.ObjectImpl
     /**
      * Operation getAffluenceCourante
      */
-    public short getAffluenceCourante()
+    public short getAffluenceCourante(String nom)
     {
         while(true)
         {
@@ -303,6 +304,7 @@ public class _ServiceESSiteStub extends org.omg.CORBA.portable.ObjectImpl
                 try
                 {
                     org.omg.CORBA.portable.OutputStream _output = this._request("getAffluenceCourante",true);
+                    _output.write_string(nom);
                     _input = this._invoke(_output);
                     short _arg_ret = _input.read_short();
                     return _arg_ret;
@@ -329,7 +331,7 @@ public class _ServiceESSiteStub extends org.omg.CORBA.portable.ObjectImpl
                 AssistanceTouristique.ServiceESSiteOperations _self = (AssistanceTouristique.ServiceESSiteOperations) _so.servant;
                 try
                 {
-                    return _self.getAffluenceCourante();
+                    return _self.getAffluenceCourante( nom);
                 }
                 finally
                 {

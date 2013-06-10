@@ -2,8 +2,10 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package Office;
+package SiteSaintRaymond;
 
+import Site.*;
+import java.util.Date;
 import org.omg.CosNaming.NamingContext;
 import org.omg.PortableServer.POA;
 import org.omg.PortableServer.POAHelper;
@@ -12,28 +14,19 @@ import org.omg.PortableServer.POAHelper;
  *
  * @author Lydia
  */
-public class ServeurOffice {
-    public static String nomOffice="Toulouse";
+public class ServeurSiteSaintRaymond {
+    public static String nomSite = "Saint Raymond";
     
-    
-    public void calculerSitesNonVisites(int[] listeSitesVisites ) {
+    public ServeurSiteSaintRaymond() {
         
     }
     
-    public void calculerSitesProches(int Coord) {
-        
-    }
-    
-    public void afficherListeSiteAVisiter(int[] listeSitesAVister) {
+    public void afficherHoraireFermeture(Date heureF) {
         
     }
     
     public static void main(String args[]) {
-        //Tableau des id/nom des sites
-        String[] listeSites = { "Georges Labit", 
-                                "Museum histoire naturelle",
-                                "Saint Raymond"};
-        try {
+      try {
            org.omg.CORBA.ORB orb = org.omg.CORBA.ORB.init(args,null);
 
             // Gestion du POA
@@ -43,10 +36,10 @@ public class ServeurOffice {
 
             // Creation du servant
             //*********************
-           OfficeImpl monOffice = new OfficeImpl(orb, listeSites);
+           SiteTouristiqueImpl monSite = new SiteTouristiqueImpl();
 
             // Activer le servant au sein du POA et recuperer son ID
-            byte[] monOfficeId = rootPOA.activate_object(monOffice);
+            byte[] monSiteId = rootPOA.activate_object(monSite);
 
             // Activer le POA manager
             rootPOA.the_POAManager().activate();
@@ -58,13 +51,13 @@ public class ServeurOffice {
 
             // Construction du nom a enregistrer
             org.omg.CosNaming.NameComponent[] nameToRegister = new org.omg.CosNaming.NameComponent[1];
-            nameToRegister[0] = new org.omg.CosNaming.NameComponent(nomOffice,"");
+            nameToRegister[0] = new org.omg.CosNaming.NameComponent(nomSite,"");
 
             // Enregistrement de l'objet CORBA dans le service de noms
-            nameRoot.rebind(nameToRegister,rootPOA.servant_to_reference(monOffice));
-            System.out.println("==> Nom '"+ nomOffice + "' est enregistre dans le service de noms.");
+            nameRoot.rebind(nameToRegister,rootPOA.servant_to_reference(monSite));
+            System.out.println("==> Nom '"+ nomSite + "' est enregistre dans le service de noms.");
 
-            String IORServant = orb.object_to_string(rootPOA.servant_to_reference(monOffice));
+            String IORServant = orb.object_to_string(rootPOA.servant_to_reference(monSite));
             System.out.println("L'objet possede la reference suivante :");
             System.out.println(IORServant);
 
@@ -77,5 +70,6 @@ public class ServeurOffice {
             e.printStackTrace();
         }
     }
+
     
 }

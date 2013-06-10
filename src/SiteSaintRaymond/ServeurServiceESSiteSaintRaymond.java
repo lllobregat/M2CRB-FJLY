@@ -2,17 +2,18 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package Site;
+package SiteSaintRaymond;
 
+import Site.*;
 import java.util.Date;
 
 /**
  *
  * @author Lydia
  */
-public class ServeurServiceESSite {
+public class ServeurServiceESSiteSaintRaymond {
     
-    public ServeurServiceESSite() {
+    public ServeurServiceESSiteSaintRaymond() {
         
     }
     

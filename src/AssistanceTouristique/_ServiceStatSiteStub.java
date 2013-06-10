@@ -23,7 +23,7 @@ public class _ServiceStatSiteStub extends org.omg.CORBA.portable.ObjectImpl
     /**
      * Operation getStatsSite
      */
-    public AssistanceTouristique.Statistique[] getStatsSite()
+    public AssistanceTouristique.Statistique[] getStatsSite(String date, String nom)
     {
         while(true)
         {
@@ -33,6 +33,8 @@ public class _ServiceStatSiteStub extends org.omg.CORBA.portable.ObjectImpl
                 try
                 {
                     org.omg.CORBA.portable.OutputStream _output = this._request("getStatsSite",true);
+                    _output.write_string(date);
+                    _output.write_string(nom);
                     _input = this._invoke(_output);
                     AssistanceTouristique.Statistique[] _arg_ret = AssistanceTouristique.t_listeStatHelper.read(_input);
                     return _arg_ret;
@@ -59,7 +61,7 @@ public class _ServiceStatSiteStub extends org.omg.CORBA.portable.ObjectImpl
                 AssistanceTouristique.ServiceStatSiteOperations _self = (AssistanceTouristique.ServiceStatSiteOperations) _so.servant;
                 try
                 {
-                    return _self.getStatsSite();
+                    return _self.getStatsSite( date,  nom);
                 }
                 finally
                 {
@@ -72,7 +74,7 @@ public class _ServiceStatSiteStub extends org.omg.CORBA.portable.ObjectImpl
     /**
      * Operation afficherInfosES
      */
-    public void afficherInfosES(AssistanceTouristique.Visite[] listeVisites)
+    public void afficherInfosES(AssistanceTouristique.Visite[] listeVisites, String nom)
     {
         while(true)
         {
@@ -83,6 +85,7 @@ public class _ServiceStatSiteStub extends org.omg.CORBA.portable.ObjectImpl
                 {
                     org.omg.CORBA.portable.OutputStream _output = this._request("afficherInfosES",true);
                     AssistanceTouristique.t_listeVisitesHelper.write(_output,listeVisites);
+                    _output.write_string(nom);
                     _input = this._invoke(_output);
                     return;
                 }
@@ -108,7 +111,7 @@ public class _ServiceStatSiteStub extends org.omg.CORBA.portable.ObjectImpl
                 AssistanceTouristique.ServiceStatSiteOperations _self = (AssistanceTouristique.ServiceStatSiteOperations) _so.servant;
                 try
                 {
-                    _self.afficherInfosES( listeVisites);
+                    _self.afficherInfosES( listeVisites,  nom);
                     return;
                 }
                 finally

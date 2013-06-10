@@ -45,8 +45,9 @@ public abstract class SiteTouristiquePOA extends org.omg.PortableServer.Servant
             final org.omg.CORBA.portable.InputStream _is,
             final org.omg.CORBA.portable.ResponseHandler handler) {
         org.omg.CORBA.portable.OutputStream _output;
+        String arg0_in = _is.read_string();
 
-        short _arg_result = getHorairesFermeture();
+        short _arg_result = getHorairesFermeture(arg0_in);
 
         _output = handler.createReply();
         _output.write_short(_arg_result);
