@@ -4,6 +4,7 @@
  */
 package Office;
 
+import java.util.HashMap;
 import org.omg.CosNaming.NamingContext;
 import org.omg.PortableServer.POA;
 import org.omg.PortableServer.POAHelper;
@@ -30,9 +31,12 @@ public class ServeurOffice {
     
     public static void main(String args[]) {
         //Tableau des id/nom des sites
-        String[] listeSites = { "Georges Labit", 
-                                "Museum histoire naturelle",
-                                "Saint Raymond"};
+        //Tableau des id/nom des sites 
+        HashMap<Integer,String> listeSites = new HashMap<Integer, String>();
+        listeSites. put(1, "Georges Labit");
+        listeSites.put(2,"Museum histoire naturelle");
+        listeSites.put(3, "Saint Raymond");
+        
         try {
            org.omg.CORBA.ORB orb = org.omg.CORBA.ORB.init(args,null);
 

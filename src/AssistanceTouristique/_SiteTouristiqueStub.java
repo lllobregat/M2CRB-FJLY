@@ -23,7 +23,7 @@ public class _SiteTouristiqueStub extends org.omg.CORBA.portable.ObjectImpl
     /**
      * Operation getHorairesFermeture
      */
-    public short getHorairesFermeture(String nom)
+    public short getHorairesFermeture(int idSite)
     {
         while(true)
         {
@@ -33,7 +33,7 @@ public class _SiteTouristiqueStub extends org.omg.CORBA.portable.ObjectImpl
                 try
                 {
                     org.omg.CORBA.portable.OutputStream _output = this._request("getHorairesFermeture",true);
-                    _output.write_string(nom);
+                    _output.write_long(idSite);
                     _input = this._invoke(_output);
                     short _arg_ret = _input.read_short();
                     return _arg_ret;
@@ -60,7 +60,7 @@ public class _SiteTouristiqueStub extends org.omg.CORBA.portable.ObjectImpl
                 AssistanceTouristique.SiteTouristiqueOperations _self = (AssistanceTouristique.SiteTouristiqueOperations) _so.servant;
                 try
                 {
-                    return _self.getHorairesFermeture( nom);
+                    return _self.getHorairesFermeture( idSite);
                 }
                 finally
                 {

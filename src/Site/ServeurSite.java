@@ -2,9 +2,13 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package SiteSaintRaymond;
+package Site;
 
-import Site.*;
+import AssistanceTouristique.Coordonnees;
+import Office.OfficeImpl;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.PrintStream;
 import java.util.Date;
 import org.omg.CosNaming.NamingContext;
 import org.omg.PortableServer.POA;
@@ -14,10 +18,12 @@ import org.omg.PortableServer.POAHelper;
  *
  * @author Lydia
  */
-public class ServeurSiteSaintRaymond {
-    public static String nomSite = "Saint Raymond";
+public class ServeurSite {
+    //TODO à récupérer dans la BD
+    public static String nomSite;
+    public static Coordonnees coordSite = new Coordonnees((float)30, (float)45);
     
-    public ServeurSiteSaintRaymond() {
+    public ServeurSite() {
         
     }
     
@@ -26,8 +32,16 @@ public class ServeurSiteSaintRaymond {
     }
     
     public static void main(String args[]) {
+      //Flux E/S standards
+     BufferedReader entree_std = new BufferedReader(new InputStreamReader(System.in));
+     PrintStream sortie_std = new PrintStream(System.out); 
+    
       try {
-           org.omg.CORBA.ORB orb = org.omg.CORBA.ORB.init(args,null);
+          //Configuration de base
+          sortie_std.print("Quel est le nom du site?");
+          nomSite=entree_std.readLine();
+          
+          org.omg.CORBA.ORB orb = org.omg.CORBA.ORB.init(args,null);
 
             // Gestion du POA
              //****************
@@ -70,6 +84,5 @@ public class ServeurSiteSaintRaymond {
             e.printStackTrace();
         }
     }
-
     
 }

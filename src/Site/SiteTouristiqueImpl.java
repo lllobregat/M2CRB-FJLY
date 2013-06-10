@@ -14,18 +14,22 @@ public class SiteTouristiqueImpl extends SiteTouristiquePOA {
         
     }
     
-    public short getHorairesFermeture(String nom) {
+    //TODO BD
+    public short getHorairesFermeture(int idSite) {
         short horaire=0;
-        switch(nom) {
-            case "Georges Labit" :
+        switch(idSite) {
+            //Georges LAbit
+            case 1 :
                 //17h30 en minutes
                 horaire=(17*60)+30;
                 break;
-            case "Museum histoire naturelle" :
+            //Museum histoire naturelle    
+            case 2 :
                 //18h en minutes
                 horaire=18*60;
                 break;
-            case "Saint Raymond" :
+            //Saint Raymond
+            case 3 :
                 //18h45 en minutes
                 horaire=(18*60)+45;
                 break;

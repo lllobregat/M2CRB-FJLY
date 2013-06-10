@@ -4,6 +4,11 @@
  */
 package Office;
 import AssistanceTouristique.*;
+import Site.ServeurSite;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Set;
 
 import org.omg.CORBA.*; 
 import org.omg.PortableServer.*; 
@@ -16,44 +21,37 @@ import org.omg.CosNaming.NamingContextPackage.*;
  */
 public class OfficeImpl extends OfficePOA {
     private org.omg.CORBA.ORB orb;
-    private String[] listeSite;
+    private HashMap<Integer, String> listeSite;
     private int nb_sites;
-    private Site[] siteAVisiter;
+    private SiteTouristique monSite;
+    private ServiceESSite monServES;
     
-    public OfficeImpl(org.omg.CORBA.ORB orb, String[] listeSite) {
+    public OfficeImpl(org.omg.CORBA.ORB orb, HashMap listeSite) {
         this.orb=orb;
         this.listeSite=listeSite;
-        this.nb_sites=this.listeSite.length;
-        this.siteAVisiter = new Site[this.nb_sites];
+        this.nb_sites=this.listeSite.size();
         
         try {
             NamingContext nameRoot = org.omg.CosNaming.NamingContextHelper.narrow(this.orb.resolve_initial_references("NameService"));
+            Set set = listeSite.entrySet();
+            Iterator it = set.iterator();
             //Pour chaque site
-            for(int i=0; i<listeSite.length; i++) {
-                System.out.println(listeSite[i]);
-                //Recherche du site
-                org.omg.CosNaming.NameComponent[] site = new org.omg.CosNaming.NameComponent[1];
-                site[0] = new org.omg.CosNaming.NameComponent(listeSite[i], "");
-                org.omg.CORBA.Object distantSite = nameRoot.resolve(site);
+             while(it.hasNext()) {
+                Map.Entry site = (Map.Entry)it.next();
+                /*********** Recherche du site ***********/
+                org.omg.CosNaming.NameComponent[] nameToFind = new org.omg.CosNaming.NameComponent[1];
+                nameToFind[0] = new org.omg.CosNaming.NameComponent((String)site.getValue(), "");
+                org.omg.CORBA.Object distantSite = nameRoot.resolve(nameToFind);
                 
-                AssistanceTouristique.SiteTouristique monSite = AssistanceTouristique.SiteTouristiqueHelper.narrow(distantSite);
+                this.monSite = SiteTouristiqueHelper.narrow(distantSite);
                 
-                switch(listeSite[i]) {
-                    case "Georges Labit" :
-                        monSite.getHorairesFermeture(listeSite[i]);
-                        System.out.println(monSite.getHorairesFermeture(listeSite[i]));
-                        break;
-                    case "Museum histoire naturelle" :
-                        monSite.getHorairesFermeture(listeSite[i]);
-                        System.out.println(monSite.getHorairesFermeture(listeSite[i]));
-                        break;
-                    case "Saint Raymond" :
-                        monSite.getHorairesFermeture(listeSite[i]);
-                        System.out.println(monSite.getHorairesFermeture(listeSite[i]));
-                        break;
-                        
-                }
-            }
+                /********** Recherche du service E/S du site *********/
+                String nomServES = "ES "+(String)site.getValue();
+                nameToFind[0] = new org.omg.CosNaming.NameComponent(nomServES, "");
+                org.omg.CORBA.Object distantServES = nameRoot.resolve(nameToFind);
+                
+                this.monServES = ServiceESSiteHelper.narrow(distantServES);
+             }
         }
 	catch (Exception e) {
 		e.printStackTrace();
@@ -61,24 +59,42 @@ public class OfficeImpl extends OfficePOA {
     }
             
     public Site[] getListeSitesAVisiter(short idCarte, Coordonnees coordGPS, Site[] listeSitesVisites) {
-        Site[] siteAVisiter = new Site[3];
-        
+        Site[] siteAVisiter = new Site[this.nb_sites];
+        int i=0;
+        Coordonnees coordSite;
+        int affluenceCourante;
+        short horaireFermeture;
         try {
             //Si le touriste possede une carte 
-            if(idCarte > 0) {
+            /*if(idCarte > 1) {
             
             }
-            else {
-                //siteAVisiter[0] = new Site(String nom, AssistanceTouristique.Coordonnees coord, int affluenceCourante, int horaireFermeture)
-            }
+            else {*/
+                //siteAVisiter = new Site[this.nb_sites];
+                //La liste des sites est celle de l'office
+                Set set = listeSite.entrySet();
+                Iterator it = set.iterator();
+                //Pour chaque site
+                while(it.hasNext()) {
+                    Map.Entry site = (Map.Entry)it.next();
+                    //Récupération des coordonnées du site : ça devrait pas être une méthode 
+                    coordSite = ServeurSite.coordSite;
+                    //Récupération des horaires de fermeture auprès du site
+                    horaireFermeture = this.monSite.getHorairesFermeture((int)site.getKey());
+                    //Récupération de l'affluence courante auprès du service ES du site
+                    affluenceCourante = this.monServES.getAffluenceCourante((int)site.getKey());
+                    
+                    siteAVisiter[i] = new Site((String)site.getValue(), coordSite, affluenceCourante, horaireFermeture);
+                    i++;
+                }
+            //}
 
         }
 	catch (Exception e) {
 		e.printStackTrace();
 	}
         
-        return null;
-        
+        return siteAVisiter; 
     }
     
 }

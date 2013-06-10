@@ -2,10 +2,8 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package SiteMuseum;
+package Site;
 
-import SiteGeorgesLabit.*;
-import Site.*;
 import java.awt.CardLayout;
 import java.text.DateFormat;
 import java.util.Date;
@@ -15,13 +13,15 @@ import java.util.Locale;
  *
  * @author Lydia
  */
-public class ClientSiteMuseum extends javax.swing.JFrame {
-    private static String nomSite="Museum histoire naturelle";
+public class ClientSiteTouristique extends javax.swing.JFrame {
+    //TODO BD site GL
+    private static String nomSite="Georges Labit";
+    
     private static org.omg.CosNaming.NamingContext nameRoot;
     /**
      * Creates new form ClientSite
      */
-    public ClientSiteMuseum() {
+    public ClientSiteTouristique() {
         initComponents();
     }
 
@@ -54,7 +54,7 @@ public class ClientSiteMuseum extends javax.swing.JFrame {
 
         jLabelTitreAccueil.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabelTitreAccueil.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelTitreAccueil.setText("Museum histoire naturelle");
+        jLabelTitreAccueil.setText("Musée Georges Labit");
 
         jButtonConsulterStats.setText("Consulter les statistiques");
         jButtonConsulterStats.addActionListener(new java.awt.event.ActionListener() {
@@ -207,7 +207,7 @@ public class ClientSiteMuseum extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonAccueilActionPerformed
 
     private void jFormattedTextFieldDateStatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFormattedTextFieldDateStatActionPerformed
-        String nomServiceStat = ServeurStatMuseum.nomServiceStatSite;
+        String nomServiceStat = ServeurStatSite.nomServStatSite;
         String date = jFormattedTextFieldDateStat.getText();
         String valeurStat;
         
@@ -224,28 +224,29 @@ public class ClientSiteMuseum extends javax.swing.JFrame {
             // Casting de l'objet CORBA
             AssistanceTouristique.ServiceStatSite monServiceStat = AssistanceTouristique.ServiceStatSiteHelper.narrow(distantServiceStat);
             
+            //TODO trouver l'identifiant du site à faire passer en paramètre
             //Récupération des statistiques auprès du service stat
-            AssistanceTouristique.Statistique[] stat = monServiceStat.getStatsSite(date, nomSite);
+            AssistanceTouristique.Statistique[] stat = monServiceStat.getStatsSite(date, 1);
             
             /************ Remplissage du tableau *************/
             //Première ligne
             jTableStats.getModel().setValueAt(stat[0].libelleStat,0,0);
-            valeurStat=stat[0].valeurStat + " " + stat[0].uniteStat;
+            valeurStat=stat[0].valeurStat + ' ' + stat[0].uniteStat;
             jTableStats.getModel().setValueAt(valeurStat,0,1);
             
             //Deuxième ligne
             jTableStats.getModel().setValueAt(stat[1].libelleStat,1,0);
-            valeurStat=stat[1].valeurStat + " " + stat[1].uniteStat;
+            valeurStat=stat[1].valeurStat + ' ' + stat[1].uniteStat;
             jTableStats.getModel().setValueAt(valeurStat,1,1);
             
             //Troisième ligne
             jTableStats.getModel().setValueAt(stat[2].libelleStat,2,0);
-            valeurStat=stat[2].valeurStat + " " + stat[2].uniteStat;
+            valeurStat=stat[2].valeurStat + ' ' + stat[2].uniteStat;
             jTableStats.getModel().setValueAt(valeurStat,2,1);
             
             //Quatrième ligne
             jTableStats.getModel().setValueAt(stat[3].libelleStat,3,0);
-            valeurStat=stat[3].valeurStat + " " + stat[3].uniteStat;
+            valeurStat=stat[3].valeurStat + ' ' + stat[3].uniteStat;
             jTableStats.getModel().setValueAt(valeurStat,3,1);                
             
         }
@@ -272,13 +273,13 @@ public class ClientSiteMuseum extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ClientSiteMuseum.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ClientSiteTouristique.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ClientSiteMuseum.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ClientSiteTouristique.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ClientSiteMuseum.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ClientSiteTouristique.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ClientSiteMuseum.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ClientSiteTouristique.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
@@ -291,7 +292,7 @@ public class ClientSiteMuseum extends javax.swing.JFrame {
             //org.omg.CosNaming.NamingContext nameRoot = org.omg.CosNaming.NamingContextHelper.narrow(orb.string_to_object("corbaloc:iiop:1.2@127.0.0.1:2001/NameService"));
             
             //Appel à l'interface graphique
-            new ClientSiteMuseum().setVisible(true);
+            new ClientSiteTouristique().setVisible(true);
         }
         catch (Exception e) {
             e.printStackTrace();
