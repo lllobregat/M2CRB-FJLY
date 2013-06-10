@@ -16,6 +16,7 @@ import java.awt.Color;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
+import java.sql.*;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.util.Date;
@@ -99,18 +100,17 @@ public class ClientSmartphone extends javax.swing.JFrame {
         jButton5 = new javax.swing.JButton();
         boutonReserver = new javax.swing.JButton();
         EcranInfoSite = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
+        imageSite = new javax.swing.JLabel();
+        titreSite = new javax.swing.JLabel();
+        jScrollPanePresentationSite = new javax.swing.JScrollPane();
         jTextPane1 = new javax.swing.JTextPane();
-        labelIdentifiant1 = new javax.swing.JLabel();
-        labelIdentifiant2 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        labelIdentifiant3 = new javax.swing.JLabel();
-        jProgressBar1 = new javax.swing.JProgressBar();
+        labelBandeauPresentation = new javax.swing.JLabel();
+        labelBandeauAdresse = new javax.swing.JLabel();
+        sousTitreSite = new javax.swing.JLabel();
+        adresseSite = new javax.swing.JLabel();
+        numtelSite = new javax.swing.JLabel();
+        labelAffluence = new javax.swing.JLabel();
+        jProgressBarAffluenceSite = new javax.swing.JProgressBar();
         EcranBilletterie = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
         EcranRecherche = new javax.swing.JPanel();
@@ -323,7 +323,7 @@ public class ClientSmartphone extends javax.swing.JFrame {
                 .addComponent(boutonInscription)
                 .addGap(18, 18, 18)
                 .addComponent(boutonMotDePasseOublie)
-                .addGap(0, 67, Short.MAX_VALUE))
+                .addGap(0, 44, Short.MAX_VALUE))
         );
 
         mainPanel.add(EcranIdentification, "EcranIdentification");
@@ -400,90 +400,86 @@ public class ClientSmartphone extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(boutonReserver, javax.swing.GroupLayout.DEFAULT_SIZE, 32, Short.MAX_VALUE)
+                .addComponent(boutonReserver, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(23, 23, 23))
         );
 
         mainPanel.add(EcranAccueil, "EcranAccueil");
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Smartphone/Images/721-museum-toulouse100x100.jpg"))); // NOI18N
-        jLabel1.setText("jLabel1");
+        imageSite.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Smartphone/Images/721-museum-toulouse100x100.jpg"))); // NOI18N
+        imageSite.setText("jLabel1");
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel2.setText("Muséum d'histoires naturelles");
+        titreSite.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        titreSite.setText("Muséum d'histoires naturelles");
 
-        jLabel3.setForeground(new java.awt.Color(51, 51, 255));
-        jLabel3.setText("Prix : 8 €");
-
-        jScrollPane1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-        jScrollPane1.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
-        jScrollPane1.setAutoscrolls(true);
-        jScrollPane1.setFocusable(false);
+        jScrollPanePresentationSite.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        jScrollPanePresentationSite.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
+        jScrollPanePresentationSite.setAutoscrolls(true);
+        jScrollPanePresentationSite.setFocusable(false);
 
         jTextPane1.setEditable(false);
         jTextPane1.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         jTextPane1.setText("Au gré de plusieurs espaces thématiques, l'exposition permanente du Muséum meet en exergue la richesse et la profondeur des relations liant l'Homme et la Nature. L'Homme depuis sa naissance jusqu'à son avenir, en passant par les différentes étapes de son évolution est ainsi amené à s'interroger, réfléchir, jusqu'à prendre conscience des défis contemporains posés à l'humanité.");
         jTextPane1.setFocusable(false);
         jTextPane1.setHighlighter(null);
-        jScrollPane1.setViewportView(jTextPane1);
+        jScrollPanePresentationSite.setViewportView(jTextPane1);
 
-        labelIdentifiant1.setBackground(new java.awt.Color(153, 153, 153));
-        labelIdentifiant1.setFont(new java.awt.Font("Arial", 1, 13)); // NOI18N
-        labelIdentifiant1.setForeground(new java.awt.Color(255, 255, 255));
-        labelIdentifiant1.setText("   Présentation");
-        labelIdentifiant1.setToolTipText("");
-        labelIdentifiant1.setOpaque(true);
+        labelBandeauPresentation.setBackground(new java.awt.Color(153, 153, 153));
+        labelBandeauPresentation.setFont(new java.awt.Font("Arial", 1, 13)); // NOI18N
+        labelBandeauPresentation.setForeground(new java.awt.Color(255, 255, 255));
+        labelBandeauPresentation.setText("   Présentation");
+        labelBandeauPresentation.setToolTipText("");
+        labelBandeauPresentation.setOpaque(true);
 
-        labelIdentifiant2.setBackground(new java.awt.Color(153, 153, 153));
-        labelIdentifiant2.setFont(new java.awt.Font("Arial", 1, 13)); // NOI18N
-        labelIdentifiant2.setForeground(new java.awt.Color(255, 255, 255));
-        labelIdentifiant2.setText("   Adresse");
-        labelIdentifiant2.setToolTipText("");
-        labelIdentifiant2.setOpaque(true);
+        labelBandeauAdresse.setBackground(new java.awt.Color(153, 153, 153));
+        labelBandeauAdresse.setFont(new java.awt.Font("Arial", 1, 13)); // NOI18N
+        labelBandeauAdresse.setForeground(new java.awt.Color(255, 255, 255));
+        labelBandeauAdresse.setText("   Adresse");
+        labelBandeauAdresse.setToolTipText("");
+        labelBandeauAdresse.setOpaque(true);
 
-        jLabel4.setFont(new java.awt.Font("Tahoma", 2, 10)); // NOI18N
-        jLabel4.setText("Musée nationnal - Sciences");
+        sousTitreSite.setFont(new java.awt.Font("Tahoma", 2, 10)); // NOI18N
+        sousTitreSite.setText("Musée nationnal - Sciences");
 
-        jLabel5.setText("35 Allée Jules Guesde Toulouse");
+        adresseSite.setText("35 Allée Jules Guesde Toulouse");
 
-        jLabel6.setText("05 67 73 84 84");
+        numtelSite.setText("05 67 73 84 84");
 
-        labelIdentifiant3.setBackground(new java.awt.Color(153, 153, 153));
-        labelIdentifiant3.setFont(new java.awt.Font("Arial", 1, 13)); // NOI18N
-        labelIdentifiant3.setForeground(new java.awt.Color(255, 255, 255));
-        labelIdentifiant3.setText("   Affluence");
-        labelIdentifiant3.setToolTipText("");
-        labelIdentifiant3.setOpaque(true);
+        labelAffluence.setBackground(new java.awt.Color(153, 153, 153));
+        labelAffluence.setFont(new java.awt.Font("Arial", 1, 13)); // NOI18N
+        labelAffluence.setForeground(new java.awt.Color(255, 255, 255));
+        labelAffluence.setText("   Affluence");
+        labelAffluence.setToolTipText("");
+        labelAffluence.setOpaque(true);
 
-        jProgressBar1.setForeground(new java.awt.Color(51, 255, 51));
-        jProgressBar1.setValue(14);
+        jProgressBarAffluenceSite.setForeground(new java.awt.Color(51, 255, 51));
+        jProgressBarAffluenceSite.setValue(14);
 
         javax.swing.GroupLayout EcranInfoSiteLayout = new javax.swing.GroupLayout(EcranInfoSite);
         EcranInfoSite.setLayout(EcranInfoSiteLayout);
         EcranInfoSiteLayout.setHorizontalGroup(
             EcranInfoSiteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(labelIdentifiant1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-            .addComponent(labelIdentifiant2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(labelBandeauPresentation, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jScrollPanePresentationSite, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+            .addComponent(labelBandeauAdresse, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(EcranInfoSiteLayout.createSequentialGroup()
                 .addGroup(EcranInfoSiteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel5)
-                    .addComponent(jLabel6))
+                    .addComponent(adresseSite)
+                    .addComponent(numtelSite))
                 .addGap(0, 0, Short.MAX_VALUE))
-            .addComponent(labelIdentifiant3, javax.swing.GroupLayout.DEFAULT_SIZE, 328, Short.MAX_VALUE)
+            .addComponent(labelAffluence, javax.swing.GroupLayout.DEFAULT_SIZE, 328, Short.MAX_VALUE)
             .addGroup(EcranInfoSiteLayout.createSequentialGroup()
                 .addGroup(EcranInfoSiteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(EcranInfoSiteLayout.createSequentialGroup()
                         .addGap(6, 6, 6)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(imageSite, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(EcranInfoSiteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 205, Short.MAX_VALUE)
-                            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addComponent(titreSite, javax.swing.GroupLayout.DEFAULT_SIZE, 205, Short.MAX_VALUE)
+                            .addComponent(sousTitreSite, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(EcranInfoSiteLayout.createSequentialGroup()
                         .addGap(18, 18, 18)
-                        .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jProgressBarAffluenceSite, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         EcranInfoSiteLayout.setVerticalGroup(
@@ -491,28 +487,26 @@ public class ClientSmartphone extends javax.swing.JFrame {
             .addGroup(EcranInfoSiteLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(EcranInfoSiteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(EcranInfoSiteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel3))
+                    .addComponent(imageSite, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, EcranInfoSiteLayout.createSequentialGroup()
-                        .addComponent(jLabel2)
+                        .addComponent(titreSite)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel4)))
+                        .addComponent(sousTitreSite)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(labelIdentifiant1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(labelBandeauPresentation, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPanePresentationSite, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(labelIdentifiant2, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(labelBandeauAdresse, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel5)
+                .addComponent(adresseSite)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel6)
+                .addComponent(numtelSite)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(labelIdentifiant3, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(labelAffluence, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jProgressBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(22, Short.MAX_VALUE))
+                .addComponent(jProgressBarAffluenceSite, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         mainPanel.add(EcranInfoSite, "EcranInfoSite");
@@ -526,14 +520,14 @@ public class ClientSmartphone extends javax.swing.JFrame {
             .addGroup(EcranBilletterieLayout.createSequentialGroup()
                 .addGap(124, 124, 124)
                 .addComponent(jLabel7)
-                .addContainerGap(120, Short.MAX_VALUE))
+                .addContainerGap(104, Short.MAX_VALUE))
         );
         EcranBilletterieLayout.setVerticalGroup(
             EcranBilletterieLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(EcranBilletterieLayout.createSequentialGroup()
                 .addGap(97, 97, 97)
                 .addComponent(jLabel7)
-                .addContainerGap(250, Short.MAX_VALUE))
+                .addContainerGap(248, Short.MAX_VALUE))
         );
 
         mainPanel.add(EcranBilletterie, "EcranBilletterie");
@@ -547,14 +541,14 @@ public class ClientSmartphone extends javax.swing.JFrame {
             .addGroup(EcranRechercheLayout.createSequentialGroup()
                 .addGap(133, 133, 133)
                 .addComponent(jLabel8)
-                .addContainerGap(107, Short.MAX_VALUE))
+                .addContainerGap(91, Short.MAX_VALUE))
         );
         EcranRechercheLayout.setVerticalGroup(
             EcranRechercheLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(EcranRechercheLayout.createSequentialGroup()
                 .addGap(138, 138, 138)
                 .addComponent(jLabel8)
-                .addContainerGap(209, Short.MAX_VALUE))
+                .addContainerGap(207, Short.MAX_VALUE))
         );
 
         mainPanel.add(EcranRecherche, "EcranRecherche");
@@ -612,7 +606,7 @@ public class ClientSmartphone extends javax.swing.JFrame {
                     .addGroup(EcranAchatLayout.createSequentialGroup()
                         .addGap(123, 123, 123)
                         .addComponent(BoutonPayer)))
-                .addContainerGap(26, Short.MAX_VALUE))
+                .addContainerGap(15, Short.MAX_VALUE))
         );
         EcranAchatLayout.setVerticalGroup(
             EcranAchatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -631,7 +625,7 @@ public class ClientSmartphone extends javax.swing.JFrame {
                     .addComponent(textMontant, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(46, 46, 46)
                 .addComponent(BoutonPayer)
-                .addContainerGap(49, Short.MAX_VALUE))
+                .addContainerGap(41, Short.MAX_VALUE))
         );
 
         BoutonPayer.getAccessibleContext().setAccessibleName("BoutonPayer");
@@ -670,7 +664,7 @@ public class ClientSmartphone extends javax.swing.JFrame {
                     .addGroup(EcranBanqueLayout.createSequentialGroup()
                         .addGap(94, 94, 94)
                         .addComponent(jLabel12)
-                        .addGap(0, 92, Short.MAX_VALUE)))
+                        .addGap(0, 62, Short.MAX_VALUE)))
                 .addContainerGap())
             .addGroup(EcranBanqueLayout.createSequentialGroup()
                 .addGap(120, 120, 120)
@@ -688,7 +682,7 @@ public class ClientSmartphone extends javax.swing.JFrame {
                 .addComponent(jLabel14)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(inputCarteBancaire, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 108, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 99, Short.MAX_VALUE)
                 .addComponent(BoutonValiderPaiement)
                 .addGap(41, 41, 41))
         );
@@ -1100,6 +1094,7 @@ public class ClientSmartphone extends javax.swing.JFrame {
     private javax.swing.JPanel EcranInfoSite;
     private javax.swing.JPanel EcranRecherche;
     private javax.swing.JLabel ImageBandeau;
+    private javax.swing.JLabel adresseSite;
     private javax.swing.JPanel bandeauPanel;
     private javax.swing.JButton boutonAccueil;
     private javax.swing.JButton boutonBilletterie;
@@ -1115,6 +1110,7 @@ public class ClientSmartphone extends javax.swing.JFrame {
     private javax.swing.JPasswordField fieldPassword;
     private javax.swing.JPanel footerPanel;
     private javax.swing.JPanel headerPanel;
+    private javax.swing.JLabel imageSite;
     private javax.swing.JTextField inputCarteBancaire;
     private javax.swing.JLabel inputMontant;
     private javax.swing.JButton jButton1;
@@ -1127,29 +1123,27 @@ public class ClientSmartphone extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
-    private javax.swing.JProgressBar jProgressBar1;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JProgressBar jProgressBarAffluenceSite;
     private javax.swing.JScrollPane jScrollPaneIdentification;
+    private javax.swing.JScrollPane jScrollPanePresentationSite;
     private javax.swing.JTextPane jTextPane1;
     private javax.swing.JTextPane jTextPaneIdentification;
+    private javax.swing.JLabel labelAffluence;
+    private javax.swing.JLabel labelBandeauAdresse;
+    private javax.swing.JLabel labelBandeauPresentation;
     private javax.swing.JLabel labelIdentifiant;
-    private javax.swing.JLabel labelIdentifiant1;
-    private javax.swing.JLabel labelIdentifiant2;
-    private javax.swing.JLabel labelIdentifiant3;
     private javax.swing.JLabel labelLogo;
     private javax.swing.JLabel labelPassword;
     private javax.swing.JPanel mainPanel;
+    private javax.swing.JLabel numtelSite;
+    private javax.swing.JLabel sousTitreSite;
     private javax.swing.JLabel textMontant;
+    private javax.swing.JLabel titreSite;
     // End of variables declaration//GEN-END:variables
 }
