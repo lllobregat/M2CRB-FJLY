@@ -50,7 +50,7 @@ public class ServeurSite {
 
             // Creation du servant
             //*********************
-           SiteTouristiqueImpl monSite = new SiteTouristiqueImpl();
+           SiteTouristiqueImpl monSite = new SiteTouristiqueImpl(nomSite);
 
             // Activer le servant au sein du POA et recuperer son ID
             byte[] monSiteId = rootPOA.activate_object(monSite);

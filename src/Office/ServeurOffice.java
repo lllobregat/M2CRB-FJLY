@@ -15,22 +15,21 @@ import org.omg.PortableServer.POAHelper;
  */
 public class ServeurOffice {
     public static String nomOffice="Toulouse";
+    //TODO récupérer de la BD la liste des idSites
+    private short[] idSite = {1};
     
-    
-    public void calculerSitesNonVisites(int[] listeSitesVisites ) {
-        
+    //TODO
+    public short[] calculerSitesNonVisites(short[] listeSitesVisites ) {
+        //short[] tab = new short[3];
+        return this.idSite;
     }
     
-    public void calculerSitesProches(int Coord) {
-        
+    public short[] calculerSitesProches(int Coord) {
+        return null;
     }
     
-    public void afficherListeSiteAVisiter(int[] listeSitesAVister) {
-        
-    }
     
     public static void main(String args[]) {
-        //Tableau des id/nom des sites
         //Tableau des id/nom des sites 
         HashMap<Short,String> listeSites = new HashMap<Short, String>();
         listeSites. put((short)1, "Georges Labit");

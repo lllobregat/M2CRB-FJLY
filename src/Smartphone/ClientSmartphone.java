@@ -10,6 +10,7 @@ import AssistanceTouristique.ServiceAchatOfficePackage.achatImpossibleException;
 import AssistanceTouristique.ServiceBancairePackage.operationImpossibleException;
 import Office.ClientOffice;
 import Office.ServeurOffice;
+import Office.ServeurServiceAchatOffice;
 import Office.ServiceAchatOfficeImpl;
 import java.awt.CardLayout;
 import java.awt.Color;
@@ -56,14 +57,15 @@ public class ClientSmartphone extends javax.swing.JFrame {
     public static String dd, df;
     public static Float montant;
     //TODO à récupérer dans la base de donnée
-    public static short idCarte = 1;
+    public static short idCarte = 0;
     public static Coordonnees coordSmartphone = new Coordonnees((float)10, (float)20);
     public static short[] sitesVisites;
+    public static Carte carte;
     
 
     public ClientSmartphone() {
-        sitesVisites = new short[1];
-        sitesVisites[0]=5;
+        sitesVisites = new short[0];
+        //sitesVisites[0]=5;
         initComponents();
     }
 
@@ -906,7 +908,8 @@ public class ClientSmartphone extends javax.swing.JFrame {
             AssistanceTouristique.Office monOffice = AssistanceTouristique.OfficeHelper.narrow(distantOffice);
             
             //Récupération de la liste des sites à visiter
-            monOffice.getListeSitesAVisiter(idCarte, coordSmartphone, sitesVisites);
+            Site[] siteAVisiter = monOffice.getListeSitesAVisiter(idCarte, coordSmartphone, sitesVisites);
+            
             
        } catch (Exception e) {
             e.printStackTrace();
@@ -939,24 +942,31 @@ public class ClientSmartphone extends javax.swing.JFrame {
         df = dateF.getText();
         montant = Float.parseFloat(textMontant.getText());
 
-        //3
-        // monServAchat = AssistanceTouristique.ServiceAchatOfficeHelper.narrow(distantOffice);
-
-        //Appel au serveur du service achat de l'office
-        //Office.ServeurServiceAchatOffice serveur_achat = new Office.ServeurServiceAchatOffice(monServAchat, dd, df, montant);
-
         //Affichage de l'écran informations bancaires
-        CardLayout card = (CardLayout) mainPanel.getLayout();
-        card.show(mainPanel, "EcranBanque");
+        /*CardLayout card = (CardLayout) mainPanel.getLayout();
+        card.show(mainPanel, "EcranBanque");*/
 
-        /*try {
-            //appel de la fonction acheter prestation
-            //AssistanceTouristique.Carte c = monServAchat.acheterPrestation(dd, df, Float.parseFloat(textMontant.getText()));
-            //AssistanceTouristique.Carte c = serveur_achat.getServiceAchat().acheterPrestation(dd, df, Float.parseFloat(textMontant.getText()));
-            System.out.println(c.dateDebut + " " + c.dateFin);
-        } catch (achatImpossibleException ex) {
-            Logger.getLogger(ClientSmartphone.class.getName()).log(Level.SEVERE, null, ex);
-        }*/
+        try {
+            /*********** Recherche du service achat de l'office ***********/
+            String nom_servAchat = ServeurServiceAchatOffice.nomServAchat;
+            
+            org.omg.CosNaming.NameComponent[] nameToFind = new org.omg.CosNaming.NameComponent[1];
+            nameToFind[0] = new org.omg.CosNaming.NameComponent(nom_servAchat, "");
+            org.omg.CORBA.Object distantServAchat = nameRoot.resolve(nameToFind);
+                
+            ServiceAchatOffice monServAchat = ServiceAchatOfficeHelper.narrow(distantServAchat);
+            
+            this.carte = monServAchat.acheterPrestation(dd, dd, montant);    
+                
+        } 
+        catch (Exception e) {
+		e.printStackTrace();
+        }
+        
+        //Retour à l'accueil
+        CardLayout card = (CardLayout) mainPanel.getLayout();
+        card.show(mainPanel, "EcranAcceuil");
+
     }//GEN-LAST:event_BoutonPayerActionPerformed
 
     private void dateDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dateDActionPerformed
