@@ -25,12 +25,12 @@ public final class Site implements org.omg.CORBA.portable.IDLEntity
     /**
      * Struct member horaire0uverture
      */
-    public int horaire0uverture;
+    public String horaire0uverture;
 
     /**
      * Struct member horaireFermeture
      */
-    public int horaireFermeture;
+    public String horaireFermeture;
 
     /**
      * Struct member description
@@ -64,7 +64,7 @@ public final class Site implements org.omg.CORBA.portable.IDLEntity
      * @param adresse adresse struct member
      * @param telephone telephone struct member
      */
-    public Site(short idSite, String titre, AssistanceTouristique.Coordonnees coord, int horaire0uverture, int horaireFermeture, String description, String adresse, String telephone)
+    public Site(short idSite, String titre, AssistanceTouristique.Coordonnees coord, String horaire0uverture, String horaireFermeture, String description, String adresse, String telephone)
     {
         this.idSite = idSite;
         this.titre = titre;

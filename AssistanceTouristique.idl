@@ -26,8 +26,8 @@ module AssistanceTouristique{
 	// Structure Visite permettant d'indiquer les informations relatives à une visite 
 	struct Visite{
 		string date;
-		long heureEntree;
-		long heureSortie;
+		string heureEntree;
+		string heureSortie;
 		string interet;
 	};
 	
@@ -36,8 +36,8 @@ module AssistanceTouristique{
                 short idSite;
 		string titre;
 		Coordonnees coord;
-                long horaire0uverture;
-		long horaireFermeture;
+                string horaire0uverture;
+		string horaireFermeture;
                 string description;
                 string adresse;
                 string telephone;
