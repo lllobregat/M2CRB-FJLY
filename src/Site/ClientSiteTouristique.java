@@ -4,10 +4,16 @@
  */
 package Site;
 
+import AssistanceTouristique.*;
 import java.awt.CardLayout;
 import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -15,7 +21,9 @@ import java.util.Locale;
  */
 public class ClientSiteTouristique extends javax.swing.JFrame {
     //TODO BD site GL
-    private static String nomSite="Georges Labit";
+    private static String nombd="bd_site_histoirenaturelle";
+    
+    public static boolean estPremierLancement = true;
     
     private static org.omg.CosNaming.NamingContext nameRoot;
     /**
@@ -45,10 +53,25 @@ public class ClientSiteTouristique extends javax.swing.JFrame {
         jLabelStatistique = new javax.swing.JLabel();
         jLabelDateStat = new javax.swing.JLabel();
         jFormattedTextFieldDateStat = new javax.swing.JFormattedTextField();
-        jPanel1 = new javax.swing.JPanel();
+        EcranInitialisationSite = new javax.swing.JPanel();
+        jLabelTitreAssistant = new javax.swing.JLabel();
+        jLabelSousTitreAssistant = new javax.swing.JLabel();
+        jButtonValiderAssistant = new javax.swing.JButton();
+        jTextFieldTitreSite = new javax.swing.JTextField();
+        jTextFieldAdresseSite = new javax.swing.JTextField();
+        jTextFieldNumTelSite = new javax.swing.JTextField();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTextAreaDescriptionSite = new javax.swing.JTextArea();
+        jFormattedTextFieldHoraireOuvertureSite = new javax.swing.JFormattedTextField();
+        jFormattedTextFieldHoraireFermetureSite = new javax.swing.JFormattedTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
+        addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentShown(java.awt.event.ComponentEvent evt) {
+                formComponentShown(evt);
+            }
+        });
 
         mainPanel.setLayout(new java.awt.CardLayout());
 
@@ -131,7 +154,7 @@ public class ClientSiteTouristique extends javax.swing.JFrame {
                 .addComponent(jLabelStatistique, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, EcranStatsLayout.createSequentialGroup()
-                .addContainerGap(184, Short.MAX_VALUE)
+                .addContainerGap(206, Short.MAX_VALUE)
                 .addGroup(EcranStatsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(EcranStatsLayout.createSequentialGroup()
                         .addComponent(jLabelDateStat)
@@ -159,23 +182,130 @@ public class ClientSiteTouristique extends javax.swing.JFrame {
                     .addComponent(jFormattedTextFieldDateStat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(69, 69, 69)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(227, Short.MAX_VALUE))
+                .addContainerGap(225, Short.MAX_VALUE))
         );
 
         mainPanel.add(EcranStats, "EcranStats");
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 815, Short.MAX_VALUE)
+        jLabelTitreAssistant.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabelTitreAssistant.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelTitreAssistant.setText("Assistant de premier lancement ...");
+
+        jLabelSousTitreAssistant.setText("Bienvenue sur l'outil de gestion de site  ");
+
+        jButtonValiderAssistant.setText("Valider");
+        jButtonValiderAssistant.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonValiderAssistantActionPerformed(evt);
+            }
+        });
+
+        jTextFieldTitreSite.setText("titre du site ...");
+        jTextFieldTitreSite.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jTextFieldTitreSiteFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jTextFieldTitreSiteFocusLost(evt);
+            }
+        });
+
+        jTextFieldAdresseSite.setText("adresse du site ...");
+        jTextFieldAdresseSite.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jTextFieldAdresseSiteFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jTextFieldAdresseSiteFocusLost(evt);
+            }
+        });
+
+        jTextFieldNumTelSite.setText("numéro de téléphone du site ...");
+        jTextFieldNumTelSite.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jTextFieldNumTelSiteFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jTextFieldNumTelSiteFocusLost(evt);
+            }
+        });
+
+        jTextAreaDescriptionSite.setColumns(20);
+        jTextAreaDescriptionSite.setRows(5);
+        jTextAreaDescriptionSite.setText("Description ...");
+        jTextAreaDescriptionSite.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jTextAreaDescriptionSiteFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jTextAreaDescriptionSiteFocusLost(evt);
+            }
+        });
+        jScrollPane2.setViewportView(jTextAreaDescriptionSite);
+
+        jFormattedTextFieldHoraireOuvertureSite.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(java.text.DateFormat.getTimeInstance(java.text.DateFormat.SHORT))));
+        jFormattedTextFieldHoraireOuvertureSite.setToolTipText("Horaire d'ouverture (HH:mm) ...");
+        jFormattedTextFieldHoraireOuvertureSite.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jFormattedTextFieldHoraireOuvertureSiteActionPerformed(evt);
+            }
+        });
+
+        jFormattedTextFieldHoraireFermetureSite.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(java.text.DateFormat.getTimeInstance(java.text.DateFormat.SHORT))));
+        jFormattedTextFieldHoraireFermetureSite.setToolTipText("Horaire de fermeture (HH:mm) ...");
+        jFormattedTextFieldHoraireFermetureSite.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jFormattedTextFieldHoraireFermetureSiteActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout EcranInitialisationSiteLayout = new javax.swing.GroupLayout(EcranInitialisationSite);
+        EcranInitialisationSite.setLayout(EcranInitialisationSiteLayout);
+        EcranInitialisationSiteLayout.setHorizontalGroup(
+            EcranInitialisationSiteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabelTitreAssistant, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(EcranInitialisationSiteLayout.createSequentialGroup()
+                .addGroup(EcranInitialisationSiteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(EcranInitialisationSiteLayout.createSequentialGroup()
+                        .addGap(318, 318, 318)
+                        .addComponent(jButtonValiderAssistant, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(EcranInitialisationSiteLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(EcranInitialisationSiteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jFormattedTextFieldHoraireFermetureSite, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jFormattedTextFieldHoraireOuvertureSite, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabelSousTitreAssistant, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jTextFieldTitreSite, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jTextFieldAdresseSite, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jTextFieldNumTelSite, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 390, Short.MAX_VALUE)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING))))
+                .addContainerGap(280, Short.MAX_VALUE))
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 616, Short.MAX_VALUE)
+        EcranInitialisationSiteLayout.setVerticalGroup(
+            EcranInitialisationSiteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(EcranInitialisationSiteLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabelTitreAssistant)
+                .addGap(49, 49, 49)
+                .addComponent(jLabelSousTitreAssistant)
+                .addGap(29, 29, 29)
+                .addComponent(jTextFieldTitreSite, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jTextFieldAdresseSite, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jTextFieldNumTelSite, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jFormattedTextFieldHoraireOuvertureSite, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jFormattedTextFieldHoraireFermetureSite, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 170, Short.MAX_VALUE)
+                .addComponent(jButtonValiderAssistant)
+                .addContainerGap())
         );
 
-        mainPanel.add(jPanel1, "card2");
+        mainPanel.add(EcranInitialisationSite, "EcranInitialisationSite");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -226,7 +356,7 @@ public class ClientSiteTouristique extends javax.swing.JFrame {
             
             //TODO trouver l'identifiant du site à faire passer en paramètre
             //Récupération des statistiques auprès du service stat
-            AssistanceTouristique.Statistique[] stat = monServiceStat.getStatsSite(date, (short)1);
+            Statistique[] stat = monServiceStat.getStatsSite(date, (short)1);
             
             /************ Remplissage du tableau *************/
             //Première ligne
@@ -254,6 +384,117 @@ public class ClientSiteTouristique extends javax.swing.JFrame {
             e.printStackTrace();
         }
     }//GEN-LAST:event_jFormattedTextFieldDateStatActionPerformed
+
+    private void jFormattedTextFieldHoraireOuvertureSiteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFormattedTextFieldHoraireOuvertureSiteActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jFormattedTextFieldHoraireOuvertureSiteActionPerformed
+
+    private void jFormattedTextFieldHoraireFermetureSiteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFormattedTextFieldHoraireFermetureSiteActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jFormattedTextFieldHoraireFermetureSiteActionPerformed
+
+    private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
+        //Lors du lancement de l'application on vérifie en base si c'est le premier lancement
+        CardLayout card = (CardLayout) mainPanel.getLayout();
+        if (ClientSiteTouristique.estPremierLancement){
+            card.show(mainPanel, "EcranInitialisationSite");
+        }
+        else {
+            card.show(mainPanel, "Accueil");
+        }
+    }//GEN-LAST:event_formComponentShown
+
+    private void jTextFieldTitreSiteFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextFieldTitreSiteFocusGained
+        if (jTextFieldTitreSite.getText().equals("titre du site ...")) {
+            jTextFieldTitreSite.setText("");
+        }
+    }//GEN-LAST:event_jTextFieldTitreSiteFocusGained
+
+    private void jTextFieldTitreSiteFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextFieldTitreSiteFocusLost
+        if (jTextFieldTitreSite.getText().equals("")) {
+            jTextFieldTitreSite.setText("titre du site ...");
+        }
+    }//GEN-LAST:event_jTextFieldTitreSiteFocusLost
+
+    private void jTextFieldAdresseSiteFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextFieldAdresseSiteFocusGained
+        if (jTextFieldAdresseSite.getText().equals("adresse du site ...")) {
+            jTextFieldAdresseSite.setText("");
+        }
+    }//GEN-LAST:event_jTextFieldAdresseSiteFocusGained
+
+    private void jTextFieldAdresseSiteFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextFieldAdresseSiteFocusLost
+        if (jTextFieldAdresseSite.getText().equals("")) {
+            jTextFieldAdresseSite.setText("adresse du site ...");
+        }
+    }//GEN-LAST:event_jTextFieldAdresseSiteFocusLost
+
+    private void jTextFieldNumTelSiteFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextFieldNumTelSiteFocusGained
+        if (jTextFieldNumTelSite.getText().equals("numéro de téléphone du site ...")) {
+            jTextFieldNumTelSite.setText("");
+        }
+    }//GEN-LAST:event_jTextFieldNumTelSiteFocusGained
+
+    private void jTextFieldNumTelSiteFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextFieldNumTelSiteFocusLost
+        if (jTextFieldNumTelSite.getText().equals("")) {
+            jTextFieldNumTelSite.setText("numéro de téléphone du site ...");
+        }
+    }//GEN-LAST:event_jTextFieldNumTelSiteFocusLost
+
+    private void jTextAreaDescriptionSiteFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextAreaDescriptionSiteFocusGained
+        if (jTextAreaDescriptionSite.getText().equals("Description ...")) {
+            jTextAreaDescriptionSite.setText("");
+        }
+    }//GEN-LAST:event_jTextAreaDescriptionSiteFocusGained
+
+    private void jTextAreaDescriptionSiteFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextAreaDescriptionSiteFocusLost
+        if (jTextAreaDescriptionSite.getText().equals("")) {
+            jTextAreaDescriptionSite.setText("Description ...");
+        }
+    }//GEN-LAST:event_jTextAreaDescriptionSiteFocusLost
+
+    private void jButtonValiderAssistantActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonValiderAssistantActionPerformed
+        // vérification que tous les champs ont été renseignés ...
+        if (jTextFieldTitreSite.getText().equals("titre du site ...")
+                || jTextFieldAdresseSite.getText().equals("adresse du site ...")
+                || jTextFieldNumTelSite.getText().equals("numéro de téléphone du site ...")
+                || jTextAreaDescriptionSite.getText().equals("Description ...")
+                || jFormattedTextFieldHoraireOuvertureSite.getText().equals("")
+                || jFormattedTextFieldHoraireFermetureSite.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "Erreur : \nVeuillez remplir tous les champs !", "Erreur", JOptionPane.WARNING_MESSAGE);
+        } else {
+            // vérification que l'heure d'ouverture est bien inférieure à l'heure de fermeture ...
+            try {
+                SimpleDateFormat format = new SimpleDateFormat("HH:mm");
+
+                Date dateOuverture = format.parse(jFormattedTextFieldHoraireOuvertureSite.getText());
+                Date dateFermeture = format.parse(jFormattedTextFieldHoraireFermetureSite.getText());
+
+                if (dateFermeture.compareTo(dateOuverture) <= 0) {
+                    JOptionPane.showMessageDialog(this, "Erreur : \nl'heure d'ouverture doit être inférieure à l'heure de fermeture ! ", "Erreur", JOptionPane.WARNING_MESSAGE);
+                }
+                else {
+                    // initialisation de la base de données
+                    
+                    
+                    
+                    //INSERT OR UPDATE INTO `infosite`(`idSite`, `nomSite`, `coordLatitude`, `coordLongitude`, `affluenceCourante`, `heureOuverture`, `heureFermeture`, `description`, `adresse`, `telephone`, `affluenceQuotidienne`, `dureeMoyenneVisite`, `dureeMinimaleVisite`, `dureeMaximaleVisite`, `estPremierLancement`) VALUES (2,[value-2],[value-3],[value-4],[value-5],[value-6],[value-7],[value-8],[value-9],[value-10],[value-11],[value-12],[value-13],[value-14],[value-15])
+                    
+                    
+                    
+                    
+                }
+            } catch (ParseException ex) {
+                Logger.getLogger(ClientSiteTouristique.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
+        
+        
+        
+                
+        
+        
+    }//GEN-LAST:event_jButtonValiderAssistantActionPerformed
 
     /**
      * @param args the command line arguments
@@ -285,11 +526,10 @@ public class ClientSiteTouristique extends javax.swing.JFrame {
 
         try {
             //1
-            org.omg.CORBA.ORB orb = org.omg.CORBA.ORB.init(args, null);
+            //org.omg.CORBA.ORB orb = org.omg.CORBA.ORB.init(args, null);
             
             //2 
-            nameRoot = org.omg.CosNaming.NamingContextHelper.narrow(orb.resolve_initial_references("NameService"));
-            //org.omg.CosNaming.NamingContext nameRoot = org.omg.CosNaming.NamingContextHelper.narrow(orb.string_to_object("corbaloc:iiop:1.2@127.0.0.1:2001/NameService"));
+            //nameRoot = org.omg.CosNaming.NamingContextHelper.narrow(orb.resolve_initial_references("NameService"));
             
             //Appel à l'interface graphique
             new ClientSiteTouristique().setVisible(true);
@@ -300,16 +540,26 @@ public class ClientSiteTouristique extends javax.swing.JFrame {
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Accueil;
+    private javax.swing.JPanel EcranInitialisationSite;
     private javax.swing.JPanel EcranStats;
     private javax.swing.JButton jButtonAccueil;
     private javax.swing.JButton jButtonConsulterStats;
+    private javax.swing.JButton jButtonValiderAssistant;
     private javax.swing.JFormattedTextField jFormattedTextFieldDateStat;
+    private javax.swing.JFormattedTextField jFormattedTextFieldHoraireFermetureSite;
+    private javax.swing.JFormattedTextField jFormattedTextFieldHoraireOuvertureSite;
     private javax.swing.JLabel jLabelDateStat;
+    private javax.swing.JLabel jLabelSousTitreAssistant;
     private javax.swing.JLabel jLabelStatistique;
     private javax.swing.JLabel jLabelTitreAccueil;
-    private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel jLabelTitreAssistant;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTableStats;
+    private javax.swing.JTextArea jTextAreaDescriptionSite;
+    private javax.swing.JTextField jTextFieldAdresseSite;
+    private javax.swing.JTextField jTextFieldNumTelSite;
+    private javax.swing.JTextField jTextFieldTitreSite;
     private javax.swing.JPanel mainPanel;
     // End of variables declaration//GEN-END:variables
 }
