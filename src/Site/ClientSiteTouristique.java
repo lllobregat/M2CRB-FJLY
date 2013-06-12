@@ -6,6 +6,7 @@ package Site;
 
 import AssistanceTouristique.*;
 import java.awt.CardLayout;
+import java.sql.*;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -46,13 +47,6 @@ public class ClientSiteTouristique extends javax.swing.JFrame {
         Accueil = new javax.swing.JPanel();
         jLabelTitreAccueil = new javax.swing.JLabel();
         jButtonConsulterStats = new javax.swing.JButton();
-        EcranStats = new javax.swing.JPanel();
-        jButtonAccueil = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTableStats = new javax.swing.JTable();
-        jLabelStatistique = new javax.swing.JLabel();
-        jLabelDateStat = new javax.swing.JLabel();
-        jFormattedTextFieldDateStat = new javax.swing.JFormattedTextField();
         EcranInitialisationSite = new javax.swing.JPanel();
         jLabelTitreAssistant = new javax.swing.JLabel();
         jLabelSousTitreAssistant = new javax.swing.JLabel();
@@ -64,6 +58,17 @@ public class ClientSiteTouristique extends javax.swing.JFrame {
         jTextAreaDescriptionSite = new javax.swing.JTextArea();
         jFormattedTextFieldHoraireOuvertureSite = new javax.swing.JFormattedTextField();
         jFormattedTextFieldHoraireFermetureSite = new javax.swing.JFormattedTextField();
+        jTextFieldLatitude = new javax.swing.JTextField();
+        jTextFieldLongitude = new javax.swing.JTextField();
+        jLabelHoraireOuverture = new javax.swing.JLabel();
+        jLabelHoraireFermeture = new javax.swing.JLabel();
+        EcranStats = new javax.swing.JPanel();
+        jButtonAccueil = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTableStats = new javax.swing.JTable();
+        jLabelStatistique = new javax.swing.JLabel();
+        jLabelDateStat = new javax.swing.JLabel();
+        jFormattedTextFieldDateStat = new javax.swing.JFormattedTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -77,7 +82,7 @@ public class ClientSiteTouristique extends javax.swing.JFrame {
 
         jLabelTitreAccueil.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabelTitreAccueil.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelTitreAccueil.setText("Musée Georges Labit");
+        jLabelTitreAccueil.setText(new SiteDBManager("bd_site_histoirenaturelle").getNomSite());
 
         jButtonConsulterStats.setText("Consulter les statistiques");
         jButtonConsulterStats.addActionListener(new java.awt.event.ActionListener() {
@@ -97,7 +102,7 @@ public class ClientSiteTouristique extends javax.swing.JFrame {
             .addGroup(AccueilLayout.createSequentialGroup()
                 .addGap(322, 322, 322)
                 .addComponent(jButtonConsulterStats)
-                .addContainerGap(340, Short.MAX_VALUE))
+                .addContainerGap(362, Short.MAX_VALUE))
         );
         AccueilLayout.setVerticalGroup(
             AccueilLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -110,82 +115,6 @@ public class ClientSiteTouristique extends javax.swing.JFrame {
         );
 
         mainPanel.add(Accueil, "Accueil");
-
-        EcranStats.setPreferredSize(new java.awt.Dimension(800, 600));
-
-        jButtonAccueil.setText("Accueil");
-        jButtonAccueil.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonAccueilActionPerformed(evt);
-            }
-        });
-
-        jTableStats.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2"
-            }
-        ));
-        jScrollPane1.setViewportView(jTableStats);
-
-        jLabelStatistique.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabelStatistique.setText("Statistiques du musée:");
-
-        jLabelDateStat.setText("Consulter les statistiques à partir de :");
-
-        jFormattedTextFieldDateStat.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(java.text.DateFormat.getDateInstance(java.text.DateFormat.SHORT))));
-        jFormattedTextFieldDateStat.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jFormattedTextFieldDateStatActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout EcranStatsLayout = new javax.swing.GroupLayout(EcranStats);
-        EcranStats.setLayout(EcranStatsLayout);
-        EcranStatsLayout.setHorizontalGroup(
-            EcranStatsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(EcranStatsLayout.createSequentialGroup()
-                .addGap(72, 72, 72)
-                .addComponent(jLabelStatistique, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, EcranStatsLayout.createSequentialGroup()
-                .addContainerGap(206, Short.MAX_VALUE)
-                .addGroup(EcranStatsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(EcranStatsLayout.createSequentialGroup()
-                        .addComponent(jLabelDateStat)
-                        .addGap(18, 18, 18)
-                        .addComponent(jFormattedTextFieldDateStat, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())
-                    .addGroup(EcranStatsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, EcranStatsLayout.createSequentialGroup()
-                            .addComponent(jButtonAccueil)
-                            .addGap(49, 49, 49))
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, EcranStatsLayout.createSequentialGroup()
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(179, 179, 179)))))
-        );
-        EcranStatsLayout.setVerticalGroup(
-            EcranStatsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(EcranStatsLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jButtonAccueil)
-                .addGap(72, 72, 72)
-                .addComponent(jLabelStatistique, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(28, 28, 28)
-                .addGroup(EcranStatsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabelDateStat)
-                    .addComponent(jFormattedTextFieldDateStat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(69, 69, 69)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(225, Short.MAX_VALUE))
-        );
-
-        mainPanel.add(EcranStats, "EcranStats");
 
         jLabelTitreAssistant.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabelTitreAssistant.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -259,6 +188,30 @@ public class ClientSiteTouristique extends javax.swing.JFrame {
             }
         });
 
+        jTextFieldLatitude.setText("Latitude ...");
+        jTextFieldLatitude.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jTextFieldLatitudeFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jTextFieldLatitudeFocusLost(evt);
+            }
+        });
+
+        jTextFieldLongitude.setText("Longitude ...");
+        jTextFieldLongitude.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jTextFieldLongitudeFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jTextFieldLongitudeFocusLost(evt);
+            }
+        });
+
+        jLabelHoraireOuverture.setText("Horaire d'ouverture (HH:mm) :");
+
+        jLabelHoraireFermeture.setText("Horaire de fermeture (HH:mm) :");
+
         javax.swing.GroupLayout EcranInitialisationSiteLayout = new javax.swing.GroupLayout(EcranInitialisationSite);
         EcranInitialisationSite.setLayout(EcranInitialisationSiteLayout);
         EcranInitialisationSiteLayout.setHorizontalGroup(
@@ -272,13 +225,23 @@ public class ClientSiteTouristique extends javax.swing.JFrame {
                     .addGroup(EcranInitialisationSiteLayout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(EcranInitialisationSiteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jFormattedTextFieldHoraireFermetureSite, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jFormattedTextFieldHoraireOuvertureSite, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, EcranInitialisationSiteLayout.createSequentialGroup()
+                                .addComponent(jTextFieldLatitude, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jTextFieldLongitude, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jLabelSousTitreAssistant, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jTextFieldTitreSite, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jTextFieldAdresseSite, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextFieldNumTelSite, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 390, Short.MAX_VALUE)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING))))
+                            .addComponent(jTextFieldNumTelSite, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, EcranInitialisationSiteLayout.createSequentialGroup()
+                                .addGroup(EcranInitialisationSiteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jLabelHoraireFermeture, javax.swing.GroupLayout.DEFAULT_SIZE, 204, Short.MAX_VALUE)
+                                    .addComponent(jLabelHoraireOuverture, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(EcranInitialisationSiteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jFormattedTextFieldHoraireFermetureSite, javax.swing.GroupLayout.DEFAULT_SIZE, 182, Short.MAX_VALUE)
+                                    .addComponent(jFormattedTextFieldHoraireOuvertureSite))))))
                 .addContainerGap(280, Short.MAX_VALUE))
         );
         EcranInitialisationSiteLayout.setVerticalGroup(
@@ -293,19 +256,103 @@ public class ClientSiteTouristique extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jTextFieldAdresseSite, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(EcranInitialisationSiteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTextFieldLatitude, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextFieldLongitude, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jTextFieldNumTelSite, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(EcranInitialisationSiteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabelHoraireOuverture)
+                    .addComponent(jFormattedTextFieldHoraireOuvertureSite, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jFormattedTextFieldHoraireOuvertureSite, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jFormattedTextFieldHoraireFermetureSite, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGroup(EcranInitialisationSiteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabelHoraireFermeture)
+                    .addComponent(jFormattedTextFieldHoraireFermetureSite, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 170, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 164, Short.MAX_VALUE)
                 .addComponent(jButtonValiderAssistant)
                 .addContainerGap())
         );
 
         mainPanel.add(EcranInitialisationSite, "EcranInitialisationSite");
+
+        EcranStats.setPreferredSize(new java.awt.Dimension(800, 600));
+
+        jButtonAccueil.setText("Accueil");
+        jButtonAccueil.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonAccueilActionPerformed(evt);
+            }
+        });
+
+        jTableStats.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2"
+            }
+        ));
+        jScrollPane1.setViewportView(jTableStats);
+
+        jLabelStatistique.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabelStatistique.setText("Statistiques du musée:");
+
+        jLabelDateStat.setText("Consulter les statistiques à partir de :");
+
+        jFormattedTextFieldDateStat.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(java.text.DateFormat.getDateInstance(java.text.DateFormat.SHORT))));
+        jFormattedTextFieldDateStat.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jFormattedTextFieldDateStatActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout EcranStatsLayout = new javax.swing.GroupLayout(EcranStats);
+        EcranStats.setLayout(EcranStatsLayout);
+        EcranStatsLayout.setHorizontalGroup(
+            EcranStatsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(EcranStatsLayout.createSequentialGroup()
+                .addGap(72, 72, 72)
+                .addComponent(jLabelStatistique, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, EcranStatsLayout.createSequentialGroup()
+                .addContainerGap(206, Short.MAX_VALUE)
+                .addGroup(EcranStatsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(EcranStatsLayout.createSequentialGroup()
+                        .addComponent(jLabelDateStat)
+                        .addGap(18, 18, 18)
+                        .addComponent(jFormattedTextFieldDateStat, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())
+                    .addGroup(EcranStatsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, EcranStatsLayout.createSequentialGroup()
+                            .addComponent(jButtonAccueil)
+                            .addGap(49, 49, 49))
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, EcranStatsLayout.createSequentialGroup()
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(179, 179, 179)))))
+        );
+        EcranStatsLayout.setVerticalGroup(
+            EcranStatsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(EcranStatsLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jButtonAccueil)
+                .addGap(72, 72, 72)
+                .addComponent(jLabelStatistique, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(28, 28, 28)
+                .addGroup(EcranStatsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabelDateStat)
+                    .addComponent(jFormattedTextFieldDateStat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(69, 69, 69)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(227, Short.MAX_VALUE))
+        );
+
+        mainPanel.add(EcranStats, "EcranStats");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -394,13 +441,27 @@ public class ClientSiteTouristique extends javax.swing.JFrame {
     }//GEN-LAST:event_jFormattedTextFieldHoraireFermetureSiteActionPerformed
 
     private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
-        //Lors du lancement de l'application on vérifie en base si c'est le premier lancement
-        CardLayout card = (CardLayout) mainPanel.getLayout();
-        if (ClientSiteTouristique.estPremierLancement){
-            card.show(mainPanel, "EcranInitialisationSite");
-        }
-        else {
-            card.show(mainPanel, "Accueil");
+        // on consulte la bdd pour savoir si c'est le premier lancement de l'application
+        try {
+
+            // Connexion
+            Connection conn2 = DriverManager.getConnection("jdbc:mysql://localhost/" + nombd, "root", "");
+            Statement smt2 = conn2.createStatement();
+
+            ResultSet result = smt2.executeQuery("SELECT estPremierLancement FROM infosite");
+            result.first();
+            //System.out.println("estPremierLancement" + result.getInt("estPremierLancement"));
+
+            //Lors du lancement de l'application on vérifie en base si c'est le premier lancement
+            CardLayout card = (CardLayout) mainPanel.getLayout();
+            if (result.getInt("estPremierLancement") == 1) {
+                card.show(mainPanel, "EcranInitialisationSite");
+            } else {
+                card.show(mainPanel, "Accueil");
+            }
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
         }
     }//GEN-LAST:event_formComponentShown
 
@@ -471,30 +532,75 @@ public class ClientSiteTouristique extends javax.swing.JFrame {
 
                 if (dateFermeture.compareTo(dateOuverture) <= 0) {
                     JOptionPane.showMessageDialog(this, "Erreur : \nl'heure d'ouverture doit être inférieure à l'heure de fermeture ! ", "Erreur", JOptionPane.WARNING_MESSAGE);
-                }
-                else {
+                } else {
                     // initialisation de la base de données
+
+                    try {
+                        
+                        // Connexion
+                        Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/" + nombd, "root", "");
+                        Statement smt = conn.createStatement();
+                        
+                        String requete = "UPDATE infosite SET idSite=2,nomSite=\""
+                                + jTextFieldTitreSite.getText().toString()
+                                + "\",heureOuverture=\""
+                                + jFormattedTextFieldHoraireOuvertureSite.getText().toString()
+                                + "\",heureFermeture=\""
+                                + jFormattedTextFieldHoraireFermetureSite.getText().toString()
+                                + "\",description=\""
+                                + jTextAreaDescriptionSite.getText().toString()
+                                + "\",adresse=\""
+                                + jTextFieldAdresseSite.getText().toString()
+                                + "\",telephone=\""
+                                + jTextFieldNumTelSite.getText().toString()
+                                + "\",estPremierLancement="
+                                + 0
+                                + " WHERE 1";
+                        
+                        System.out.println(requete);
+                        
+                        smt.executeUpdate(requete);
+                        
+                    } catch (SQLException ex) {
+                        ex.printStackTrace();
+                    }
+
+                    // on affiche l'accueil
+                    CardLayout card = (CardLayout) mainPanel.getLayout();
+                    card.show(mainPanel, "Accueil");
                     
-                    
-                    
-                    //INSERT OR UPDATE INTO `infosite`(`idSite`, `nomSite`, `coordLatitude`, `coordLongitude`, `affluenceCourante`, `heureOuverture`, `heureFermeture`, `description`, `adresse`, `telephone`, `affluenceQuotidienne`, `dureeMoyenneVisite`, `dureeMinimaleVisite`, `dureeMaximaleVisite`, `estPremierLancement`) VALUES (2,[value-2],[value-3],[value-4],[value-5],[value-6],[value-7],[value-8],[value-9],[value-10],[value-11],[value-12],[value-13],[value-14],[value-15])
-                    
-                    
-                    
-                    
+                    jLabelTitreAccueil.setText(new SiteDBManager("bd_site_histoirenaturelle").getNomSite());
+
                 }
             } catch (ParseException ex) {
                 Logger.getLogger(ClientSiteTouristique.class.getName()).log(Level.SEVERE, null, ex);
             }
-        }
-
-        
-        
-        
-                
-        
-        
+        }      
     }//GEN-LAST:event_jButtonValiderAssistantActionPerformed
+
+    private void jTextFieldLatitudeFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextFieldLatitudeFocusGained
+        if (jTextFieldLatitude.getText().equals("Latitude ...")) {
+            jTextFieldLatitude.setText("");
+        }
+    }//GEN-LAST:event_jTextFieldLatitudeFocusGained
+
+    private void jTextFieldLatitudeFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextFieldLatitudeFocusLost
+        if (jTextFieldLatitude.getText().equals("")) {
+            jTextFieldLatitude.setText("Latitude ...");
+        }
+    }//GEN-LAST:event_jTextFieldLatitudeFocusLost
+
+    private void jTextFieldLongitudeFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextFieldLongitudeFocusGained
+        if (jTextFieldLongitude.getText().equals("Longitude ...")) {
+            jTextFieldLongitude.setText("");
+        }
+    }//GEN-LAST:event_jTextFieldLongitudeFocusGained
+
+    private void jTextFieldLongitudeFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextFieldLongitudeFocusLost
+        if (jTextFieldLongitude.getText().equals("")) {
+            jTextFieldLongitude.setText("Longitude ...");
+        }
+    }//GEN-LAST:event_jTextFieldLongitudeFocusLost
 
     /**
      * @param args the command line arguments
@@ -549,6 +655,8 @@ public class ClientSiteTouristique extends javax.swing.JFrame {
     private javax.swing.JFormattedTextField jFormattedTextFieldHoraireFermetureSite;
     private javax.swing.JFormattedTextField jFormattedTextFieldHoraireOuvertureSite;
     private javax.swing.JLabel jLabelDateStat;
+    private javax.swing.JLabel jLabelHoraireFermeture;
+    private javax.swing.JLabel jLabelHoraireOuverture;
     private javax.swing.JLabel jLabelSousTitreAssistant;
     private javax.swing.JLabel jLabelStatistique;
     private javax.swing.JLabel jLabelTitreAccueil;
@@ -558,6 +666,8 @@ public class ClientSiteTouristique extends javax.swing.JFrame {
     private javax.swing.JTable jTableStats;
     private javax.swing.JTextArea jTextAreaDescriptionSite;
     private javax.swing.JTextField jTextFieldAdresseSite;
+    private javax.swing.JTextField jTextFieldLatitude;
+    private javax.swing.JTextField jTextFieldLongitude;
     private javax.swing.JTextField jTextFieldNumTelSite;
     private javax.swing.JTextField jTextFieldTitreSite;
     private javax.swing.JPanel mainPanel;
