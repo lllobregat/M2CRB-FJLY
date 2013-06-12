@@ -32,9 +32,9 @@ public class ServeurOffice {
     public static void main(String args[]) {
         //Tableau des id/nom des sites 
         HashMap<Short,String> listeSites = new HashMap<Short, String>();
-        listeSites. put((short)1, "Georges Labit");
-        listeSites.put((short)2,"Museum histoire naturelle");
-        listeSites.put((short)3, "Saint Raymond");
+        listeSites. put((short)1, "Musée Georges-Labit");
+        listeSites.put((short)2,"Muséum de Toulouse");
+        listeSites.put((short)3, "Musée Saint-Raymond");
         
         try {
            org.omg.CORBA.ORB orb = org.omg.CORBA.ORB.init(args,null);

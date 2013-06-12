@@ -21,6 +21,7 @@ import org.omg.PortableServer.POAHelper;
 public class ServeurServiceESSite {
     //A récupérer dns la table des info du site
     public static String nomServESSite;
+    public static String nomBD = "bd_site_saintraymond";
     
     public ServeurServiceESSite() {
         
@@ -57,21 +58,17 @@ public class ServeurServiceESSite {
     
     public static void main(String args[]) {
         //TODO à lire dans la table 
-        //Tableau des id/nom des sites 
-        HashMap<Short,String> listeSites = new HashMap<Short, String>();
-        listeSites. put((short)1, "Georges Labit");
-        listeSites.put((short)2,"Museum histoire naturelle");
-        listeSites.put((short)3, "Saint Raymond");
-        
         //Flux E/S standards
-        BufferedReader entree_std = new BufferedReader(new InputStreamReader(System.in));
-        PrintStream sortie_std = new PrintStream(System.out);
+       /* BufferedReader entree_std = new BufferedReader(new InputStreamReader(System.in));
+        PrintStream sortie_std = new PrintStream(System.out);*/
 
         try {
             
             //Configuration de base
-          sortie_std.print("Quel est le nom du site?");
-          nomServESSite="ES "+entree_std.readLine();
+          //sortie_std.print("Quel est le nom du site?");
+          //nomServESSite="ES "+entree_std.readLine();
+            
+          nomServESSite="ES "+ new SiteDBManager(nomBD).getNomSite();
           
         // Intialisation de l'ORB
         //************************
