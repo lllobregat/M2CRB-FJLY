@@ -861,43 +861,59 @@ public class ClientSmartphone extends javax.swing.JFrame {
     }//GEN-LAST:event_boutonInscriptionActionPerformed
 
     private void boutonSeConnecterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boutonSeConnecterActionPerformed
-        System.out.println(fieldPassword.getPassword().toString());
-        //vérification des données de connection ...
-        if (fieldIdentifiant.getText().equals("") && String.valueOf(fieldPassword.getPassword()).equals("")) {
-            // si l'identification est ok ...
-            System.out.println("Connexion réussie !");
-            CardLayout card = (CardLayout) mainPanel.getLayout();
-            card.show(mainPanel, "EcranAccueil");
-            footerPanel.setBackground(new Color(0, 0, 0));
-            boutonAccueil.setVisible(true);
-            boutonBilletterie.setVisible(true);
-            boutonRecherche.setVisible(true);
-        } else {
-            //on affiche une pop-up d'erreur et on vide les champs de saisie
-            System.out.println("Echec d'authentification !");
-            JOptionPane.showMessageDialog(this, "Erreur d'authentification : \nPseudo et/ou mot de passe incorrect", "Erreur", JOptionPane.WARNING_MESSAGE);
-            fieldIdentifiant.setText("");
-            fieldPassword.setText("");
-        }
-        /************ Appel aux services de l'office **********/
-        String nom_office=ServeurOffice.nomOffice;
-        
         try {
-            //Recherche de l'office
-            org.omg.CosNaming.NameComponent[] office = new org.omg.CosNaming.NameComponent[1];
-            office[0] = new org.omg.CosNaming.NameComponent(nom_office, "");
-            org.omg.CORBA.Object distantOffice = nameRoot.resolve(office);
-            
-            AssistanceTouristique.Office monOffice = AssistanceTouristique.OfficeHelper.narrow(distantOffice);
-            
-            //Récupération de la liste des sites à visiter
-            Site[] siteAVisiter = monOffice.getListeSitesAVisiter(idCarte, coordSmartphone, sitesVisites);
-            
-            
-       } catch (Exception e) {
-            e.printStackTrace();
-        }     
+            //vérification des données de connection ...
+            if (fieldIdentifiant.getText().equals("a") && String.valueOf(fieldPassword.getPassword()).equals("a")) {
+                // si l'identification est ok ...
 
+                /**
+                 * ********** Appel aux services de l'office *********
+                 */
+                String nom_office = ServeurOffice.nomOffice;
+
+                //Recherche de l'office
+                org.omg.CosNaming.NameComponent[] office = new org.omg.CosNaming.NameComponent[1];
+                office[0] = new org.omg.CosNaming.NameComponent(nom_office, "");
+                org.omg.CORBA.Object distantOffice = nameRoot.resolve(office);
+
+                AssistanceTouristique.Office monOffice = AssistanceTouristique.OfficeHelper.narrow(distantOffice);
+
+                //Récupération de la liste des sites à visiter
+                Site[] siteAVisiter = monOffice.getListeSitesAVisiter(idCarte, coordSmartphone, sitesVisites);
+
+                for(int i=0;i<siteAVisiter.length;i++) {
+                    System.out.println("******************************************************");
+                    System.out.println("idSite : " + siteAVisiter[i].idSite);
+                    System.out.println("titre : " + siteAVisiter[i].titre);
+                    System.out.println("adresse : " + siteAVisiter[i].adresse);
+                    System.out.println("description : " + siteAVisiter[i].description);
+                    System.out.println("horaireOuverture : " + siteAVisiter[i].horaireOuverture);
+                    System.out.println("horairesFermeture : " + siteAVisiter[i].horairesFermeture);
+                    System.out.println("telephone : " + siteAVisiter[i].telephone);
+                    System.out.println("affluenceCourante : " + siteAVisiter[i].affluenceCourante);
+                    System.out.println("coord.latitude : " + siteAVisiter[i].coord.latitude);
+                    System.out.println("coord.longitude : " + siteAVisiter[i].coord.longitude);
+                    System.out.println("******************************************************");       
+                }
+                
+                
+                CardLayout card = (CardLayout) mainPanel.getLayout();
+                card.show(mainPanel, "EcranAccueil");
+                footerPanel.setBackground(new Color(0, 0, 0));
+                boutonAccueil.setVisible(true);
+                boutonBilletterie.setVisible(true);
+                boutonRecherche.setVisible(true);
+            } else {
+                //on affiche une pop-up d'erreur et on vide les champs de saisie
+                System.out.println("Echec d'authentification !");
+                JOptionPane.showMessageDialog(this, "Erreur d'authentification : \nPseudo et/ou mot de passe incorrect", "Erreur", JOptionPane.WARNING_MESSAGE);
+                fieldIdentifiant.setText("");
+                fieldPassword.setText("");
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }//GEN-LAST:event_boutonSeConnecterActionPerformed
 
     private void fieldIdentifiantActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fieldIdentifiantActionPerformed
@@ -1050,10 +1066,10 @@ public class ClientSmartphone extends javax.swing.JFrame {
         try {
             
             //1
-            org.omg.CORBA.ORB orb = org.omg.CORBA.ORB.init(args, null);
+            //org.omg.CORBA.ORB orb = org.omg.CORBA.ORB.init(args, null);
 
             //2 
-            nameRoot = org.omg.CosNaming.NamingContextHelper.narrow(orb.resolve_initial_references("NameService"));
+            //nameRoot = org.omg.CosNaming.NamingContextHelper.narrow(orb.resolve_initial_references("NameService"));
             //org.omg.CosNaming.NamingContext nameRoot = org.omg.CosNaming.NamingContextHelper.narrow(orb.string_to_object("corbaloc:iiop:1.2@127.0.0.1:2001/NameService"));
 
             //Recherche de l'office
