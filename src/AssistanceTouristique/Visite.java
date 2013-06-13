@@ -25,7 +25,7 @@ public final class Visite implements org.omg.CORBA.portable.IDLEntity
     /**
      * Struct member interet
      */
-    public String interet;
+    public float interet;
 
     /**
      * Default constructor
@@ -40,7 +40,7 @@ public final class Visite implements org.omg.CORBA.portable.IDLEntity
      * @param heureSortie heureSortie struct member
      * @param interet interet struct member
      */
-    public Visite(String date, String heureEntree, String heureSortie, String interet)
+    public Visite(String date, String heureEntree, String heureSortie, float interet)
     {
         this.date = date;
         this.heureEntree = heureEntree;

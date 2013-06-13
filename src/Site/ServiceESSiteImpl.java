@@ -10,8 +10,10 @@ import AssistanceTouristique.*;
  */
 public class ServiceESSiteImpl extends ServiceESSitePOA {
  
-    public ServiceESSiteImpl() {
-        
+    private String nombd;
+    
+    public ServiceESSiteImpl(String nombd) {
+        this.nombd = nombd;
     }
     
     public void autoriserEntree(Carte carte) {
@@ -32,7 +34,7 @@ public class ServiceESSiteImpl extends ServiceESSitePOA {
     }
     
     //Methode oneway
-    public void donnerAvisVisite(String interet) {
+    public void donnerAvisVisite(float satisfaction) {
         
     }
     
@@ -41,8 +43,8 @@ public class ServiceESSiteImpl extends ServiceESSitePOA {
         
     }
     
-    public short getAffluenceCourante(short idSite) {
-        short affluenceCourante=0;
+    public float getAffluenceCourante(short idSite) {
+        float affluenceCourante=0;
         switch(idSite) {
             //Georges Labit
             case 1 :
@@ -58,7 +60,15 @@ public class ServiceESSiteImpl extends ServiceESSitePOA {
                 break;      
         }
         
-        return affluenceCourante;  
+        return affluenceCourante;
+    }
+
+    public float getTauxSatisfaction(short idSite) {
+        return ((float) 12.5);
+    }
+
+    public boolean getEstFavoris(short idSite) {
+        return true;
     }
     
 }

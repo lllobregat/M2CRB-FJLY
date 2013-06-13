@@ -17,28 +17,29 @@ import org.omg.CosNaming.NamingContext;
  * @author Lydia
  */
 public class ServiceStatSiteImpl extends ServiceStatSitePOA {
-    public org.omg.CORBA.ORB orb;
+    private org.omg.CORBA.ORB orb;
+    private short idSite;
+    private String nomSite;
+    private String nombd;
+    private ServiceESSite monServES;
     
-    public ServiceStatSiteImpl(org.omg.CORBA.ORB orb, HashMap listeSite) {
+    public ServiceStatSiteImpl(org.omg.CORBA.ORB orb, short idSite, String nomSite, String nombd) {
         this.orb=orb;
+        this.idSite=idSite;
+        this.nomSite=nomSite;
+        this.nombd=nombd;
         
         try {
             NamingContext nameRoot = org.omg.CosNaming.NamingContextHelper.narrow(this.orb.resolve_initial_references("NameService"));
-            Set set = listeSite.entrySet();
-            Iterator it = set.iterator();
-            //Pour chaque site
-            while(it.hasNext()) {
-                Map.Entry site = (Map.Entry)it.next();
-                //Recherche du site
-                org.omg.CosNaming.NameComponent[] nameToFind = new org.omg.CosNaming.NameComponent[1];
-                nameToFind[0] = new org.omg.CosNaming.NameComponent((String)site.getValue(), "");
-                org.omg.CORBA.Object distantServES = nameRoot.resolve(nameToFind);
+            //Recherche du site
+            org.omg.CosNaming.NameComponent[] nameToFind = new org.omg.CosNaming.NameComponent[1];
+            nameToFind[0] = new org.omg.CosNaming.NameComponent(this.nomSite, "");
+            org.omg.CORBA.Object distantServES = nameRoot.resolve(nameToFind);
                 
-                AssistanceTouristique.ServiceESSite monServES = AssistanceTouristique.ServiceESSiteHelper.narrow(distantServES);
+            this.monServES = AssistanceTouristique.ServiceESSiteHelper.narrow(distantServES);
                 
-                //Appel à la methode du service E/S
-                monServES.getInfosES((short)site.getKey());
-            }   
+            //Appel à la methode du service E/S
+            this.monServES.getInfosES(this.idSite);
         }
 	catch (Exception e) {
 		e.printStackTrace();
@@ -46,33 +47,17 @@ public class ServiceStatSiteImpl extends ServiceStatSitePOA {
         
     }
     
-    public Statistique[] getStatsSite(String date , short idSite) {
-        //Traitement de la date
-        DateFormat formater = DateFormat.getDateInstance(DateFormat.SHORT,Locale.ENGLISH);
-        try {
-            Date dateStat = formater.parse(date);
-            
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
+    public Statistique[] getStatsSite(short idSite) {
+
+        //-------- TODO corba: récupérer les données ServiceE/S -----------------//
         
-        /*Switch(nomSite) {
-         * case "museum hostoire naturelle":
-         * break;
-         * case "Saint Raymond" :
-         * break;
-         * case "Geeorges Labit" :
-         * break;
-        }
-        */
-        
-        //-------- TODO corba: contacter ServiceE/S -----------------//
+        //En attendant, lecture dans la base de données
         Statistique[] stat = new Statistique[4];
-        stat[0] = new Statistique("Affluence quotidienne", 12, "%");
-        stat[1] = new Statistique("Durée moyenne de visite", 120, "minutes");
-        stat[2] = new Statistique("Durée minimum de visite", 70, "minutes");
-        stat[3] = new Statistique("Durée maximum de visite", 180, "minutes");
+        stat[0] = new Statistique("Affluence quotidienne", (int)(new SiteDBManager(this.nombd).getAffluenceQuotidienneSite()), "%");
+        stat[1] = new Statistique("Durée moyenne de visite", new SiteDBManager(this.nombd).getDureeMoyenneVisiteSite(), "minutes");
+        stat[2] = new Statistique("Durée minimum de visite", new SiteDBManager(this.nombd).getDureeMinimaleVisiteSite(), "minutes");
+        stat[3] = new Statistique("Durée maximum de visite", new SiteDBManager(this.nombd).getDureeMaximaleVisiteSite(), "minutes");
+
         return stat;
         
     }

@@ -65,9 +65,9 @@ public class ServiceStatSitePOATie extends ServiceStatSitePOA
     /**
      * Operation getStatsSite
      */
-    public AssistanceTouristique.Statistique[] getStatsSite(String date, short idSite)
+    public AssistanceTouristique.Statistique[] getStatsSite(short idSite)
     {
-        return _tie.getStatsSite( date,  idSite);
+        return _tie.getStatsSite( idSite);
     }
 
 }

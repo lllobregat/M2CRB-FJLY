@@ -18,32 +18,36 @@ import org.omg.PortableServer.POAHelper;
  *
  * @author Lydia
  */
-public class ServeurSite {
+public class ServeurSite implements Runnable {
     //TODO à récupérer dans la BD
     public static String nomSite;
-    public static Coordonnees coordSite = new Coordonnees((float)30, (float)45);
-    public static String nomBD = "bd_site_georgeslabit";
+    private static String nombd;
+    //public static Coordonnees coordSite = new Coordonnees((float)30, (float)45);
+    //private static String nomBD = "bd_site_histoirenaturelle";
+    //private static String nomBD = "bd_site_georgeslabit";
+    //private static String nomBD = "bd_site_saintraymond";
     
-    public ServeurSite() {
-        
+    public ServeurSite(String nombd) {
+       this.nombd = nombd;
     }
     
     public void afficherHoraireFermeture(Date heureF) {
         
     }
     
-    public static void main(String args[]) {
-      //Flux E/S standards
+    //public static void main(String args[]) {
+    public void run() {
+     /* //Flux E/S standards
      BufferedReader entree_std = new BufferedReader(new InputStreamReader(System.in));
-     PrintStream sortie_std = new PrintStream(System.out); 
+     PrintStream sortie_std = new PrintStream(System.out); */
     
       try {
           //Configuration de base
           //sortie_std.print("Quel est le nom du site?");
           //nomSite=entree_std.readLine();
-          nomSite=new SiteDBManager(nomBD).getNomSite();
+          nomSite=new SiteDBManager(nombd).getNomSite();
           
-          org.omg.CORBA.ORB orb = org.omg.CORBA.ORB.init(args,null);
+          org.omg.CORBA.ORB orb = org.omg.CORBA.ORB.init(new String[0],null);
 
             // Gestion du POA
              //****************
@@ -52,7 +56,7 @@ public class ServeurSite {
 
             // Creation du servant
             //*********************
-           SiteTouristiqueImpl monSite = new SiteTouristiqueImpl(nomSite);
+           SiteTouristiqueImpl monSite = new SiteTouristiqueImpl(nomSite, nombd);
 
             // Activer le servant au sein du POA et recuperer son ID
             byte[] monSiteId = rootPOA.activate_object(monSite);

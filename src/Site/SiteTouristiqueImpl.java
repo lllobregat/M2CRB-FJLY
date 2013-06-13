@@ -10,34 +10,25 @@ import AssistanceTouristique.*;
  */
 public class SiteTouristiqueImpl extends SiteTouristiquePOA {
     private String nomSite;
+    private String nombd;
     
-    public SiteTouristiqueImpl(String nomSite) {
-        
+    public SiteTouristiqueImpl(String nomSite, String nombd) {
+       this.nomSite = nomSite;
+       this.nombd = nombd;
     }
     
     //TODO BD
     public Site getInfoSite(short idSite) {
+   
+        float latitude = new SiteDBManager(this.nombd).getCoordLatitudeSite();
+        float longitude = new SiteDBManager(this.nombd).getCoordLongitudeSite();
+        Coordonnees coordSite = new Coordonnees(longitude, latitude);
         
-        Site infoSite = new Site();
-        Coordonnees coordSite; 
-        switch(idSite) {
-            //Georges LAbit
-            case 1 :
-                coordSite = new Coordonnees((float)43.5907, (float)1.45852);
-                infoSite = new Site((short)1, "Musée Georges-Labit", coordSite, "10:00:00", "18:00:00", "description", "adresse", "telephone", (short)12);
-                break;
-            //Museum histoire naturelle    
-            case 2 :
-                coordSite = new Coordonnees((float)43.5943, (float)1.44924);
-                infoSite = new Site((short)2, "Muséum de Toulouse", coordSite, "10:00:00", "18:00:00", "description", "adresse", "telephone", (short)10);
-                break;
-            //Saint Raymond
-            case 3 :
-                coordSite = new Coordonnees((float)43.6078, (float)1.44086);
-                infoSite = new Site((short)3, "Musée Saint-Raymond", coordSite, "10:00:00", "18:00:00", "description", "adresse", "telephone", (short)19);
-                break;
-        }
-        return infoSite;
-        
+        Site infoSite = new Site((short)new SiteDBManager(this.nombd).getIdSite(), new SiteDBManager(this.nombd).getNomSite(),
+                                 coordSite, new SiteDBManager(this.nombd).getHoraireOuvertureSite(),
+                                 new SiteDBManager(this.nombd).getHoraireFermetureSite(), new SiteDBManager(this.nombd).getDescriptionSite(),
+                                 new SiteDBManager(this.nombd).getAdresseSite(), new SiteDBManager(this.nombd).getTelephoneSite(),
+                                 (int)new SiteDBManager(this.nombd).getAffluenceCouranteSite());
+        return infoSite;     
     }
 }

@@ -45,10 +45,9 @@ public abstract class ServiceStatSitePOA extends org.omg.PortableServer.Servant
             final org.omg.CORBA.portable.InputStream _is,
             final org.omg.CORBA.portable.ResponseHandler handler) {
         org.omg.CORBA.portable.OutputStream _output;
-        String arg0_in = _is.read_string();
-        short arg1_in = _is.read_short();
+        short arg0_in = _is.read_short();
 
-        AssistanceTouristique.Statistique[] _arg_result = getStatsSite(arg0_in, arg1_in);
+        AssistanceTouristique.Statistique[] _arg_result = getStatsSite(arg0_in);
 
         _output = handler.createReply();
         AssistanceTouristique.t_listeStatHelper.write(_output,_arg_result);

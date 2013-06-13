@@ -23,14 +23,14 @@ public final class Site implements org.omg.CORBA.portable.IDLEntity
     public AssistanceTouristique.Coordonnees coord;
 
     /**
-     * Struct member horaire0uverture
+     * Struct member horaireOuverture
      */
-    public String horaire0uverture;
+    public String horaireOuverture;
 
     /**
-     * Struct member horaireFermeture
+     * Struct member horairesFermeture
      */
-    public String horaireFermeture;
+    public String horairesFermeture;
 
     /**
      * Struct member description
@@ -50,7 +50,7 @@ public final class Site implements org.omg.CORBA.portable.IDLEntity
     /**
      * Struct member affluenceCourante
      */
-    public int affluenceCourante;
+    public float affluenceCourante;
 
     /**
      * Default constructor
@@ -63,20 +63,20 @@ public final class Site implements org.omg.CORBA.portable.IDLEntity
      * @param idSite idSite struct member
      * @param titre titre struct member
      * @param coord coord struct member
-     * @param horaire0uverture horaire0uverture struct member
-     * @param horaireFermeture horaireFermeture struct member
+     * @param horaireOuverture horaireOuverture struct member
+     * @param horairesFermeture horairesFermeture struct member
      * @param description description struct member
      * @param adresse adresse struct member
      * @param telephone telephone struct member
      * @param affluenceCourante affluenceCourante struct member
      */
-    public Site(short idSite, String titre, AssistanceTouristique.Coordonnees coord, String horaire0uverture, String horaireFermeture, String description, String adresse, String telephone, int affluenceCourante)
+    public Site(short idSite, String titre, AssistanceTouristique.Coordonnees coord, String horaireOuverture, String horairesFermeture, String description, String adresse, String telephone, float affluenceCourante)
     {
         this.idSite = idSite;
         this.titre = titre;
         this.coord = coord;
-        this.horaire0uverture = horaire0uverture;
-        this.horaireFermeture = horaireFermeture;
+        this.horaireOuverture = horaireOuverture;
+        this.horairesFermeture = horairesFermeture;
         this.description = description;
         this.adresse = adresse;
         this.telephone = telephone;

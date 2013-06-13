@@ -26,7 +26,7 @@ public interface ServiceESSiteOperations
     /**
      * Operation donnerAvisVisite
      */
-    public void donnerAvisVisite(String interet);
+    public void donnerAvisVisite(float satisfaction);
 
     /**
      * Operation getInfosES
@@ -36,6 +36,16 @@ public interface ServiceESSiteOperations
     /**
      * Operation getAffluenceCourante
      */
-    public short getAffluenceCourante(short idSite);
+    public float getAffluenceCourante(short idSite);
+
+    /**
+     * Operation getTauxSatisfaction
+     */
+    public float getTauxSatisfaction(short idSite);
+
+    /**
+     * Operation getEstFavoris
+     */
+    public boolean getEstFavoris(short idSite);
 
 }

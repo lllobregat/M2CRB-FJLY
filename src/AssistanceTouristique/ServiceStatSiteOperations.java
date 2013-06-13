@@ -10,6 +10,6 @@ public interface ServiceStatSiteOperations
     /**
      * Operation getStatsSite
      */
-    public AssistanceTouristique.Statistique[] getStatsSite(String date, short idSite);
+    public AssistanceTouristique.Statistique[] getStatsSite(short idSite);
 
 }

@@ -18,16 +18,16 @@ import org.omg.PortableServer.POAHelper;
  *
  * @author Lydia
  */
-public class ServeurServiceESSite /*implements Runnable*/ {
+public class ServeurServiceESSite implements Runnable {
     //A récupérer dns la table des info du site
     public static String nomServESSite;
-    private static String nombd = "bd_site_histoirenaturelle";
-    private static String args[];
+    //private static String nombd = "bd_site_histoirenaturelle";
+    //private static String nombd = "bd_site_georgeslabit";
+    private static String nombd;
+    //private static String args[];
     
-    public ServeurServiceESSite(/*String nombd, String args[]*/) {
-       /* this.nombd = nombd;
-        this.args = args;*/
-        
+    public ServeurServiceESSite(String nombd) {
+       this.nombd = nombd;    
     }
     
     public boolean verifierEntreeValide(int idCarte) {
@@ -59,8 +59,8 @@ public class ServeurServiceESSite /*implements Runnable*/ {
         
     }
     
-    public static void main(String args[]) {
-   // public void run() {
+    //public static void main(String args[]) {
+    public void run() {
         //TODO à lire dans la table 
         //Flux E/S standards
        /* BufferedReader entree_std = new BufferedReader(new InputStreamReader(System.in));
@@ -71,12 +71,14 @@ public class ServeurServiceESSite /*implements Runnable*/ {
             //Configuration de base
           //sortie_std.print("Quel est le nom du site?");
           //nomServESSite="ES "+entree_std.readLine();
-          System.out.println(args.length);
+            
+          //System.out.println("Lancement du ServiceE/S du site : " + nombd);
+            
           nomServESSite="ES "+ new SiteDBManager(nombd).getNomSite();
           
         // Intialisation de l'ORB
         //************************
-        org.omg.CORBA.ORB orb = org.omg.CORBA.ORB.init(args,null);
+        org.omg.CORBA.ORB orb = org.omg.CORBA.ORB.init(new String[0],null);
 
         // Gestion du POA
         //****************
@@ -85,7 +87,7 @@ public class ServeurServiceESSite /*implements Runnable*/ {
 
         // Creation du servant
         //*********************
-        ServiceESSiteImpl monServiceESSite = new ServiceESSiteImpl();
+        ServiceESSiteImpl monServiceESSite = new ServiceESSiteImpl(nombd);
 
         // Activer le servant au sein du POA et recuperer son ID
         byte[] monServiceESSiteId = rootPOA.activate_object(monServiceESSite);

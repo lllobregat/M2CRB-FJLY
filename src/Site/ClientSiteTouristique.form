@@ -86,7 +86,7 @@
                 </Property>
                 <Property name="horizontalAlignment" type="int" value="0"/>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                  <Connection code="new SiteDBManager(&quot;bd_site_histoirenaturelle&quot;).getNomSite()" type="code"/>
+                  <Connection code="new SiteDBManager(nombd).getNomSite()" type="code"/>
                 </Property>
               </Properties>
             </Component>

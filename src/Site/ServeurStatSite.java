@@ -17,38 +17,24 @@ import org.omg.PortableServer.POAHelper;
  *
  * @author Lydia
  */
-public class ServeurStatSite {
+public class ServeurStatSite implements Runnable {
     //A lire dans la table
     public static String nomServStatSite;
+    private String nombd;
     
-    public ServeurStatSite() {
-        
+    public ServeurStatSite(String nombd) {
+        this.nombd = nombd;
     }
     
-    public void calculerStats( int[] ListeVisites) {
-        
-    }
-    
-    public static void main(String args[]) {
-        //TODO à lire dans la table 
-        //Tableau des id/nom des sites 
-        HashMap<Integer,String> listeSites = new HashMap<Integer, String>();
-        listeSites. put(1, "Georges Labit");
-        listeSites.put(2,"Museum histoire naturelle");
-        listeSites.put(3, "Saint Raymond");
-        
-        //Flux E/S standards
-        BufferedReader entree_std = new BufferedReader(new InputStreamReader(System.in));
-        PrintStream sortie_std = new PrintStream(System.out); 
+    //public static void main(String args[]) {
+    public void run() {
 
         try {
-            //Configuration de base
-          sortie_std.print("Quel est le nom du site?"); 
-          nomServStatSite="STAT "+entree_std.readLine();
+           nomServStatSite="STAT "+ new SiteDBManager(nombd).getNomSite(); 
           
         // Intialisation de l'ORB
         //************************
-        org.omg.CORBA.ORB orb = org.omg.CORBA.ORB.init(args,null);
+        org.omg.CORBA.ORB orb = org.omg.CORBA.ORB.init(new String[0],null);
 
         // Gestion du POA
         //****************
@@ -57,7 +43,7 @@ public class ServeurStatSite {
 
         // Creation du servant
         //*********************
-        ServiceStatSiteImpl monServiceStatSite = new ServiceStatSiteImpl(orb, listeSites);
+        ServiceStatSiteImpl monServiceStatSite = new ServiceStatSiteImpl(orb, (short)new SiteDBManager(nombd).getIdSite(), new SiteDBManager(nombd).getNomSite(), nombd);
 
         // Activer le servant au sein du POA et recuperer son ID
         byte[] monServiceStatSiteId = rootPOA.activate_object(monServiceStatSite);

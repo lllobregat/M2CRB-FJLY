@@ -1,3 +1,4 @@
+// IDL du 13/06/13
 // Module de gestion d'assistance touristique
 module AssistanceTouristique{
 	// --#### Définitions des types
@@ -19,7 +20,7 @@ module AssistanceTouristique{
 	// Structure Statistique permettant d'indiquer le libellé d'une statistique et sa valeur correspondante
 	struct Statistique{
 		string libelleStat;
-		long valeurStat;
+		float valeurStat;
 		string uniteStat;
 	};
 	
@@ -28,7 +29,7 @@ module AssistanceTouristique{
 		string date;
 		string heureEntree;
 		string heureSortie;
-		string interet;
+		float interet;
 	};
 	
 	// Structure Site permettant d'indiquer les informations générales relatives à un site touristique
@@ -36,18 +37,18 @@ module AssistanceTouristique{
                 short idSite;
 		string titre;
 		Coordonnees coord;
-                string horaire0uverture;
-		string horaireFermeture;
+                string horaireOuverture;
+                string horairesFermeture;
                 string description;
                 string adresse;
                 string telephone;
-                long affluenceCourante;
+		float affluenceCourante;
 	};
 		
 	typedef sequence<Site> t_listeSites; // type liste de sites touristiques
 	typedef sequence<Statistique> t_listeStat; // type liste de statistiques
 	typedef sequence<Visite> t_listeVisites; // type liste de visites
-        typedef sequence<short> t_listeId; // type liste d'identifiants
+        typedef sequence<short> t_listeId; //type liste des identifiants
 	
 	//--#### Définitions des interfaces
 	
@@ -86,7 +87,7 @@ module AssistanceTouristique{
 	// Interface SiteTouristique
 	interface SiteTouristique{
 		// Méthodes
-		Site getInfoSite(in short idSite);	// revoie 1 site
+		Site getInfoSite(in short idSite);	// revoie l heure de fermeture du site sous la forme HHMM
 	};
 	
 	// Interface ServiceESSite
@@ -101,16 +102,17 @@ module AssistanceTouristique{
 		oneway void autoriserEntree(in Carte carte);	// enregistre la carte comme valide pour la période correspondante
 		boolean entrer(in short idCarte) raises (carteNonValideException, siteDejaVisiteException, siteSatureException, siteFermeException);	// revoie true si l'entrée correspondant à l'idCarte est possible, false sinon
 		oneway void sortir(in short idCarte);
-		oneway void donnerAvisVisite(in string interet);
+		oneway void donnerAvisVisite(in float satisfaction);
 		t_listeVisites getInfosES(in short idSite);	// renvoie une liste d'informations sur les visites (entrées et sorties) du site touristique
-		short getAffluenceCourante(in short idSite); // renvoie l'affluence courante du site touristique
-		
+		float getAffluenceCourante(in short idSite);    // renvoie l'affluence courante du site touristique
+                float getTauxSatisfaction(in short idSite);     // renvoie le taux de satisfaction du touriste pour chaque site	
+                boolean getEstFavoris(in short idSite);  // renvoie si le site est favoris	
 	};
 		
 	// Interface ServiceStatSite
 	interface ServiceStatSite{
 		// Méthodes
-		t_listeStat getStatsSite(in string date, in short idSite);	// renvoie une liste de statistiques sur le site touristique
+		t_listeStat getStatsSite(in short idSite);	// renvoie une liste de statistiques sur le site touristique
 	};
 	
 	// Interface ServiceDeplacement

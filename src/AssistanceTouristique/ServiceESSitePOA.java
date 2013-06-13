@@ -41,8 +41,12 @@ public abstract class ServiceESSitePOA extends org.omg.PortableServer.Servant
                 return _invoke_entrer(_is, handler);
         } else if (opName.equals("getAffluenceCourante")) {
                 return _invoke_getAffluenceCourante(_is, handler);
+        } else if (opName.equals("getEstFavoris")) {
+                return _invoke_getEstFavoris(_is, handler);
         } else if (opName.equals("getInfosES")) {
                 return _invoke_getInfosES(_is, handler);
+        } else if (opName.equals("getTauxSatisfaction")) {
+                return _invoke_getTauxSatisfaction(_is, handler);
         } else if (opName.equals("sortir")) {
                 return _invoke_sortir(_is, handler);
         } else {
@@ -118,7 +122,7 @@ public abstract class ServiceESSitePOA extends org.omg.PortableServer.Servant
             final org.omg.CORBA.portable.InputStream _is,
             final org.omg.CORBA.portable.ResponseHandler handler) {
         org.omg.CORBA.portable.OutputStream _output;
-        String arg0_in = _is.read_string();
+        float arg0_in = _is.read_float();
 
         donnerAvisVisite(arg0_in);
 
@@ -147,10 +151,38 @@ public abstract class ServiceESSitePOA extends org.omg.PortableServer.Servant
         org.omg.CORBA.portable.OutputStream _output;
         short arg0_in = _is.read_short();
 
-        short _arg_result = getAffluenceCourante(arg0_in);
+        float _arg_result = getAffluenceCourante(arg0_in);
 
         _output = handler.createReply();
-        _output.write_short(_arg_result);
+        _output.write_float(_arg_result);
+
+        return _output;
+    }
+
+    private org.omg.CORBA.portable.OutputStream _invoke_getTauxSatisfaction(
+            final org.omg.CORBA.portable.InputStream _is,
+            final org.omg.CORBA.portable.ResponseHandler handler) {
+        org.omg.CORBA.portable.OutputStream _output;
+        short arg0_in = _is.read_short();
+
+        float _arg_result = getTauxSatisfaction(arg0_in);
+
+        _output = handler.createReply();
+        _output.write_float(_arg_result);
+
+        return _output;
+    }
+
+    private org.omg.CORBA.portable.OutputStream _invoke_getEstFavoris(
+            final org.omg.CORBA.portable.InputStream _is,
+            final org.omg.CORBA.portable.ResponseHandler handler) {
+        org.omg.CORBA.portable.OutputStream _output;
+        short arg0_in = _is.read_short();
+
+        boolean _arg_result = getEstFavoris(arg0_in);
+
+        _output = handler.createReply();
+        _output.write_boolean(_arg_result);
 
         return _output;
     }

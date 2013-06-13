@@ -90,9 +90,9 @@ public class ServiceESSitePOATie extends ServiceESSitePOA
     /**
      * Operation donnerAvisVisite
      */
-    public void donnerAvisVisite(String interet)
+    public void donnerAvisVisite(float satisfaction)
     {
-        _tie.donnerAvisVisite( interet);
+        _tie.donnerAvisVisite( satisfaction);
     }
 
     /**
@@ -106,9 +106,25 @@ public class ServiceESSitePOATie extends ServiceESSitePOA
     /**
      * Operation getAffluenceCourante
      */
-    public short getAffluenceCourante(short idSite)
+    public float getAffluenceCourante(short idSite)
     {
         return _tie.getAffluenceCourante( idSite);
+    }
+
+    /**
+     * Operation getTauxSatisfaction
+     */
+    public float getTauxSatisfaction(short idSite)
+    {
+        return _tie.getTauxSatisfaction( idSite);
+    }
+
+    /**
+     * Operation getEstFavoris
+     */
+    public boolean getEstFavoris(short idSite)
+    {
+        return _tie.getEstFavoris( idSite);
     }
 
 }

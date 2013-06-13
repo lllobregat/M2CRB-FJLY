@@ -85,10 +85,10 @@ public class SiteHelper
                 _members[2].name = "coord";
                 _members[2].type = AssistanceTouristique.CoordonneesHelper.type();
                 _members[3] = new org.omg.CORBA.StructMember();
-                _members[3].name = "horaire0uverture";
+                _members[3].name = "horaireOuverture";
                 _members[3].type = orb.get_primitive_tc(org.omg.CORBA.TCKind.tk_string);
                 _members[4] = new org.omg.CORBA.StructMember();
-                _members[4].name = "horaireFermeture";
+                _members[4].name = "horairesFermeture";
                 _members[4].type = orb.get_primitive_tc(org.omg.CORBA.TCKind.tk_string);
                 _members[5] = new org.omg.CORBA.StructMember();
                 _members[5].name = "description";
@@ -101,7 +101,7 @@ public class SiteHelper
                 _members[7].type = orb.get_primitive_tc(org.omg.CORBA.TCKind.tk_string);
                 _members[8] = new org.omg.CORBA.StructMember();
                 _members[8].name = "affluenceCourante";
-                _members[8].type = orb.get_primitive_tc(org.omg.CORBA.TCKind.tk_long);
+                _members[8].type = orb.get_primitive_tc(org.omg.CORBA.TCKind.tk_float);
                 _tc = orb.create_struct_tc(id(),"Site",_members);
                 _working = false;
             }
@@ -132,12 +132,12 @@ public class SiteHelper
         new_one.idSite = istream.read_short();
         new_one.titre = istream.read_string();
         new_one.coord = AssistanceTouristique.CoordonneesHelper.read(istream);
-        new_one.horaire0uverture = istream.read_string();
-        new_one.horaireFermeture = istream.read_string();
+        new_one.horaireOuverture = istream.read_string();
+        new_one.horairesFermeture = istream.read_string();
         new_one.description = istream.read_string();
         new_one.adresse = istream.read_string();
         new_one.telephone = istream.read_string();
-        new_one.affluenceCourante = istream.read_long();
+        new_one.affluenceCourante = istream.read_float();
 
         return new_one;
     }
@@ -152,12 +152,12 @@ public class SiteHelper
         ostream.write_short(value.idSite);
         ostream.write_string(value.titre);
         AssistanceTouristique.CoordonneesHelper.write(ostream,value.coord);
-        ostream.write_string(value.horaire0uverture);
-        ostream.write_string(value.horaireFermeture);
+        ostream.write_string(value.horaireOuverture);
+        ostream.write_string(value.horairesFermeture);
         ostream.write_string(value.description);
         ostream.write_string(value.adresse);
         ostream.write_string(value.telephone);
-        ostream.write_long(value.affluenceCourante);
+        ostream.write_float(value.affluenceCourante);
     }
 
 }

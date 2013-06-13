@@ -62,7 +62,7 @@ public class OfficeImpl extends OfficePOA {
         ServeurOffice servOffice = new ServeurOffice();
         Site[] siteAVisiter = new Site[this.nb_sites];
         int i=0;
-        int affluenceCourante;
+        float affluenceCourante;
         Site infoSite;
         try {
             //Si le touriste a déjà visité des sites 
@@ -78,7 +78,7 @@ public class OfficeImpl extends OfficePOA {
                     affluenceCourante = this.monServES.getAffluenceCourante(sitesRestant[j]);
                     
                     //Construction du tableau des sites à visiter
-                    siteAVisiter[j] = new Site(infoSite.idSite, infoSite.titre, infoSite.coord, infoSite.horaire0uverture, infoSite.horaireFermeture, infoSite.description, infoSite.adresse, infoSite.telephone, affluenceCourante);
+                    siteAVisiter[j] = new Site(infoSite.idSite, infoSite.titre, infoSite.coord, infoSite.horaireOuverture, infoSite.horairesFermeture, infoSite.description, infoSite.adresse, infoSite.telephone, affluenceCourante);
                 }
                 
                 
@@ -96,7 +96,7 @@ public class OfficeImpl extends OfficePOA {
                     //Récupération de l'affluence courante auprès du service ES du site
                     affluenceCourante = this.monServES.getAffluenceCourante((short)site.getKey());
                     
-                    siteAVisiter[i] = new Site(infoSite.idSite, infoSite.titre, infoSite.coord, infoSite.horaire0uverture, infoSite.horaireFermeture, infoSite.description, infoSite.adresse, infoSite.telephone, affluenceCourante);
+                    siteAVisiter[i] = new Site(infoSite.idSite, infoSite.titre, infoSite.coord, infoSite.horaireOuverture, infoSite.horairesFermeture, infoSite.description, infoSite.adresse, infoSite.telephone, affluenceCourante);
                     i++;
                 }
             }

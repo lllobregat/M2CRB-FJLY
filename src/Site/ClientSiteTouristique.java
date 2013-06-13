@@ -10,6 +10,7 @@ import java.sql.*;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 import java.util.logging.Level;
@@ -22,9 +23,13 @@ import javax.swing.JOptionPane;
  */
 public class ClientSiteTouristique extends javax.swing.JFrame {
     //TODO BD site GL
-    private static String nombd="bd_site_histoirenaturelle";
+    private static String nombd;
     public static boolean estPremierLancement = true;
     private static org.omg.CosNaming.NamingContext nameRoot;
+
+    public static void setNombd(String str) {
+        nombd = str;
+    }
     
     /**
      * Creates new form ClientSite
@@ -81,7 +86,7 @@ public class ClientSiteTouristique extends javax.swing.JFrame {
 
         jLabelTitreAccueil.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabelTitreAccueil.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelTitreAccueil.setText(new SiteDBManager("bd_site_histoirenaturelle").getNomSite());
+        jLabelTitreAccueil.setText(new SiteDBManager(nombd).getNomSite());
 
         jButtonConsulterStats.setText("Consulter les statistiques");
         jButtonConsulterStats.addActionListener(new java.awt.event.ActionListener() {
@@ -405,7 +410,7 @@ public class ClientSiteTouristique extends javax.swing.JFrame {
             
             //TODO trouver l'identifiant du site à faire passer en paramètre
             //Récupération des statistiques auprès du service stat
-            Statistique[] stat = monServiceStat.getStatsSite(date, (short)1);
+            Statistique[] stat = monServiceStat.getStatsSite((short)1);
             
             /************ Remplissage du tableau *************/
             //Première ligne
@@ -516,6 +521,7 @@ public class ClientSiteTouristique extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextAreaDescriptionSiteFocusLost
 
     private void jButtonValiderAssistantActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonValiderAssistantActionPerformed
+         
         // vérification que tous les champs ont été renseignés ...
         if (jTextFieldTitreSite.getText().equals("titre du site ...")
                 || jTextFieldAdresseSite.getText().equals("adresse du site ...")
@@ -528,7 +534,7 @@ public class ClientSiteTouristique extends javax.swing.JFrame {
             // vérification que l'heure d'ouverture est bien inférieure à l'heure de fermeture ...
             try {
                 SimpleDateFormat format = new SimpleDateFormat("HH:mm");
-
+                
                 Date dateOuverture = format.parse(jFormattedTextFieldHoraireOuvertureSite.getText());
                 Date dateFermeture = format.parse(jFormattedTextFieldHoraireFermetureSite.getText());
 
@@ -632,17 +638,23 @@ public class ClientSiteTouristique extends javax.swing.JFrame {
         }
         //</editor-fold>
 
+        System.out.println(args[0]);
+        
+        ClientSiteTouristique.setNombd(args[0]);
+        
         try {
             //1
-            org.omg.CORBA.ORB orb = org.omg.CORBA.ORB.init(args, null);
+            //org.omg.CORBA.ORB orb = org.omg.CORBA.ORB.init(new String[0], null);
             
             //2 
-            nameRoot = org.omg.CosNaming.NamingContextHelper.narrow(orb.resolve_initial_references("NameService"));
+            //nameRoot = org.omg.CosNaming.NamingContextHelper.narrow(orb.resolve_initial_references("NameService"));
             
             //Lancement du serveur du service ES
-           /* ServeurServiceESSite servESSite = new ServeurServiceESSite(nombd, args);
+            ServeurServiceESSite servESSite = new ServeurServiceESSite(nombd);
             Thread threadSite = new Thread(servESSite);
-            threadSite.start();*/
+            threadSite.start();
+            
+            //Lancement du serveur stat
             
             //Appel à l'interface graphique
             new ClientSiteTouristique().setVisible(true);

@@ -80,7 +80,7 @@ public class StatistiqueHelper
                 _members[0].type = orb.get_primitive_tc(org.omg.CORBA.TCKind.tk_string);
                 _members[1] = new org.omg.CORBA.StructMember();
                 _members[1].name = "valeurStat";
-                _members[1].type = orb.get_primitive_tc(org.omg.CORBA.TCKind.tk_long);
+                _members[1].type = orb.get_primitive_tc(org.omg.CORBA.TCKind.tk_float);
                 _members[2] = new org.omg.CORBA.StructMember();
                 _members[2].name = "uniteStat";
                 _members[2].type = orb.get_primitive_tc(org.omg.CORBA.TCKind.tk_string);
@@ -112,7 +112,7 @@ public class StatistiqueHelper
         AssistanceTouristique.Statistique new_one = new AssistanceTouristique.Statistique();
 
         new_one.libelleStat = istream.read_string();
-        new_one.valeurStat = istream.read_long();
+        new_one.valeurStat = istream.read_float();
         new_one.uniteStat = istream.read_string();
 
         return new_one;
@@ -126,7 +126,7 @@ public class StatistiqueHelper
     public static void write(org.omg.CORBA.portable.OutputStream ostream, AssistanceTouristique.Statistique value)
     {
         ostream.write_string(value.libelleStat);
-        ostream.write_long(value.valeurStat);
+        ostream.write_float(value.valeurStat);
         ostream.write_string(value.uniteStat);
     }
 

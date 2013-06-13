@@ -23,7 +23,7 @@ public class _ServiceStatSiteStub extends org.omg.CORBA.portable.ObjectImpl
     /**
      * Operation getStatsSite
      */
-    public AssistanceTouristique.Statistique[] getStatsSite(String date, short idSite)
+    public AssistanceTouristique.Statistique[] getStatsSite(short idSite)
     {
         while(true)
         {
@@ -33,7 +33,6 @@ public class _ServiceStatSiteStub extends org.omg.CORBA.portable.ObjectImpl
                 try
                 {
                     org.omg.CORBA.portable.OutputStream _output = this._request("getStatsSite",true);
-                    _output.write_string(date);
                     _output.write_short(idSite);
                     _input = this._invoke(_output);
                     AssistanceTouristique.Statistique[] _arg_ret = AssistanceTouristique.t_listeStatHelper.read(_input);
@@ -61,7 +60,7 @@ public class _ServiceStatSiteStub extends org.omg.CORBA.portable.ObjectImpl
                 AssistanceTouristique.ServiceStatSiteOperations _self = (AssistanceTouristique.ServiceStatSiteOperations) _so.servant;
                 try
                 {
-                    return _self.getStatsSite( date,  idSite);
+                    return _self.getStatsSite( idSite);
                 }
                 finally
                 {

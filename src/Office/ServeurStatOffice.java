@@ -5,7 +5,6 @@
 package Office;
 
 import AssistanceTouristique.*;
-import static Site.ServeurSite.nomBD;
 import static Site.ServeurSite.nomSite;
 import Site.SiteDBManager;
 import Site.SiteTouristiqueImpl;
