@@ -18,12 +18,15 @@ import org.omg.PortableServer.POAHelper;
  *
  * @author Lydia
  */
-public class ServeurServiceESSite {
+public class ServeurServiceESSite /*implements Runnable*/ {
     //A récupérer dns la table des info du site
     public static String nomServESSite;
-    public static String nomBD = "bd_site_saintraymond";
+    private static String nombd = "bd_site_histoirenaturelle";
+    private static String args[];
     
-    public ServeurServiceESSite() {
+    public ServeurServiceESSite(/*String nombd, String args[]*/) {
+       /* this.nombd = nombd;
+        this.args = args;*/
         
     }
     
@@ -57,6 +60,7 @@ public class ServeurServiceESSite {
     }
     
     public static void main(String args[]) {
+   // public void run() {
         //TODO à lire dans la table 
         //Flux E/S standards
        /* BufferedReader entree_std = new BufferedReader(new InputStreamReader(System.in));
@@ -67,8 +71,8 @@ public class ServeurServiceESSite {
             //Configuration de base
           //sortie_std.print("Quel est le nom du site?");
           //nomServESSite="ES "+entree_std.readLine();
-            
-          nomServESSite="ES "+ new SiteDBManager(nomBD).getNomSite();
+          System.out.println(args.length);
+          nomServESSite="ES "+ new SiteDBManager(nombd).getNomSite();
           
         // Intialisation de l'ORB
         //************************
