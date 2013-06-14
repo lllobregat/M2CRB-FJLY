@@ -24,7 +24,7 @@ public class SiteTouristiqueImpl extends SiteTouristiquePOA {
     }
     
     //TODO BD
-    public Site getInfoSite(short idSite) {
+    public Site getInfoSite() {
    
         float latitude = this.db.getCoordLatitudeSite();
         float longitude = this.db.getCoordLongitudeSite();
