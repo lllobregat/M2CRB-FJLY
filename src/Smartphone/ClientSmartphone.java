@@ -5,28 +5,23 @@
 package Smartphone;
 
 import AssistanceTouristique.*;
-
 import AssistanceTouristique.ServiceAchatOfficePackage.achatImpossibleException;
-import AssistanceTouristique.ServiceBancairePackage.operationImpossibleException;
-import Office.ClientOffice;
+
 import Office.ServeurOffice;
 import Office.ServeurServiceAchatOffice;
-import Office.ServiceAchatOfficeImpl;
 import java.awt.CardLayout;
 import java.awt.Color;
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.io.PrintStream;
-import java.sql.*;
+import java.awt.HeadlessException;
 import java.text.DateFormat;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import org.omg.CosNaming.NamingContextPackage.CannotProceed;
+import org.omg.CosNaming.NamingContextPackage.InvalidName;
+import org.omg.CosNaming.NamingContextPackage.NotFound;
 
 /**
  *
@@ -911,8 +906,7 @@ public class ClientSmartphone extends javax.swing.JFrame {
                 fieldPassword.setText("");
             }
 
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (NotFound | CannotProceed | InvalidName | HeadlessException e) {
         }
     }//GEN-LAST:event_boutonSeConnecterActionPerformed
 
@@ -959,8 +953,7 @@ public class ClientSmartphone extends javax.swing.JFrame {
             System.out.println("numéro de carte : " + carte.idCarte);
                 
         } 
-        catch (Exception e) {
-		e.printStackTrace();
+        catch (NotFound | CannotProceed | InvalidName | achatImpossibleException e) {
         }
         
         //Affichage de l'écran de confirmation ou d'annulation
@@ -1091,7 +1084,6 @@ public class ClientSmartphone extends javax.swing.JFrame {
             new ClientSmartphone().setVisible(true);
 
         } catch (Exception e) {
-            e.printStackTrace();
         }
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables

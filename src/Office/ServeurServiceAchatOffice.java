@@ -3,13 +3,16 @@
  * and open the template in the editor.
  */
 package Office;
-import AssistanceTouristique.*;
-import AutresServices.ServeurServiceBancaire;
-import static Office.ServeurOffice.nomOffice;
-import java.io.*;
+import org.omg.CORBA.ORBPackage.InvalidName;
 import org.omg.CosNaming.NamingContext;
+import org.omg.CosNaming.NamingContextPackage.CannotProceed;
+import org.omg.CosNaming.NamingContextPackage.NotFound;
 import org.omg.PortableServer.POA;
 import org.omg.PortableServer.POAHelper;
+import org.omg.PortableServer.POAManagerPackage.AdapterInactive;
+import org.omg.PortableServer.POAPackage.ServantAlreadyActive;
+import org.omg.PortableServer.POAPackage.ServantNotActive;
+import org.omg.PortableServer.POAPackage.WrongPolicy;
 
 /**
  *
@@ -75,8 +78,7 @@ public class ServeurServiceAchatOffice {
             orb.run();
 
         }
-        catch(Exception e) {
-            e.printStackTrace();
+        catch(InvalidName | ServantAlreadyActive | WrongPolicy | AdapterInactive | ServantNotActive | NotFound | CannotProceed | org.omg.CosNaming.NamingContextPackage.InvalidName e) {
         }
     }
 }

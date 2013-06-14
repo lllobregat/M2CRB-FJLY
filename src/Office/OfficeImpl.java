@@ -4,16 +4,14 @@
  */
 package Office;
 import AssistanceTouristique.*;
-import Site.ServeurSite;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
-
-import org.omg.CORBA.*; 
-import org.omg.PortableServer.*; 
+import org.omg.CORBA.ORBPackage.InvalidName;
 import org.omg.CosNaming.*; 
-import org.omg.CosNaming.NamingContextPackage.*;
+import org.omg.CosNaming.NamingContextPackage.CannotProceed;
+import org.omg.CosNaming.NamingContextPackage.NotFound;
 
 /**
  *
@@ -53,11 +51,11 @@ public class OfficeImpl extends OfficePOA {
                 this.monServES = ServiceESSiteHelper.narrow(distantServES);
              }
         }
-	catch (Exception e) {
-		e.printStackTrace();
+	catch (InvalidName | NotFound | CannotProceed | org.omg.CosNaming.NamingContextPackage.InvalidName e) {
 	}  
     }
             
+    @Override
     public Site[] getListeSitesAVisiter(short idCarte, Coordonnees coordGPS, short[] listeSitesVisites) {
         ServeurOffice servOffice = new ServeurOffice();
         Site[] siteAVisiter = new Site[this.nb_sites];
@@ -103,7 +101,6 @@ public class OfficeImpl extends OfficePOA {
 
         }
 	catch (Exception e) {
-		e.printStackTrace();
 	}
         
         

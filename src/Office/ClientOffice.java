@@ -5,7 +5,6 @@
 package Office;
 
 import java.awt.CardLayout;
-import java.awt.Color;
 
 /**
  *
@@ -182,7 +181,7 @@ public class ClientOffice extends javax.swing.JFrame {
                     .addGroup(ConsultationVentesLayout.createSequentialGroup()
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 272, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 742, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 754, Short.MAX_VALUE))
                 .addContainerGap())
         );
         ConsultationVentesLayout.setVerticalGroup(
@@ -201,11 +200,11 @@ public class ClientOffice extends javax.swing.JFrame {
         ConsultationStatsSites.setLayout(ConsultationStatsSitesLayout);
         ConsultationStatsSitesLayout.setHorizontalGroup(
             ConsultationStatsSitesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 800, Short.MAX_VALUE)
+            .addGap(0, 814, Short.MAX_VALUE)
         );
         ConsultationStatsSitesLayout.setVerticalGroup(
             ConsultationStatsSitesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 574, Short.MAX_VALUE)
+            .addGap(0, 584, Short.MAX_VALUE)
         );
 
         mainPanel.add(ConsultationStatsSites, "ConsultationStatsSites");
@@ -214,11 +213,11 @@ public class ClientOffice extends javax.swing.JFrame {
         ConsultationListeSites.setLayout(ConsultationListeSitesLayout);
         ConsultationListeSitesLayout.setHorizontalGroup(
             ConsultationListeSitesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 800, Short.MAX_VALUE)
+            .addGap(0, 814, Short.MAX_VALUE)
         );
         ConsultationListeSitesLayout.setVerticalGroup(
             ConsultationListeSitesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 574, Short.MAX_VALUE)
+            .addGap(0, 584, Short.MAX_VALUE)
         );
 
         mainPanel.add(ConsultationListeSites, "ConsultationListeSites");
@@ -235,7 +234,7 @@ public class ClientOffice extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(BandeauOffice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(mainPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 574, Short.MAX_VALUE))
+                .addComponent(mainPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -278,13 +277,7 @@ public class ClientOffice extends javax.swing.JFrame {
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ClientOffice.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ClientOffice.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ClientOffice.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(ClientOffice.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
@@ -296,6 +289,7 @@ public class ClientOffice extends javax.swing.JFrame {
         
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
                 new ClientOffice().setVisible(true);
             }
