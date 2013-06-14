@@ -3,10 +3,6 @@
  * and open the template in the editor.
  */
 package Office;
-import AssistanceTouristique.*;
-import AutresServices.ServeurServiceBancaire;
-import static Office.ServeurOffice.nomOffice;
-import java.io.*;
 import org.omg.CosNaming.NamingContext;
 import org.omg.PortableServer.POA;
 import org.omg.PortableServer.POAHelper;
@@ -15,14 +11,10 @@ import org.omg.PortableServer.POAHelper;
  *
  * @author Lydia
  */
-public class ServeurServiceAchatOffice {
+public class ServeurServiceAchatOffice implements Runnable {
     public static String nomServAchat = "ACHAT " + ServeurOffice.nomOffice;
-    private String dd, df;
-    private float montant;
     
-    public ServeurServiceAchatOffice(AssistanceTouristique.ServiceAchatOffice serv, String dd, String df, float montant) {
-       this.dd = dd;
-       this.df = df;
+    public ServeurServiceAchatOffice() {
     }
     
     public void envoyerCarteElectronique(int idCarte) {
@@ -33,10 +25,11 @@ public class ServeurServiceAchatOffice {
         
     }
     
-    public static void main(String[] args) {
+    //public static void main(String[] args) {
+    public void run() {
         
         try {
-           org.omg.CORBA.ORB orb = org.omg.CORBA.ORB.init(args,null);
+           org.omg.CORBA.ORB orb = org.omg.CORBA.ORB.init(new String[0],null);
 
             // Gestion du POA
              //****************

@@ -4,13 +4,6 @@
  */
 package Office;
 
-import AssistanceTouristique.*;
-import static Site.ServeurSite.nomSite;
-import Site.SiteDBManager;
-import Site.SiteTouristiqueImpl;
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.io.PrintStream;
 import org.omg.CosNaming.NamingContext;
 import org.omg.PortableServer.POA;
 import org.omg.PortableServer.POAHelper;
@@ -22,10 +15,8 @@ import org.omg.PortableServer.POAHelper;
 public class ServeurStatOffice implements Runnable {
     
     public static String nomServStatOffice;
-    private static String args[];
     
-    public ServeurStatOffice(String args[]) {
-        this.args=args;
+    public ServeurStatOffice() {
     }
     
     public void calculerStatsGlobales(int[] listeStats) {
@@ -37,7 +28,7 @@ public class ServeurStatOffice implements Runnable {
       try {
           nomServStatOffice="STAT " + ServeurOffice.nomOffice;
           
-          org.omg.CORBA.ORB orb = org.omg.CORBA.ORB.init(args,null);
+          org.omg.CORBA.ORB orb = org.omg.CORBA.ORB.init(new String[0],null);
 
             // Gestion du POA
              //****************

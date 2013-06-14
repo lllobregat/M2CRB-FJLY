@@ -65,7 +65,8 @@ public class ClientSmartphone extends javax.swing.JFrame {
     
 
     public ClientSmartphone() {
-        sitesVisites = new short[0];
+        sitesVisites = new short[1];
+        sitesVisites[0] = 0;
         carte = new Carte();
         //sitesVisites[0]=5;
         initComponents();
@@ -893,10 +894,24 @@ public class ClientSmartphone extends javax.swing.JFrame {
             //Récupération de la liste des sites à visiter
             Site[] siteAVisiter = monOffice.getListeSitesAVisiter(idCarte, coordSmartphone, sitesVisites);
             
-            
-       } catch (Exception e) {
+            for (int i = 0; i < siteAVisiter.length; i++) {
+                System.out.println("******************************************************");
+                System.out.println("idSite : " + siteAVisiter[i].idSite);
+                System.out.println("titre : " + siteAVisiter[i].titre);
+                System.out.println("adresse : " + siteAVisiter[i].adresse);
+                System.out.println("description : " + siteAVisiter[i].description);
+                System.out.println("horaireOuverture : " + siteAVisiter[i].horaireOuverture);
+                System.out.println("horairesFermeture : " + siteAVisiter[i].horairesFermeture);
+                System.out.println("telephone : " + siteAVisiter[i].telephone);
+                System.out.println("affluenceCourante : " + siteAVisiter[i].affluenceCourante);
+                System.out.println("coord.latitude : " + siteAVisiter[i].coord.latitude);
+                System.out.println("coord.longitude : " + siteAVisiter[i].coord.longitude);
+                System.out.println("******************************************************");
+            }
+
+        } catch (Exception e) {
             e.printStackTrace();
-        }     
+        }
 
     }//GEN-LAST:event_boutonSeConnecterActionPerformed
 

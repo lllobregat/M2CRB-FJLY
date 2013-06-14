@@ -6,11 +6,7 @@ package Office;
 import AssistanceTouristique.*;
 import AutresServices.ServeurServiceBancaire;
 
-import java.io.*;
-import org.omg.CORBA.*;
-import org.omg.PortableServer.*;
 import org.omg.CosNaming.*;
-import org.omg.CosNaming.NamingContextPackage.*;
 /**
  *
  * @author Lydia

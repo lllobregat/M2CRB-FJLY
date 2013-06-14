@@ -20,6 +20,7 @@ public class ServiceStatOfficeImpl extends ServiceStatOfficePOA {
 
         this.nomServStat=nom_servStat;
         this.orb=orb;
+   
         try {
             NamingContext nameRoot = org.omg.CosNaming.NamingContextHelper.narrow(this.orb.resolve_initial_references("NameService"));
              /*********** Recherche de l'office ***********/

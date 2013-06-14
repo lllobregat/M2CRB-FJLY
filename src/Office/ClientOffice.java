@@ -5,7 +5,6 @@
 package Office;
 
 import java.awt.CardLayout;
-import java.awt.Color;
 
 /**
  *
@@ -235,7 +234,7 @@ public class ClientOffice extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(BandeauOffice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(mainPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 574, Short.MAX_VALUE))
+                .addComponent(mainPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -289,10 +288,21 @@ public class ClientOffice extends javax.swing.JFrame {
         }
         //</editor-fold>
         
+        //Lancement du serveur de l'office
+       /* ServeurOffice servOffice = new ServeurOffice(args);
+        Thread thread_servOffice = new Thread(servOffice);
+        thread_servOffice.start();*/
+
         //Lancement du service stat de l'office
-        ServeurStatOffice servStat = new ServeurStatOffice(args);
+        /*ServeurStatOffice servStat = new ServeurStatOffice(nombd);
         Thread thread_servStat = new Thread(servStat);
         thread_servStat.start();
+        
+        //Lancement du service achat de l'office
+        ServeurServiceAchatOffice servAchat = new ServeurServiceAchatOffice(nombd);
+        Thread thread_servAchat = new Thread(servAchat);
+        thread_servAchat.start();*/
+    
         
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {

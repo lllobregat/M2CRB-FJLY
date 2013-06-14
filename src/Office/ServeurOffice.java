@@ -4,7 +4,6 @@
  */
 package Office;
 
-import java.util.HashMap;
 import org.omg.CosNaming.NamingContext;
 import org.omg.PortableServer.POA;
 import org.omg.PortableServer.POAHelper;
@@ -13,16 +12,18 @@ import org.omg.PortableServer.POAHelper;
  *
  * @author Lydia
  */
-public class ServeurOffice {
+public class ServeurOffice /*implements Runnable */{
     public static String nomOffice="Toulouse";
-    //TODO récupérer de la BD la liste des idSites
-    private short[] idSite = {1};
+    
+    
+    public ServeurOffice(String args[]) {
+    }
     
     //TODO
-    public short[] calculerSitesNonVisites(short[] listeSitesVisites ) {
+    /*public short[] calculerSitesNonVisites(short[] listeSitesVisites ) {
         //short[] tab = new short[3];
         return this.idSite;
-    }
+    }*/
     
     public short[] calculerSitesProches(int Coord) {
         return null;
@@ -30,11 +31,10 @@ public class ServeurOffice {
     
     
     public static void main(String args[]) {
-        //Tableau des id/nom des sites 
-        HashMap<Short,String> listeSites = new HashMap<Short, String>();
-        listeSites. put((short)1, "Musée Georges-Labit");
-        listeSites.put((short)2,"Muséum de Toulouse");
-        listeSites.put((short)3, "Musée Saint-Raymond");
+    //public void run() {
+        //Tableau des id/nom des sites
+        OfficeDBManager db = new OfficeDBManager();
+        short[] idSite = db.getIdSites();
         
         try {
            org.omg.CORBA.ORB orb = org.omg.CORBA.ORB.init(args,null);
@@ -46,7 +46,7 @@ public class ServeurOffice {
 
             // Creation du servant
             //*********************
-           OfficeImpl monOffice = new OfficeImpl(orb, listeSites);
+           OfficeImpl monOffice = new OfficeImpl(orb, idSite);
 
             // Activer le servant au sein du POA et recuperer son ID
             byte[] monOfficeId = rootPOA.activate_object(monOffice);

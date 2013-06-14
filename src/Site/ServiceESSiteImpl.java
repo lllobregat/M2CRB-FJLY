@@ -11,9 +11,11 @@ import AssistanceTouristique.*;
 public class ServiceESSiteImpl extends ServiceESSitePOA {
  
     private String nombd;
+    private SiteDBManager db;
     
     public ServiceESSiteImpl(String nombd) {
         this.nombd = nombd;
+        this.db = new SiteDBManager(this.nombd);
     }
     
     public void autoriserEntree(Carte carte) {
