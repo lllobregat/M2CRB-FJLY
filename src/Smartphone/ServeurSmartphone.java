@@ -4,8 +4,15 @@
  */
 package Smartphone;
 
+import org.omg.CORBA.ORBPackage.InvalidName;
 import org.omg.CosNaming.*;
+import org.omg.CosNaming.NamingContextPackage.CannotProceed;
+import org.omg.CosNaming.NamingContextPackage.NotFound;
 import org.omg.PortableServer.*;
+import org.omg.PortableServer.POAManagerPackage.AdapterInactive;
+import org.omg.PortableServer.POAPackage.ServantAlreadyActive;
+import org.omg.PortableServer.POAPackage.ServantNotActive;
+import org.omg.PortableServer.POAPackage.WrongPolicy;
 /**
  *
  * @author Lydia
@@ -22,6 +29,7 @@ public class ServeurSmartphone implements Runnable {
         
      }
    
+    @Override
      public void run() {
          try {
             //1 
@@ -54,7 +62,7 @@ public class ServeurSmartphone implements Runnable {
              //7
              orb.run();      
          }
-         catch(Exception e) {
+         catch(InvalidName | ServantAlreadyActive | WrongPolicy | AdapterInactive | ServantNotActive | NotFound | CannotProceed | org.omg.CosNaming.NamingContextPackage.InvalidName e) {
              
          }
     }

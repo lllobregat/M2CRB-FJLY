@@ -66,11 +66,11 @@ public class OfficeImpl extends OfficePOA {
                 i++;
              }
         }
-	catch (Exception e) {
-		e.printStackTrace();
+	catch (InvalidName | NotFound | CannotProceed | org.omg.CosNaming.NamingContextPackage.InvalidName e) {
 	}  
     }
             
+    @Override
     public Site[] getListeSitesAVisiter(short idCarte, Coordonnees coordGPS, short[] listeSitesVisites) {
         //ServeurOffice servOffice = new ServeurOffice(this.nombd);
         // récupération des ids des sites à visiter
