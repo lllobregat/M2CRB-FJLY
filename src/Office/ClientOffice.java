@@ -11,11 +11,9 @@ import java.awt.CardLayout;
  * @author jfred_000
  */
 public class ClientOffice extends javax.swing.JFrame {
-    private static String nomOffice = ServeurOffice.nomOffice;
-    /**
-     * Creates new form ClientOffice
-     */
-    public ClientOffice() {
+    private String nomOffice;
+    public ClientOffice(String nomOffice) {
+        this.nomOffice=nomOffice;
         initComponents();
     }
 
@@ -303,13 +301,10 @@ public class ClientOffice extends javax.swing.JFrame {
         Thread thread_servAchat = new Thread(servAchat);
         thread_servAchat.start();*/
     
-        
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new ClientOffice().setVisible(true);
-            }
-        });
+        String nom_office=args[0];
+        //Appel à l'interface graphique
+        new ClientOffice(nom_office).setVisible(true);
+      
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Accueil;

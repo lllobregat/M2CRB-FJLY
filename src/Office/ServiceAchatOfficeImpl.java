@@ -16,7 +16,7 @@ public class ServiceAchatOfficeImpl extends ServiceAchatOfficePOA {
     private org.omg.CORBA.ORB orb;
     private ServiceBancaire banque;
     private Office office;
-    private Site[] lesSites;
+    private short[] lesIdSite;
     private ServiceESSite[] lesServES;
     private OfficeDBManager db;
     
@@ -36,29 +36,17 @@ public class ServiceAchatOfficeImpl extends ServiceAchatOfficePOA {
             System.out.println("Objet "+nom_banque+ " trouvé auprès du service de noms.");
             
             this.banque = ServiceBancaireHelper.narrow(distantBanque);
-               
-            /************* Recherche de l'office auprès du service de nom *************/
-            /*String nom_office = ServeurOffice.nomOffice;
-       
-            nameToFind = new org.omg.CosNaming.NameComponent[1];
-            nameToFind[0] = new org.omg.CosNaming.NameComponent(nom_office, "");
-            org.omg.CORBA.Object distantOffice = nameRoot.resolve(nameToFind);
-            System.out.println("Objet "+nom_office+ " trouvé auprès du service de noms.");
             
-            this.office = OfficeHelper.narrow(distantOffice);
-            //Liste des sites de l'office
-            Coordonnees coordOffice = new Coordonnees((float)10, (float)20);
-            this.lesSites = this.office.getListeSitesAVisiter((short)0, coordOffice, new short[0]);*/
-            
-            //TODO Récupération des sites dans la base de l'office
-            
-            
+            //Récupération des sites dans la base de l'office
+            this.lesIdSite = this.db.getIdSites();
+
+            /************* Recherche des services E/S des sites auprès du service de nom *************/
             String nom_servES;
-            lesServES = new ServiceESSite[this.lesSites.length];
+            lesServES = new ServiceESSite[this.lesIdSite.length];
             //Pour chaque site
-            for(int i=0; i<this.lesSites.length; i++) {
-                /************* Recherche des services E/S des sites auprès du service de nom *************/
-                nom_servES = "ES " + this.lesSites[i].titre; 
+            for(int i=0; i<this.lesIdSite.length; i++) {
+
+                nom_servES = "ES " + this.db.getCodeSite(lesIdSite[i]); 
                 nameToFind = new org.omg.CosNaming.NameComponent[1];
                 nameToFind[0] = new org.omg.CosNaming.NameComponent(nom_servES, "");
                 org.omg.CORBA.Object distantServES = nameRoot.resolve(nameToFind);

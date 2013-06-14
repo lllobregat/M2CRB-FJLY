@@ -14,9 +14,7 @@ import org.omg.PortableServer.POAHelper;
  * @author Lydia
  */
 public class ServeurOffice /*implements Runnable */{
-    public static String nomOffice="Toulouse";
-    
-    
+
     public ServeurOffice(String args[]) {
     }
     
@@ -33,6 +31,7 @@ public class ServeurOffice /*implements Runnable */{
     
     public static void main(String args[]) {
     //public void run() {
+        String nomOffice=args[0];
         //Tableau des id/nom des sites
         OfficeDBManager db = new OfficeDBManager();
         

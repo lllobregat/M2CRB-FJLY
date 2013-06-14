@@ -17,8 +17,8 @@ import org.omg.PortableServer.POAPackage.WrongPolicy;
  *
  * @author Lydia
  */
-public class ServeurServiceAchatOffice implements Runnable {
-    public static String nomServAchat = "ACHAT " + ServeurOffice.nomOffice;
+public class ServeurServiceAchatOffice /*implements Runnable */{
+   
     
     public ServeurServiceAchatOffice() {
     }
@@ -31,11 +31,12 @@ public class ServeurServiceAchatOffice implements Runnable {
         
     }
     
-    //public static void main(String[] args) {
-    public void run() {
+    public static void main(String[] args) {
+    //public void run() {
+        String nomServAchat = "ACHAT " + args[0];
         
         try {
-           org.omg.CORBA.ORB orb = org.omg.CORBA.ORB.init(new String[0],null);
+           org.omg.CORBA.ORB orb = org.omg.CORBA.ORB.init(args,null);
 
             // Gestion du POA
              //****************

@@ -6,7 +6,6 @@ package AutresServices;
 import AssistanceTouristique.*;
 
 import Office.OfficeImpl;
-import static Office.ServeurOffice.nomOffice;
 import Office.ServiceAchatOfficeImpl;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -20,8 +19,8 @@ import org.omg.PortableServer.POAHelper;
  * @author Lydia
  */
 public class ServeurServiceBancaire {
-    private AssistanceTouristique.ServiceAchatOffice serv_achat;
-    public static String nom_banque = "bnp";
+
+    public static String nom_banque="bnp";
     /*private BufferedReader entree_std;
     private PrintStream sortie_std;
     private org.omg.CORBA.ORB orb;*/
@@ -55,7 +54,7 @@ public class ServeurServiceBancaire {
    
     public static void main(String args[]) {
     //public void run() {
-        
+        //String nom_banque = args[0];
         try {
            org.omg.CORBA.ORB orb = org.omg.CORBA.ORB.init(args,null);
 

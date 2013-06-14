@@ -48,7 +48,7 @@ public class ClientSmartphone extends javax.swing.JFrame {
     public  AssistanceTouristique.ServiceAchatOffice monServAchat;
     //public  AssistanceTouristique.ServiceBancaire monServBancaire;
     public  AutresServices.ServeurServiceBancaire serveur_bancaire;
-    
+    private String nomOffice;
     public  String dd, df;
     public  Float montant;
     //TODO à récupérer dans la base de donnée
@@ -58,8 +58,9 @@ public class ClientSmartphone extends javax.swing.JFrame {
     public  Carte carte;
     
 
-    public ClientSmartphone() {
+    public ClientSmartphone(org.omg.CosNaming.NamingContext nameRoot, String nomOffice) {
         this.nameRoot = nameRoot;
+        this.nomOffice=nomOffice;
         sitesVisites = new short[1];
         sitesVisites[0] = 0;
         carte = new Carte();
@@ -863,19 +864,16 @@ public class ClientSmartphone extends javax.swing.JFrame {
                 // si l'identification est ok ...
 
                 /**
-                 * ********** Appel aux services de l'office *********
-                 */
-                String nom_office = ServeurOffice.nomOffice;
-
+                 * ********** Appel aux services de l'office *********/
                 //Recherche de l'office
                 org.omg.CosNaming.NameComponent[] office = new org.omg.CosNaming.NameComponent[1];
-                office[0] = new org.omg.CosNaming.NameComponent(nom_office, "");
-                org.omg.CORBA.Object distantOffice = nameRoot.resolve(office);
+                office[0] = new org.omg.CosNaming.NameComponent(this.nomOffice, "");
+                org.omg.CORBA.Object distantOffice = this.nameRoot.resolve(office);
 
-                AssistanceTouristique.Office monOffice = AssistanceTouristique.OfficeHelper.narrow(distantOffice);
+                this.monOffice = AssistanceTouristique.OfficeHelper.narrow(distantOffice);
 
                 //Récupération de la liste des sites à visiter
-                Site[] siteAVisiter = monOffice.getListeSitesAVisiter(idCarte, coordSmartphone, sitesVisites);
+               /* Site[] siteAVisiter = monOffice.getListeSitesAVisiter(idCarte, coordSmartphone, sitesVisites);
 
                 for(int i=0;i<siteAVisiter.length;i++) {
                     System.out.println("******************************************************");
@@ -890,7 +888,7 @@ public class ClientSmartphone extends javax.swing.JFrame {
                     System.out.println("coord.latitude : " + siteAVisiter[i].coord.latitude);
                     System.out.println("coord.longitude : " + siteAVisiter[i].coord.longitude);
                     System.out.println("******************************************************");       
-                }
+                }*/
                 
                 
                 CardLayout card = (CardLayout) mainPanel.getLayout();
@@ -942,7 +940,7 @@ public class ClientSmartphone extends javax.swing.JFrame {
 
         try {
             /*********** Recherche du service achat de l'office ***********/
-            String nom_servAchat = ServeurServiceAchatOffice.nomServAchat;
+            String nom_servAchat = "ACHAT " + this.nomOffice;
             
             org.omg.CosNaming.NameComponent[] nameToFind = new org.omg.CosNaming.NameComponent[1];
             nameToFind[0] = new org.omg.CosNaming.NameComponent(nom_servAchat, "");
@@ -961,14 +959,14 @@ public class ClientSmartphone extends javax.swing.JFrame {
         CardLayout card = (CardLayout) mainPanel.getLayout();
         card.show(mainPanel, "EcranCarte");
         
-        if(this.carte.idCarte > 0) {
+       // if(this.carte.idCarte > 0) {
             jLabelMessagePaiement.setText("Le paiement est accepté.\n"
                     + "Le numéro de la carte est : " + carte.idCarte + ".\n"
                     + "Vous pouvez accéder à tous les musées du " + carte.dateDebut 
                     + " au " + this.carte.dateFin);
-        }
+        /*}
         else
-            jLabelMessagePaiement.setText("Le paiement est refusé. La transaction est annulée.");
+            jLabelMessagePaiement.setText("Le paiement est refusé. La transaction est annulée.");*/
         
 
     }//GEN-LAST:event_BoutonPayerActionPerformed
@@ -1056,14 +1054,14 @@ public class ClientSmartphone extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(ClientSmartphone.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-
+        String nomOffice = args[0];
         try {
             
             //1
-            //org.omg.CORBA.ORB orb = org.omg.CORBA.ORB.init(args, null);
+            org.omg.CORBA.ORB orb = org.omg.CORBA.ORB.init(args, null);
 
             //2 
-            //nameRoot = org.omg.CosNaming.NamingContextHelper.narrow(orb.resolve_initial_references("NameService"));
+            org.omg.CosNaming.NamingContext nameRoot = org.omg.CosNaming.NamingContextHelper.narrow(orb.resolve_initial_references("NameService"));
             //org.omg.CosNaming.NamingContext nameRoot = org.omg.CosNaming.NamingContextHelper.narrow(orb.string_to_object("corbaloc:iiop:1.2@127.0.0.1:2001/NameService"));
 
             //Recherche de l'office
@@ -1082,7 +1080,7 @@ public class ClientSmartphone extends javax.swing.JFrame {
              threadServBancaire.start();*/
 
             //Appel à l'interface graphique
-            new ClientSmartphone().setVisible(true);
+            new ClientSmartphone(nameRoot, nomOffice).setVisible(true);
 
         } catch (Exception e) {
         }
