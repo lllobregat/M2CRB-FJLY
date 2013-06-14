@@ -4,6 +4,7 @@
  */
 package Office;
 
+import java.util.Hashtable;
 import org.omg.CosNaming.NamingContext;
 import org.omg.PortableServer.POA;
 import org.omg.PortableServer.POAHelper;
@@ -34,7 +35,14 @@ public class ServeurOffice /*implements Runnable */{
     //public void run() {
         //Tableau des id/nom des sites
         OfficeDBManager db = new OfficeDBManager();
+        
+        Hashtable<Short,String> codeSite = new Hashtable<Short, String>();
+        //Table des id des sites
         short[] idSite = db.getIdSites();
+        for(int i=0; i<idSite.length; i++) {
+            codeSite.put(idSite[i], db.getCodeSite(idSite[i]));
+        }
+        
         
         try {
            org.omg.CORBA.ORB orb = org.omg.CORBA.ORB.init(args,null);
@@ -46,7 +54,7 @@ public class ServeurOffice /*implements Runnable */{
 
             // Creation du servant
             //*********************
-           OfficeImpl monOffice = new OfficeImpl(orb, idSite);
+           OfficeImpl monOffice = new OfficeImpl(orb, codeSite);
 
             // Activer le servant au sein du POA et recuperer son ID
             byte[] monOfficeId = rootPOA.activate_object(monOffice);

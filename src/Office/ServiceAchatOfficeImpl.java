@@ -82,7 +82,7 @@ public class ServiceAchatOfficeImpl extends ServiceAchatOfficePOA {
                 //Pour chaque service ES
                 for(int i=0; i<this.lesServES.length; i++) {
                     //Envoi de la carte au service
-                    this.lesServES[i].autoriserEntree(Smartphone.ClientSmartphone.carte);
+                    this.lesServES[i].autoriserEntree(c);
                 }
             }   
         }

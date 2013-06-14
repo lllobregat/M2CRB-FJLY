@@ -63,6 +63,20 @@ public class SiteDBManager {
         }
         return nomSite;
     }
+    
+    public String getCodeSite(){
+        String codeSite = "";
+        try {
+            // requete sql 
+            ResultSet result = smt.executeQuery("SELECT codeSite FROM InfoSite");
+            // récupération des données 
+            result.first();
+            codeSite = result.getString("codeSite");
+        } catch (SQLException ex) {
+            Logger.getLogger(SiteDBManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return codeSite;
+    }
         
     public float getCoordLatitudeSite(){
         float coordLatitude = 0;
@@ -361,6 +375,6 @@ public class SiteDBManager {
             estFavori = false;
         }
         return estFavori;
-    }
+    }    
 }
 

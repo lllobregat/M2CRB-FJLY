@@ -17,6 +17,10 @@ public class SiteTouristiqueImpl extends SiteTouristiquePOA {
        this.nomSite = nomSite;
        this.nombd = nombd;
        this.db = new SiteDBManager(this.nombd);
+       
+       //Recherche de l'office distante
+       //appel de la methode enregistrerSiteVersOffice(Site)
+       //this.office.enregistrerSiteVersOffice(Site)
     }
     
     //TODO BD

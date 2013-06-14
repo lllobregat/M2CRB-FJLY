@@ -6,26 +6,16 @@ package Smartphone;
 
 import AssistanceTouristique.*;
 
-import AssistanceTouristique.ServiceAchatOfficePackage.achatImpossibleException;
-import AssistanceTouristique.ServiceBancairePackage.operationImpossibleException;
-import Office.ClientOffice;
 import Office.ServeurOffice;
 import Office.ServeurServiceAchatOffice;
-import Office.ServiceAchatOfficeImpl;
 import java.awt.CardLayout;
 import java.awt.Color;
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.io.PrintStream;
-import java.sql.*;
 import java.text.DateFormat;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 /**
@@ -44,27 +34,28 @@ public class ClientSmartphone extends javax.swing.JFrame {
      * Creates new form MainSmartphone
      */
     //Flux E/S standards
-    /*public static String nom_office;
-     public static BufferedReader entree_std = new BufferedReader(new InputStreamReader(System.in));
-     public static PrintStream sortie_std = new PrintStream(System.out); 
+    /*public  String nom_office;
+     public  BufferedReader entree_std = new BufferedReader(new InputStreamReader(System.in));
+     public  PrintStream sortie_std = new PrintStream(System.out); 
     
-     public static org.omg.CORBA.Object distantOffice;*/
-    private static org.omg.CosNaming.NamingContext nameRoot;
-    public static AssistanceTouristique.Office monOffice;
-    public static AssistanceTouristique.ServiceAchatOffice monServAchat;
-    //public static AssistanceTouristique.ServiceBancaire monServBancaire;
-    public static AutresServices.ServeurServiceBancaire serveur_bancaire;
+     public  org.omg.CORBA.Object distantOffice;*/
+    private org.omg.CosNaming.NamingContext nameRoot;
+    public  AssistanceTouristique.Office monOffice;
+    public  AssistanceTouristique.ServiceAchatOffice monServAchat;
+    //public  AssistanceTouristique.ServiceBancaire monServBancaire;
+    public  AutresServices.ServeurServiceBancaire serveur_bancaire;
     
-    public static String dd, df;
-    public static Float montant;
+    public  String dd, df;
+    public  Float montant;
     //TODO à récupérer dans la base de donnée
-    public static short idCarte = 0;
-    public static Coordonnees coordSmartphone = new Coordonnees((float)10, (float)20);
-    public static short[] sitesVisites;
-    public static Carte carte;
+    public  short idCarte = 0;
+    public  Coordonnees coordSmartphone = new Coordonnees((float)10, (float)20);
+    public  short[] sitesVisites;
+    public  Carte carte;
     
 
-    public ClientSmartphone() {
+    public ClientSmartphone(org.omg.CosNaming.NamingContext nameRoot) {
+        this.nameRoot = nameRoot;
         sitesVisites = new short[1];
         sitesVisites[0] = 0;
         carte = new Carte();
@@ -889,10 +880,10 @@ public class ClientSmartphone extends javax.swing.JFrame {
             office[0] = new org.omg.CosNaming.NameComponent(nom_office, "");
             org.omg.CORBA.Object distantOffice = nameRoot.resolve(office);
             
-            AssistanceTouristique.Office monOffice = AssistanceTouristique.OfficeHelper.narrow(distantOffice);
+            this.monOffice = AssistanceTouristique.OfficeHelper.narrow(distantOffice);
             
             //Récupération de la liste des sites à visiter
-            Site[] siteAVisiter = monOffice.getListeSitesAVisiter(idCarte, coordSmartphone, sitesVisites);
+            Site[] siteAVisiter = this.monOffice.getListeSitesAVisiter(idCarte, coordSmartphone, sitesVisites);
             
             for (int i = 0; i < siteAVisiter.length; i++) {
                 System.out.println("******************************************************");
@@ -952,9 +943,9 @@ public class ClientSmartphone extends javax.swing.JFrame {
             nameToFind[0] = new org.omg.CosNaming.NameComponent(nom_servAchat, "");
             org.omg.CORBA.Object distantServAchat = nameRoot.resolve(nameToFind);
                 
-            ServiceAchatOffice monServAchat = ServiceAchatOfficeHelper.narrow(distantServAchat);
+            this.monServAchat = ServiceAchatOfficeHelper.narrow(distantServAchat);
             
-            carte = monServAchat.acheterPrestation(dd, dd, montant);
+            this.carte = monServAchat.acheterPrestation(dd, dd, montant);
             System.out.println("numéro de carte : " + carte.idCarte);
                 
         } 
@@ -966,11 +957,11 @@ public class ClientSmartphone extends javax.swing.JFrame {
         CardLayout card = (CardLayout) mainPanel.getLayout();
         card.show(mainPanel, "EcranCarte");
         
-        if(carte.idCarte > 0) {
+        if(this.carte.idCarte > 0) {
             jLabelMessagePaiement.setText("Le paiement est accepté.\n"
                     + "Le numéro de la carte est : " + carte.idCarte + ".\n"
                     + "Vous pouvez accéder à tous les musées du " + carte.dateDebut 
-                    + " au " + carte.dateFin);
+                    + " au " + this.carte.dateFin);
         }
         else
             jLabelMessagePaiement.setText("Le paiement est refusé. La transaction est annulée.");
@@ -1068,7 +1059,7 @@ public class ClientSmartphone extends javax.swing.JFrame {
             org.omg.CORBA.ORB orb = org.omg.CORBA.ORB.init(args, null);
 
             //2 
-            nameRoot = org.omg.CosNaming.NamingContextHelper.narrow(orb.resolve_initial_references("NameService"));
+            org.omg.CosNaming.NamingContext nameRoot = org.omg.CosNaming.NamingContextHelper.narrow(orb.resolve_initial_references("NameService"));
             //org.omg.CosNaming.NamingContext nameRoot = org.omg.CosNaming.NamingContextHelper.narrow(orb.string_to_object("corbaloc:iiop:1.2@127.0.0.1:2001/NameService"));
 
             //Recherche de l'office
@@ -1087,7 +1078,7 @@ public class ClientSmartphone extends javax.swing.JFrame {
              threadServBancaire.start();*/
 
             //Appel à l'interface graphique
-            new ClientSmartphone().setVisible(true);
+            new ClientSmartphone(nameRoot).setVisible(true);
 
         } catch (Exception e) {
             e.printStackTrace();

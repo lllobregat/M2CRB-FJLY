@@ -29,7 +29,7 @@ public class ServeurStatSite /*implements Runnable */{
    // public void run() {
         String nombd = args[0];
         SiteDBManager db = new SiteDBManager(nombd);
-        String nomServStatSite = "STAT "+ db.getNomSite();
+        String nomServStatSite = "STAT "+ db.getCodeSite();
         
         try {
           
@@ -44,7 +44,7 @@ public class ServeurStatSite /*implements Runnable */{
 
         // Creation du servant
         //*********************
-        ServiceStatSiteImpl monServiceStatSite = new ServiceStatSiteImpl(orb, db.getIdSite(), db.getNomSite(), args[0]);
+        ServiceStatSiteImpl monServiceStatSite = new ServiceStatSiteImpl(orb, db.getIdSite(), db.getCodeSite(), args[0]);
 
         // Activer le servant au sein du POA et recuperer son ID
         byte[] monServiceStatSiteId = rootPOA.activate_object(monServiceStatSite);

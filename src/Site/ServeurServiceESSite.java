@@ -58,7 +58,7 @@ public class ServeurServiceESSite /*implements Runnable */{
     public static void main(String args[]) {
         String nombd  = args[0];
         SiteDBManager db = new SiteDBManager(nombd);
-        String nomServESSite = "ES "+ db.getNomSite();
+        String nomServESSite = "ES "+ db.getCodeSite();
     //public void run() {
         //TODO à lire dans la table 
         //Flux E/S standards

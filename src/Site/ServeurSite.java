@@ -34,7 +34,8 @@ public class ServeurSite /*implements Runnable*/ {
     //public void run() {
         String nombd = args[0];
         SiteDBManager db = new SiteDBManager(nombd);
-        String nomSite = db.getNomSite();
+        //String nomSite = db.getNomSite();
+        String codeSite = db.getCodeSite();
      /* //Flux E/S standards
      BufferedReader entree_std = new BufferedReader(new InputStreamReader(System.in));
      PrintStream sortie_std = new PrintStream(System.out); */
@@ -53,7 +54,7 @@ public class ServeurSite /*implements Runnable*/ {
 
             // Creation du servant
             //*********************
-           SiteTouristiqueImpl monSite = new SiteTouristiqueImpl(nomSite, nombd);
+           SiteTouristiqueImpl monSite = new SiteTouristiqueImpl(codeSite, nombd);
 
             // Activer le servant au sein du POA et recuperer son ID
             byte[] monSiteId = rootPOA.activate_object(monSite);
@@ -68,11 +69,11 @@ public class ServeurSite /*implements Runnable*/ {
 
             // Construction du nom a enregistrer
             org.omg.CosNaming.NameComponent[] nameToRegister = new org.omg.CosNaming.NameComponent[1];
-            nameToRegister[0] = new org.omg.CosNaming.NameComponent(nomSite,"");
+            nameToRegister[0] = new org.omg.CosNaming.NameComponent(codeSite,"");
 
             // Enregistrement de l'objet CORBA dans le service de noms
             nameRoot.rebind(nameToRegister,rootPOA.servant_to_reference(monSite));
-            System.out.println("==> Nom '"+ nomSite + "' est enregistre dans le service de noms.");
+            System.out.println("==> Nom '"+ codeSite + "' est enregistre dans le service de noms.");
 
             String IORServant = orb.object_to_string(rootPOA.servant_to_reference(monSite));
             System.out.println("L'objet possede la reference suivante :");

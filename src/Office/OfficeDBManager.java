@@ -131,4 +131,19 @@ public class OfficeDBManager {
         }
         return nomSite;
     }
+    
+     // méthode permettant de retourner le code du site dont l'id est passé en paramètre
+    public String getCodeSite(short idSite){
+        String codeSite = "";
+        try {
+            // requete sql 
+            ResultSet result = smt.executeQuery("SELECT codeSite FROM Sites WHERE idSite = " + idSite);
+            // récupération des données 
+            result.first();
+            codeSite = result.getString("codeSite");
+        } catch (SQLException ex) {
+            Logger.getLogger(OfficeDBManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return codeSite;
+    }
 }
