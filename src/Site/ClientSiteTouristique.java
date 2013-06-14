@@ -364,9 +364,10 @@ public class ClientSiteTouristique extends javax.swing.JFrame {
         //String date = jFormattedTextFieldDateStat.getText();
         String valeurStat;
         try {
+            //TODO appel au service E/S du site
             /********* Appel au service statistique du site *********/
             // Construction du nom a rechercher
-            org.omg.CosNaming.NameComponent[] nameToFind = new org.omg.CosNaming.NameComponent[1];
+            /*org.omg.CosNaming.NameComponent[] nameToFind = new org.omg.CosNaming.NameComponent[1];
             nameToFind[0] = new org.omg.CosNaming.NameComponent(nomServiceStat,"");
 
             // Recherche aupres du naming service
@@ -380,11 +381,11 @@ public class ClientSiteTouristique extends javax.swing.JFrame {
 
             //TODO trouver l'identifiant du site à faire passer en paramètre
             //Récupération des statistiques auprès du service stat
-            Statistique[] stat = monServiceStat.getStatsSite(db.getIdSite());
+            Statistique[] stat = monServiceStat.getStatsSite(db.getIdSite());*/
 
             /************ Remplissage du tableau *************/
             //Première ligne
-            jTableStats.getModel().setValueAt(stat[0].libelleStat,0,0);
+            /*jTableStats.getModel().setValueAt(stat[0].libelleStat,0,0);
             valeurStat=stat[0].valeurStat + " " + stat[0].uniteStat;
             jTableStats.getModel().setValueAt(valeurStat,0,1);
 
@@ -401,7 +402,7 @@ public class ClientSiteTouristique extends javax.swing.JFrame {
             //Quatrième ligne
             jTableStats.getModel().setValueAt(stat[3].libelleStat,3,0);
             valeurStat=stat[3].valeurStat + ' ' + stat[3].uniteStat;
-            jTableStats.getModel().setValueAt(valeurStat,3,1);
+            jTableStats.getModel().setValueAt(valeurStat,3,1);*/
 
         }
         catch (Exception e) {
