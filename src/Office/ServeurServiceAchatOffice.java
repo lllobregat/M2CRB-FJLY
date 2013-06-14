@@ -74,7 +74,7 @@ public class ServeurServiceAchatOffice implements Runnable {
             orb.run();
 
         }
-        catch(InvalidName | ServantAlreadyActive | WrongPolicy | AdapterInactive | ServantNotActive | NotFound | CannotProceed | org.omg.CosNaming.NamingContextPackage.InvalidName e) {
+        catch(Exception e) {
         }
     }
 }

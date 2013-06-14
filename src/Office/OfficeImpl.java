@@ -66,7 +66,7 @@ public class OfficeImpl extends OfficePOA {
                 i++;
              }
         }
-	catch (InvalidName | NotFound | CannotProceed | org.omg.CosNaming.NamingContextPackage.InvalidName e) {
+	catch (Exception e) {
 	}  
     }
             

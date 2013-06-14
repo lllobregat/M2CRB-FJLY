@@ -58,7 +58,7 @@ public class ClientSmartphone extends javax.swing.JFrame {
     public  Carte carte;
     
 
-    public ClientSmartphone(org.omg.CosNaming.NamingContext nameRoot) {
+    public ClientSmartphone() {
         this.nameRoot = nameRoot;
         sitesVisites = new short[1];
         sitesVisites[0] = 0;
@@ -954,7 +954,7 @@ public class ClientSmartphone extends javax.swing.JFrame {
             System.out.println("numéro de carte : " + carte.idCarte);
                 
         } 
-        catch (NotFound | CannotProceed | InvalidName | achatImpossibleException e) {
+        catch (Exception e) {
         }
         
         //Affichage de l'écran de confirmation ou d'annulation
@@ -1082,7 +1082,7 @@ public class ClientSmartphone extends javax.swing.JFrame {
              threadServBancaire.start();*/
 
             //Appel à l'interface graphique
-            new ClientSmartphone(nameRoot).setVisible(true);
+            new ClientSmartphone().setVisible(true);
 
         } catch (Exception e) {
         }
