@@ -25,7 +25,7 @@ public class ClientSiteTouristique extends javax.swing.JFrame {
     //private static String nombd = "bd_site_georgeslabit";
     //private static String nombd = "bd_site_saintraymond";
     public static boolean estPremierLancement = true;
-    private static org.omg.CosNaming.NamingContext nameRoot;
+    private org.omg.CosNaming.NamingContext naming;
 
     /*public static void setNombd(String str) {
         nombd = str;
@@ -34,8 +34,9 @@ public class ClientSiteTouristique extends javax.swing.JFrame {
     /**
      * Creates new form ClientSite
      */
-    public ClientSiteTouristique(String nombd) {
+    public ClientSiteTouristique(String nombd, org.omg.CosNaming.NamingContext nameRoot) {
         this.nombd = nombd;
+        this.naming = nameRoot;
         initComponents();
     }
 
@@ -72,6 +73,7 @@ public class ClientSiteTouristique extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableStats = new javax.swing.JTable();
         jLabelStatistique = new javax.swing.JLabel();
+        jLabelTitreAccueil1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -98,23 +100,20 @@ public class ClientSiteTouristique extends javax.swing.JFrame {
         Accueil.setLayout(AccueilLayout);
         AccueilLayout.setHorizontalGroup(
             AccueilLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, AccueilLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabelTitreAccueil, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(jLabelTitreAccueil, javax.swing.GroupLayout.DEFAULT_SIZE, 837, Short.MAX_VALUE)
             .addGroup(AccueilLayout.createSequentialGroup()
-                .addGap(322, 322, 322)
+                .addGap(341, 341, 341)
                 .addComponent(jButtonConsulterStats)
-                .addContainerGap(362, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         AccueilLayout.setVerticalGroup(
             AccueilLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(AccueilLayout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(76, 76, 76)
                 .addComponent(jLabelTitreAccueil)
-                .addGap(93, 93, 93)
+                .addGap(139, 139, 139)
                 .addComponent(jButtonConsulterStats)
-                .addContainerGap(460, Short.MAX_VALUE))
+                .addContainerGap(349, Short.MAX_VALUE))
         );
 
         mainPanel.add(Accueil, "Accueil");
@@ -298,24 +297,24 @@ public class ClientSiteTouristique extends javax.swing.JFrame {
                 {null, null}
             },
             new String [] {
-                "Title 1", "Title 2"
+                "Statistique", "Valeur"
             }
         ));
         jScrollPane1.setViewportView(jTableStats);
 
         jLabelStatistique.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabelStatistique.setText("Statistiques du musée:");
+        jLabelStatistique.setText("Statistiques du musée :");
+
+        jLabelTitreAccueil1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabelTitreAccueil1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelTitreAccueil1.setText(new SiteDBManager(nombd).getNomSite());
 
         javax.swing.GroupLayout EcranStatsLayout = new javax.swing.GroupLayout(EcranStats);
         EcranStats.setLayout(EcranStatsLayout);
         EcranStatsLayout.setHorizontalGroup(
             EcranStatsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(EcranStatsLayout.createSequentialGroup()
-                .addGap(72, 72, 72)
-                .addComponent(jLabelStatistique, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, EcranStatsLayout.createSequentialGroup()
-                .addContainerGap(206, Short.MAX_VALUE)
+                .addContainerGap(169, Short.MAX_VALUE)
                 .addGroup(EcranStatsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, EcranStatsLayout.createSequentialGroup()
                         .addComponent(jButtonAccueil)
@@ -323,17 +322,26 @@ public class ClientSiteTouristique extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, EcranStatsLayout.createSequentialGroup()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(179, 179, 179))))
+            .addGroup(EcranStatsLayout.createSequentialGroup()
+                .addGap(73, 73, 73)
+                .addComponent(jLabelStatistique, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(EcranStatsLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabelTitreAccueil1, javax.swing.GroupLayout.DEFAULT_SIZE, 790, Short.MAX_VALUE))
         );
         EcranStatsLayout.setVerticalGroup(
             EcranStatsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(EcranStatsLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jButtonAccueil)
-                .addGap(72, 72, 72)
+                .addGap(29, 29, 29)
+                .addComponent(jLabelTitreAccueil1)
+                .addGap(75, 75, 75)
                 .addComponent(jLabelStatistique, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(117, 117, 117)
+                .addGap(56, 56, 56)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(227, Short.MAX_VALUE))
+                .addContainerGap(211, Short.MAX_VALUE))
         );
 
         mainPanel.add(EcranStats, "EcranStats");
@@ -360,49 +368,50 @@ public class ClientSiteTouristique extends javax.swing.JFrame {
         CardLayout card = (CardLayout) mainPanel.getLayout();
         card.show(mainPanel, "EcranStats");
         SiteDBManager db = new SiteDBManager(this.nombd);
-        String nomServiceStat = "STAT " + db.getNomSite();
         //String date = jFormattedTextFieldDateStat.getText();
         String valeurStat;
         try {
-            //TODO appel au service E/S du site
-            /********* Appel au service statistique du site *********/
-            // Construction du nom a rechercher
-            /*org.omg.CosNaming.NameComponent[] nameToFind = new org.omg.CosNaming.NameComponent[1];
-            nameToFind[0] = new org.omg.CosNaming.NameComponent(nomServiceStat,"");
-
-            // Recherche aupres du naming service
-            org.omg.CORBA.Object distantServiceStat = nameRoot.resolve(nameToFind);
-            System.out.println("Objet '" + nomServiceStat + "' trouve aupres du service de noms.");
-
-            // Casting de l'objet CORBA
-            ServiceStatSite monServiceStat = ServiceStatSiteHelper.narrow(distantServiceStat);
-
-            //Lancement du service ES
-
-            //TODO trouver l'identifiant du site à faire passer en paramètre
-            //Récupération des statistiques auprès du service stat
-            Statistique[] stat = monServiceStat.getStatsSite(db.getIdSite());*/
+            /**************** Recherche du service E/S **************/
+            String nomServES = "ES " + db.getCodeSite();
+            org.omg.CosNaming.NameComponent[] nameToFind = new org.omg.CosNaming.NameComponent[1];
+            nameToFind[0] = new org.omg.CosNaming.NameComponent(nomServES, "");
+            org.omg.CORBA.Object distantServES = this.naming.resolve(nameToFind);
+            System.out.println("Objet "+nomServES+ " trouvé auprès du service de noms.");
+            
+            ServiceESSite monServES = ServiceESSiteHelper.narrow(distantServES); 
+            
+            //Récupération de l'affluence quotidienne
+            float affluenceQuotidienne = monServES.generateAffluenceQuotidienne();
+            
+            //Récupération de la durée minimale de visite
+            String dureeMini = monServES.generateDureeMinimaleVisite();
+            
+            //Récupération de la durée maximale de visite
+            String dureeMaxi = monServES.generateDureeMaximaleVisite();
+            
+            //Récupération de la durée moyenne d'une visite
+            String dureeMoyenne = monServES.generateDureeMoyenneVisite();
 
             /************ Remplissage du tableau *************/
             //Première ligne
-            /*jTableStats.getModel().setValueAt(stat[0].libelleStat,0,0);
-            valeurStat=stat[0].valeurStat + " " + stat[0].uniteStat;
+            jTableStats.getModel().setValueAt("Affluence quotidienne",0,0);
+            valeurStat=affluenceQuotidienne + " %";
             jTableStats.getModel().setValueAt(valeurStat,0,1);
 
             //Deuxième ligne
-            jTableStats.getModel().setValueAt(stat[1].libelleStat,1,0);
-            valeurStat=stat[1].valeurStat + " " + stat[1].uniteStat;
+            jTableStats.getModel().setValueAt("Durée minimale de visite",1,0);
+            valeurStat=dureeMini + " minutes";
             jTableStats.getModel().setValueAt(valeurStat,1,1);
 
             //Troisième ligne
-            jTableStats.getModel().setValueAt(stat[2].libelleStat,2,0);
-            valeurStat=stat[2].valeurStat + " " + stat[2].uniteStat;
+            jTableStats.getModel().setValueAt("Durée maximale de visite",2,0);
+            valeurStat=dureeMaxi + " minutes";
             jTableStats.getModel().setValueAt(valeurStat,2,1);
 
             //Quatrième ligne
-            jTableStats.getModel().setValueAt(stat[3].libelleStat,3,0);
-            valeurStat=stat[3].valeurStat + ' ' + stat[3].uniteStat;
-            jTableStats.getModel().setValueAt(valeurStat,3,1);*/
+            jTableStats.getModel().setValueAt("Durée moyenne de visite",3,0);
+            valeurStat=dureeMoyenne + " minutes";
+            jTableStats.getModel().setValueAt(valeurStat,3,1);
 
         }
         catch (Exception e) {
@@ -614,10 +623,7 @@ public class ClientSiteTouristique extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(ClientSiteTouristique.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-
-        //System.out.println(args[0]);
-        
-        //ClientSiteTouristique.setNombd(args[0]);
+        org.omg.CosNaming.NamingContext nameRoot;
         try {
             
             //1
@@ -642,7 +648,7 @@ public class ClientSiteTouristique extends javax.swing.JFrame {
             thread_servStatSite.start();*/
             
             //Appel à l'interface graphique
-            ClientSiteTouristique client = new ClientSiteTouristique(args[0]);
+            ClientSiteTouristique client = new ClientSiteTouristique(args[0], nameRoot);
             client.setVisible(true);
         }
         catch (Exception e) {
@@ -663,6 +669,7 @@ public class ClientSiteTouristique extends javax.swing.JFrame {
     private javax.swing.JLabel jLabelSousTitreAssistant;
     private javax.swing.JLabel jLabelStatistique;
     private javax.swing.JLabel jLabelTitreAccueil;
+    private javax.swing.JLabel jLabelTitreAccueil1;
     private javax.swing.JLabel jLabelTitreAssistant;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;

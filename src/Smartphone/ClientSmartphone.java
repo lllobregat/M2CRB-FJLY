@@ -13,6 +13,7 @@ import java.awt.Color;
 import java.awt.HeadlessException;
 import java.text.DateFormat;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 import java.util.logging.Level;
@@ -56,7 +57,7 @@ public class ClientSmartphone extends javax.swing.JFrame {
     public  Coordonnees coordSmartphone = new Coordonnees((float)10, (float)20);
     public  short[] sitesVisites;
     public  Carte carte;
-    
+    private float satisfaction = 50;
 
     public ClientSmartphone(org.omg.CosNaming.NamingContext nameRoot, String nomOffice) {
         this.nameRoot = nameRoot;
@@ -113,24 +114,40 @@ public class ClientSmartphone extends javax.swing.JFrame {
         numtelSite = new javax.swing.JLabel();
         labelAffluence = new javax.swing.JLabel();
         jProgressBarAffluenceSite = new javax.swing.JProgressBar();
+        jButtonEntrer = new javax.swing.JButton();
         EcranBilletterie = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
         EcranRecherche = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
         EcranAchat = new javax.swing.JPanel();
-        jLabel9 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
         dateD = new javax.swing.JFormattedTextField();
         dateF = new javax.swing.JFormattedTextField();
         BoutonPayer = new javax.swing.JButton();
         textMontant = new javax.swing.JLabel();
+        labelPassword1 = new javax.swing.JLabel();
+        labelPassword2 = new javax.swing.JLabel();
+        labelPassword3 = new javax.swing.JLabel();
         EcranCarte = new javax.swing.JPanel();
         jLabel12 = new javax.swing.JLabel();
         BoutonVoirSite = new javax.swing.JButton();
         jLabelMessagePaiement = new javax.swing.JLabel();
-        jPanel8 = new javax.swing.JPanel();
-        jPanel9 = new javax.swing.JPanel();
+        EcranNFC = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTextPaneInstructionsNFC = new javax.swing.JTextPane();
+        jButtonAnnulerEntrer = new javax.swing.JButton();
+        jButtonEntrerNFC = new javax.swing.JButton();
+        EcranSortir = new javax.swing.JPanel();
+        jButtonSortirDuSite = new javax.swing.JButton();
+        jLabelHeureDebutVisite = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabelNumeroCarte = new javax.swing.JLabel();
+        EcranAvis = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        jSliderSatisfaction = new javax.swing.JSlider();
+        jButtonDonnerAvis = new javax.swing.JButton();
+        jButtonIgnorer = new javax.swing.JButton();
+        jLabelSatisfaction = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
         footerPanel = new javax.swing.JPanel();
         boutonAccueil = new javax.swing.JButton();
         boutonBilletterie = new javax.swing.JButton();
@@ -293,16 +310,18 @@ public class ClientSmartphone extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(EcranIdentificationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(EcranIdentificationLayout.createSequentialGroup()
-                        .addGroup(EcranIdentificationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(fieldIdentifiant, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(fieldPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(fieldPassword)
+                        .addContainerGap())
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, EcranIdentificationLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(EcranIdentificationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(boutonInscription, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(boutonSeConnecter, javax.swing.GroupLayout.DEFAULT_SIZE, 154, Short.MAX_VALUE)
                             .addComponent(boutonMotDePasseOublie, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(80, 80, 80))))
+                        .addGap(80, 80, 80))
+                    .addGroup(EcranIdentificationLayout.createSequentialGroup()
+                        .addComponent(fieldIdentifiant)
+                        .addContainerGap())))
         );
         EcranIdentificationLayout.setVerticalGroup(
             EcranIdentificationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -323,7 +342,7 @@ public class ClientSmartphone extends javax.swing.JFrame {
                 .addComponent(boutonInscription)
                 .addGap(18, 18, 18)
                 .addComponent(boutonMotDePasseOublie)
-                .addGap(0, 67, Short.MAX_VALUE))
+                .addGap(0, 54, Short.MAX_VALUE))
         );
 
         mainPanel.add(EcranIdentification, "EcranIdentification");
@@ -359,6 +378,9 @@ public class ClientSmartphone extends javax.swing.JFrame {
         jButton5.setText("Musée Saint-Raymond de Toulouse");
         jButton5.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
 
+        boutonReserver.setBackground(new java.awt.Color(0, 51, 255));
+        boutonReserver.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        boutonReserver.setForeground(new java.awt.Color(255, 255, 255));
         boutonReserver.setText("Réserver");
         boutonReserver.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -455,6 +477,16 @@ public class ClientSmartphone extends javax.swing.JFrame {
         jProgressBarAffluenceSite.setForeground(new java.awt.Color(51, 255, 51));
         jProgressBarAffluenceSite.setValue(14);
 
+        jButtonEntrer.setBackground(new java.awt.Color(0, 51, 255));
+        jButtonEntrer.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
+        jButtonEntrer.setForeground(new java.awt.Color(255, 255, 255));
+        jButtonEntrer.setText("Entrer dans le site ...");
+        jButtonEntrer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonEntrerActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout EcranInfoSiteLayout = new javax.swing.GroupLayout(EcranInfoSite);
         EcranInfoSite.setLayout(EcranInfoSiteLayout);
         EcranInfoSiteLayout.setHorizontalGroup(
@@ -467,7 +499,7 @@ public class ClientSmartphone extends javax.swing.JFrame {
                     .addComponent(adresseSite)
                     .addComponent(numtelSite))
                 .addGap(0, 0, Short.MAX_VALUE))
-            .addComponent(labelAffluence, javax.swing.GroupLayout.DEFAULT_SIZE, 328, Short.MAX_VALUE)
+            .addComponent(labelAffluence, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(EcranInfoSiteLayout.createSequentialGroup()
                 .addGroup(EcranInfoSiteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(EcranInfoSiteLayout.createSequentialGroup()
@@ -476,7 +508,8 @@ public class ClientSmartphone extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(EcranInfoSiteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(titreSite, javax.swing.GroupLayout.DEFAULT_SIZE, 205, Short.MAX_VALUE)
-                            .addComponent(sousTitreSite, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addComponent(sousTitreSite, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButtonEntrer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(EcranInfoSiteLayout.createSequentialGroup()
                         .addGap(18, 18, 18)
                         .addComponent(jProgressBarAffluenceSite, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -491,7 +524,9 @@ public class ClientSmartphone extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, EcranInfoSiteLayout.createSequentialGroup()
                         .addComponent(titreSite)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(sousTitreSite)))
+                        .addComponent(sousTitreSite)
+                        .addGap(25, 25, 25)
+                        .addComponent(jButtonEntrer)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(labelBandeauPresentation, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -553,12 +588,6 @@ public class ClientSmartphone extends javax.swing.JFrame {
 
         mainPanel.add(EcranRecherche, "EcranRecherche");
 
-        jLabel9.setText("Date de début :");
-
-        jLabel10.setText("Date de fin :");
-
-        jLabel11.setText("Montant :");
-
         dateD.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(java.text.DateFormat.getDateInstance(java.text.DateFormat.SHORT))));
         dateD.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         dateD.addActionListener(new java.awt.event.ActionListener() {
@@ -574,6 +603,9 @@ public class ClientSmartphone extends javax.swing.JFrame {
             }
         });
 
+        BoutonPayer.setBackground(new java.awt.Color(0, 51, 255));
+        BoutonPayer.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        BoutonPayer.setForeground(new java.awt.Color(255, 255, 255));
         BoutonPayer.setText("Payer");
         BoutonPayer.setActionCommand("BoutonPayer");
         BoutonPayer.addActionListener(new java.awt.event.ActionListener() {
@@ -582,50 +614,60 @@ public class ClientSmartphone extends javax.swing.JFrame {
             }
         });
 
+        labelPassword1.setBackground(new java.awt.Color(153, 153, 153));
+        labelPassword1.setFont(new java.awt.Font("Arial", 1, 13)); // NOI18N
+        labelPassword1.setForeground(new java.awt.Color(255, 255, 255));
+        labelPassword1.setText("   Date de début");
+        labelPassword1.setToolTipText("");
+        labelPassword1.setOpaque(true);
+
+        labelPassword2.setBackground(new java.awt.Color(153, 153, 153));
+        labelPassword2.setFont(new java.awt.Font("Arial", 1, 13)); // NOI18N
+        labelPassword2.setForeground(new java.awt.Color(255, 255, 255));
+        labelPassword2.setText("   Montant (en euros)");
+        labelPassword2.setToolTipText("");
+        labelPassword2.setOpaque(true);
+
+        labelPassword3.setBackground(new java.awt.Color(153, 153, 153));
+        labelPassword3.setFont(new java.awt.Font("Arial", 1, 13)); // NOI18N
+        labelPassword3.setForeground(new java.awt.Color(255, 255, 255));
+        labelPassword3.setText("   Date de fin");
+        labelPassword3.setToolTipText("");
+        labelPassword3.setOpaque(true);
+
         javax.swing.GroupLayout EcranAchatLayout = new javax.swing.GroupLayout(EcranAchat);
         EcranAchat.setLayout(EcranAchatLayout);
         EcranAchatLayout.setHorizontalGroup(
             EcranAchatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(labelPassword1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(dateD)
+            .addComponent(labelPassword3, javax.swing.GroupLayout.DEFAULT_SIZE, 320, Short.MAX_VALUE)
+            .addComponent(dateF)
+            .addComponent(labelPassword2, javax.swing.GroupLayout.DEFAULT_SIZE, 320, Short.MAX_VALUE)
+            .addComponent(textMontant, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(EcranAchatLayout.createSequentialGroup()
-                .addGroup(EcranAchatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(EcranAchatLayout.createSequentialGroup()
-                        .addGap(51, 51, 51)
-                        .addGroup(EcranAchatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, EcranAchatLayout.createSequentialGroup()
-                                .addComponent(jLabel10)
-                                .addGap(42, 42, 42))
-                            .addGroup(EcranAchatLayout.createSequentialGroup()
-                                .addGroup(EcranAchatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel9)
-                                    .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(15, 15, 15)))
-                        .addGroup(EcranAchatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(dateD)
-                            .addComponent(dateF)
-                            .addComponent(textMontant, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(EcranAchatLayout.createSequentialGroup()
-                        .addGap(123, 123, 123)
-                        .addComponent(BoutonPayer)))
-                .addContainerGap(26, Short.MAX_VALUE))
+                .addGap(102, 102, 102)
+                .addComponent(BoutonPayer, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         EcranAchatLayout.setVerticalGroup(
             EcranAchatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(EcranAchatLayout.createSequentialGroup()
-                .addGap(121, 121, 121)
-                .addGroup(EcranAchatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel9)
-                    .addComponent(dateD, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(35, 35, 35)
-                .addGroup(EcranAchatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel10)
-                    .addComponent(dateF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(33, 33, 33)
-                .addGroup(EcranAchatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel11)
-                    .addComponent(textMontant, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(46, 46, 46)
+                .addContainerGap()
+                .addComponent(labelPassword1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(dateD, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(labelPassword3, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(dateF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(labelPassword2, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(textMontant, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(67, 67, 67)
                 .addComponent(BoutonPayer)
-                .addContainerGap(49, Short.MAX_VALUE))
+                .addContainerGap(99, Short.MAX_VALUE))
         );
 
         BoutonPayer.getAccessibleContext().setAccessibleName("BoutonPayer");
@@ -634,8 +676,12 @@ public class ClientSmartphone extends javax.swing.JFrame {
         EcranAchat.getAccessibleContext().setAccessibleName("");
 
         jLabel12.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel12.setForeground(new java.awt.Color(0, 51, 255));
         jLabel12.setText("Confirmation du paiement");
 
+        BoutonVoirSite.setBackground(new java.awt.Color(0, 51, 255));
+        BoutonVoirSite.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
+        BoutonVoirSite.setForeground(new java.awt.Color(255, 255, 255));
         BoutonVoirSite.setText("Voir la liste des sites");
         BoutonVoirSite.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -674,31 +720,180 @@ public class ClientSmartphone extends javax.swing.JFrame {
 
         mainPanel.add(EcranCarte, "EcranCarte");
 
-        javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
-        jPanel8.setLayout(jPanel8Layout);
-        jPanel8Layout.setHorizontalGroup(
-            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 320, Short.MAX_VALUE)
+        jTextPaneInstructionsNFC.setText("Afin d'entrer dans le site et d'enregistrer votre visite, veuillez passer lentement votre smartphone à proximité du support NFC situé sur le portique");
+        jScrollPane1.setViewportView(jTextPaneInstructionsNFC);
+
+        jButtonAnnulerEntrer.setBackground(new java.awt.Color(0, 51, 255));
+        jButtonAnnulerEntrer.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
+        jButtonAnnulerEntrer.setForeground(new java.awt.Color(255, 255, 255));
+        jButtonAnnulerEntrer.setText("Annuler");
+        jButtonAnnulerEntrer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonAnnulerEntrerActionPerformed(evt);
+            }
+        });
+
+        jButtonEntrerNFC.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Smartphone/Images/schemaNFC.png"))); // NOI18N
+        jButtonEntrerNFC.setBorderPainted(false);
+        jButtonEntrerNFC.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonEntrerNFCActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout EcranNFCLayout = new javax.swing.GroupLayout(EcranNFC);
+        EcranNFC.setLayout(EcranNFCLayout);
+        EcranNFCLayout.setHorizontalGroup(
+            EcranNFCLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+            .addComponent(jButtonEntrerNFC, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, EcranNFCLayout.createSequentialGroup()
+                .addContainerGap(55, Short.MAX_VALUE)
+                .addComponent(jButtonAnnulerEntrer, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(53, 53, 53))
         );
-        jPanel8Layout.setVerticalGroup(
-            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 361, Short.MAX_VALUE)
+        EcranNFCLayout.setVerticalGroup(
+            EcranNFCLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(EcranNFCLayout.createSequentialGroup()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jButtonEntrerNFC, javax.swing.GroupLayout.PREFERRED_SIZE, 240, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButtonAnnulerEntrer)
+                .addGap(6, 6, 6))
         );
 
-        mainPanel.add(jPanel8, "card9");
+        mainPanel.add(EcranNFC, "EcranNFC");
 
-        javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
-        jPanel9.setLayout(jPanel9Layout);
-        jPanel9Layout.setHorizontalGroup(
-            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 320, Short.MAX_VALUE)
+        jButtonSortirDuSite.setBackground(new java.awt.Color(0, 51, 255));
+        jButtonSortirDuSite.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jButtonSortirDuSite.setForeground(new java.awt.Color(255, 255, 255));
+        jButtonSortirDuSite.setText("Sortir");
+        jButtonSortirDuSite.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonSortirDuSiteActionPerformed(evt);
+            }
+        });
+
+        jLabelHeureDebutVisite.setText("Heure d'entrée : ");
+
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(0, 51, 255));
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("Bonne visite !");
+
+        jLabelNumeroCarte.setText("Numéro de carte : ");
+
+        javax.swing.GroupLayout EcranSortirLayout = new javax.swing.GroupLayout(EcranSortir);
+        EcranSortir.setLayout(EcranSortirLayout);
+        EcranSortirLayout.setHorizontalGroup(
+            EcranSortirLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 320, Short.MAX_VALUE)
+            .addGroup(EcranSortirLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(EcranSortirLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabelNumeroCarte, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabelHeureDebutVisite, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+            .addGroup(EcranSortirLayout.createSequentialGroup()
+                .addGap(103, 103, 103)
+                .addComponent(jButtonSortirDuSite, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-        jPanel9Layout.setVerticalGroup(
-            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 361, Short.MAX_VALUE)
+        EcranSortirLayout.setVerticalGroup(
+            EcranSortirLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, EcranSortirLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabelNumeroCarte)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabelHeureDebutVisite)
+                .addGap(107, 107, 107)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 79, Short.MAX_VALUE)
+                .addComponent(jButtonSortirDuSite, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(53, 53, 53))
         );
 
-        mainPanel.add(jPanel9, "card10");
+        mainPanel.add(EcranSortir, "EcranSortir");
+
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel2.setText("Votre avis nous intéresse !");
+
+        jSliderSatisfaction.setMaximum(4);
+        jSliderSatisfaction.setToolTipText("");
+        jSliderSatisfaction.setValue(2);
+        jSliderSatisfaction.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                jSliderSatisfactionStateChanged(evt);
+            }
+        });
+
+        jButtonDonnerAvis.setBackground(new java.awt.Color(0, 51, 255));
+        jButtonDonnerAvis.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jButtonDonnerAvis.setForeground(new java.awt.Color(255, 255, 255));
+        jButtonDonnerAvis.setText("Donner son avis !");
+        jButtonDonnerAvis.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonDonnerAvisActionPerformed(evt);
+            }
+        });
+
+        jButtonIgnorer.setBackground(new java.awt.Color(0, 51, 255));
+        jButtonIgnorer.setFont(new java.awt.Font("Arial", 0, 10)); // NOI18N
+        jButtonIgnorer.setForeground(new java.awt.Color(255, 255, 255));
+        jButtonIgnorer.setText("Ignorer");
+        jButtonIgnorer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonIgnorerActionPerformed(evt);
+            }
+        });
+
+        jLabelSatisfaction.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabelSatisfaction.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelSatisfaction.setText("Moyen");
+
+        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(0, 51, 255));
+        jLabel3.setText("Merci de votre visite !");
+
+        javax.swing.GroupLayout EcranAvisLayout = new javax.swing.GroupLayout(EcranAvis);
+        EcranAvis.setLayout(EcranAvisLayout);
+        EcranAvisLayout.setHorizontalGroup(
+            EcranAvisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(EcranAvisLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(EcranAvisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabelSatisfaction, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jSliderSatisfaction, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, EcranAvisLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(EcranAvisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jButtonIgnorer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButtonDonnerAvis, javax.swing.GroupLayout.DEFAULT_SIZE, 177, Short.MAX_VALUE))
+                        .addGap(60, 60, 60)))
+                .addContainerGap())
+        );
+        EcranAvisLayout.setVerticalGroup(
+            EcranAvisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(EcranAvisLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
+                .addComponent(jLabel2)
+                .addGap(34, 34, 34)
+                .addComponent(jSliderSatisfaction, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabelSatisfaction)
+                .addGap(57, 57, 57)
+                .addComponent(jButtonDonnerAvis, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButtonIgnorer)
+                .addGap(45, 45, 45))
+        );
+
+        mainPanel.add(EcranAvis, "EcranAvis");
 
         footerPanel.setBackground(new java.awt.Color(255, 255, 255));
         footerPanel.setMaximumSize(new java.awt.Dimension(325, 50));
@@ -1028,6 +1223,90 @@ public class ClientSmartphone extends javax.swing.JFrame {
         card.show(mainPanel, "EcranAccueil");
     }//GEN-LAST:event_BoutonVoirSiteActionPerformed
 
+    private void jButtonEntrerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEntrerActionPerformed
+        //On désactive le bouton retour
+        boutonRetour.setVisible(false);
+        
+        //On affiche l'écran des instructions pour le passage devant la borne NFC
+        CardLayout card = (CardLayout) mainPanel.getLayout();
+        card.show(mainPanel, "EcranNFC");
+    }//GEN-LAST:event_jButtonEntrerActionPerformed
+
+    private void jButtonAnnulerEntrerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAnnulerEntrerActionPerformed
+        //On réactive le bouton retour
+        boutonRetour.setVisible(true);
+        //retour à l'affichage précédent
+        CardLayout card = (CardLayout) mainPanel.getLayout();
+        card.show(mainPanel, "EcranInfoSite");
+    }//GEN-LAST:event_jButtonAnnulerEntrerActionPerformed
+
+    private void jButtonEntrerNFCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEntrerNFCActionPerformed
+        
+        //Désactivation Accueil / Billeterie / Recherche
+        boutonAccueil.setEnabled(false);
+        boutonBilletterie.setEnabled(false);
+        boutonRecherche.setEnabled(false);
+        
+        jLabelHeureDebutVisite.setText("Date d'entrée : " + new SimpleDateFormat("dd/MM/yyyy HH:mm").format(new Date()));
+        jLabelNumeroCarte.setText("Numéro de carte : " + carte.idCarte);
+        CardLayout card = (CardLayout) mainPanel.getLayout();
+        card.show(mainPanel, "EcranSortir");
+        
+        
+    }//GEN-LAST:event_jButtonEntrerNFCActionPerformed
+
+    private void jButtonSortirDuSiteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSortirDuSiteActionPerformed
+        CardLayout card = (CardLayout) mainPanel.getLayout();
+        card.show(mainPanel, "EcranAvis");       
+    }//GEN-LAST:event_jButtonSortirDuSiteActionPerformed
+
+    private void jSliderSatisfactionStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jSliderSatisfactionStateChanged
+        System.out.println(jSliderSatisfaction.getValue());
+        //Maj du label en fonction de la valeur
+        switch (jSliderSatisfaction.getValue()) {
+            case 0:
+                jLabelSatisfaction.setText("Très insatisfait");
+                satisfaction = (float) 0;
+                break;
+            case 1:
+                jLabelSatisfaction.setText("Insatisfait");
+                satisfaction = (float) 25;
+                break;
+            case 2:
+                jLabelSatisfaction.setText("Moyen");
+                satisfaction = (float) 50;
+                break;
+            case 3:
+                jLabelSatisfaction.setText("Satisfait");
+                satisfaction = (float) 75;
+                break;
+            case 4:
+                jLabelSatisfaction.setText("Très satisfait");
+                satisfaction = (float) 100;
+                break;
+        }
+    }//GEN-LAST:event_jSliderSatisfactionStateChanged
+
+    private void jButtonDonnerAvisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDonnerAvisActionPerformed
+        //Réactivation Accueil / Billeterie / Recherche
+        boutonAccueil.setEnabled(true);
+        boutonBilletterie.setEnabled(true);
+        boutonRecherche.setEnabled(true);
+        
+        CardLayout card = (CardLayout) mainPanel.getLayout();
+        card.show(mainPanel, "EcranAccueil");
+    }//GEN-LAST:event_jButtonDonnerAvisActionPerformed
+
+    private void jButtonIgnorerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonIgnorerActionPerformed
+        //Réactivation Accueil / Billeterie / Recherche
+        boutonAccueil.setEnabled(true);
+        boutonBilletterie.setEnabled(true);
+        boutonRecherche.setEnabled(true);
+        
+        CardLayout card = (CardLayout) mainPanel.getLayout();
+        card.show(mainPanel, "EcranAccueil");
+    }//GEN-LAST:event_jButtonIgnorerActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -1090,11 +1369,14 @@ public class ClientSmartphone extends javax.swing.JFrame {
     private javax.swing.JButton BoutonVoirSite;
     private javax.swing.JPanel EcranAccueil;
     private javax.swing.JPanel EcranAchat;
+    private javax.swing.JPanel EcranAvis;
     private javax.swing.JPanel EcranBilletterie;
     private javax.swing.JPanel EcranCarte;
     private javax.swing.JPanel EcranIdentification;
     private javax.swing.JPanel EcranInfoSite;
+    private javax.swing.JPanel EcranNFC;
     private javax.swing.JPanel EcranRecherche;
+    private javax.swing.JPanel EcranSortir;
     private javax.swing.JLabel ImageBandeau;
     private javax.swing.JLabel adresseSite;
     private javax.swing.JPanel bandeauPanel;
@@ -1118,27 +1400,40 @@ public class ClientSmartphone extends javax.swing.JFrame {
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
+    private javax.swing.JButton jButtonAnnulerEntrer;
+    private javax.swing.JButton jButtonDonnerAvis;
+    private javax.swing.JButton jButtonEntrer;
+    private javax.swing.JButton jButtonEntrerNFC;
+    private javax.swing.JButton jButtonIgnorer;
+    private javax.swing.JButton jButtonSortirDuSite;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
+    private javax.swing.JLabel jLabelHeureDebutVisite;
     private javax.swing.JLabel jLabelMessagePaiement;
+    private javax.swing.JLabel jLabelNumeroCarte;
+    private javax.swing.JLabel jLabelSatisfaction;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel8;
-    private javax.swing.JPanel jPanel9;
     private javax.swing.JProgressBar jProgressBarAffluenceSite;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPaneIdentification;
     private javax.swing.JScrollPane jScrollPanePresentationSite;
+    private javax.swing.JSlider jSliderSatisfaction;
     private javax.swing.JTextPane jTextPane1;
     private javax.swing.JTextPane jTextPaneIdentification;
+    private javax.swing.JTextPane jTextPaneInstructionsNFC;
     private javax.swing.JLabel labelAffluence;
     private javax.swing.JLabel labelBandeauAdresse;
     private javax.swing.JLabel labelBandeauPresentation;
     private javax.swing.JLabel labelIdentifiant;
     private javax.swing.JLabel labelLogo;
     private javax.swing.JLabel labelPassword;
+    private javax.swing.JLabel labelPassword1;
+    private javax.swing.JLabel labelPassword2;
+    private javax.swing.JLabel labelPassword3;
     private javax.swing.JPanel mainPanel;
     private javax.swing.JLabel numtelSite;
     private javax.swing.JLabel sousTitreSite;

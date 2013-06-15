@@ -4,19 +4,18 @@
  */
 package Site;
 import AssistanceTouristique.*;
+import org.omg.CosNaming.NamingContext;
 /**
  *
  * @author Lydia
  */
 public class SiteTouristiqueImpl extends SiteTouristiquePOA {
-    private String nomSite;
     private String nombd;
     private SiteDBManager db;
     
-    public SiteTouristiqueImpl(String nomSite, String nombd) {
-       this.nomSite = nomSite;
+    public SiteTouristiqueImpl(String nombd) {
        this.nombd = nombd;
-       this.db = new SiteDBManager(this.nombd);
+       this.db = new SiteDBManager(this.nombd);  
     }
     
     // Méthode permettant de récupérer les infos générales du Site

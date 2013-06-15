@@ -5,6 +5,7 @@
 package Office;
 
 import java.awt.CardLayout;
+import AssistanceTouristique.*;
 
 /**
  *
@@ -12,8 +13,11 @@ import java.awt.CardLayout;
  */
 public class ClientOffice extends javax.swing.JFrame {
     private String nomOffice;
-    public ClientOffice(String nomOffice) {
-        this.nomOffice=nomOffice;
+    private org.omg.CosNaming.NamingContext naming;
+    
+    public ClientOffice(String nomOffice, org.omg.CosNaming.NamingContext nameRoot) {
+        this.nomOffice = nomOffice;
+        this.naming = nameRoot;
         initComponents();
     }
 
@@ -27,25 +31,33 @@ public class ClientOffice extends javax.swing.JFrame {
     private void initComponents() {
 
         BandeauOffice = new javax.swing.JPanel();
+        jLabelTitreClientOffice = new javax.swing.JLabel();
         boutonAccueil = new javax.swing.JButton();
         mainPanel = new javax.swing.JPanel();
         Accueil = new javax.swing.JPanel();
         boutonConsulterStatsSites = new javax.swing.JButton();
-        boutonConsulterLesVentes = new javax.swing.JButton();
         boutonConsulterListeSites = new javax.swing.JButton();
-        jLabelTitreClientOffice = new javax.swing.JLabel();
         ConsultationVentes = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableListeVentes = new javax.swing.JTable();
-        ConsultationStatsSites = new javax.swing.JPanel();
         ConsultationListeSites = new javax.swing.JPanel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jTableListeSites = new javax.swing.JTable();
+        ConsultationStatsSites = new javax.swing.JPanel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTableStatistique = new javax.swing.JTable();
+        jLabelStatistiques = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Office de tourisme de Toulouse");
         setFocusCycleRoot(false);
         setPreferredSize(new java.awt.Dimension(800, 600));
         setResizable(false);
+
+        jLabelTitreClientOffice.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabelTitreClientOffice.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelTitreClientOffice.setText("Office de tourisme de " + nomOffice);
 
         boutonAccueil.setText("Accueil");
         boutonAccueil.addActionListener(new java.awt.event.ActionListener() {
@@ -62,6 +74,11 @@ public class ClientOffice extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(boutonAccueil)
                 .addContainerGap())
+            .addGroup(BandeauOfficeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(BandeauOfficeLayout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(jLabelTitreClientOffice, javax.swing.GroupLayout.DEFAULT_SIZE, 780, Short.MAX_VALUE)
+                    .addContainerGap()))
         );
         BandeauOfficeLayout.setVerticalGroup(
             BandeauOfficeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -69,6 +86,11 @@ public class ClientOffice extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(boutonAccueil)
                 .addContainerGap(17, Short.MAX_VALUE))
+            .addGroup(BandeauOfficeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(BandeauOfficeLayout.createSequentialGroup()
+                    .addGap(14, 14, 14)
+                    .addComponent(jLabelTitreClientOffice)
+                    .addContainerGap(15, Short.MAX_VALUE)))
         );
 
         mainPanel.setLayout(new java.awt.CardLayout());
@@ -80,13 +102,6 @@ public class ClientOffice extends javax.swing.JFrame {
             }
         });
 
-        boutonConsulterLesVentes.setText("Consulter les ventes");
-        boutonConsulterLesVentes.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                boutonConsulterLesVentesActionPerformed(evt);
-            }
-        });
-
         boutonConsulterListeSites.setText("Consulter la liste des sites");
         boutonConsulterListeSites.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -94,38 +109,25 @@ public class ClientOffice extends javax.swing.JFrame {
             }
         });
 
-        jLabelTitreClientOffice.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabelTitreClientOffice.setText("Office de tourisme de " + nomOffice);
-
         javax.swing.GroupLayout AccueilLayout = new javax.swing.GroupLayout(Accueil);
         Accueil.setLayout(AccueilLayout);
         AccueilLayout.setHorizontalGroup(
             AccueilLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(AccueilLayout.createSequentialGroup()
-                .addGroup(AccueilLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(AccueilLayout.createSequentialGroup()
-                        .addGap(279, 279, 279)
-                        .addGroup(AccueilLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(boutonConsulterStatsSites, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(boutonConsulterLesVentes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(boutonConsulterListeSites, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addGroup(AccueilLayout.createSequentialGroup()
-                        .addGap(227, 227, 227)
-                        .addComponent(jLabelTitreClientOffice, javax.swing.GroupLayout.PREFERRED_SIZE, 267, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(306, Short.MAX_VALUE))
+                .addGap(289, 289, 289)
+                .addGroup(AccueilLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(boutonConsulterStatsSites, javax.swing.GroupLayout.DEFAULT_SIZE, 233, Short.MAX_VALUE)
+                    .addComponent(boutonConsulterListeSites, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(278, Short.MAX_VALUE))
         );
         AccueilLayout.setVerticalGroup(
             AccueilLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(AccueilLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabelTitreClientOffice)
-                .addGap(147, 147, 147)
-                .addComponent(boutonConsulterLesVentes)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(209, 209, 209)
                 .addComponent(boutonConsulterStatsSites)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(28, 28, 28)
                 .addComponent(boutonConsulterListeSites)
-                .addContainerGap(313, Short.MAX_VALUE))
+                .addContainerGap(291, Short.MAX_VALUE))
         );
 
         mainPanel.add(Accueil, "Accueil");
@@ -194,31 +196,76 @@ public class ClientOffice extends javax.swing.JFrame {
 
         mainPanel.add(ConsultationVentes, "ConsultationVentes");
 
-        javax.swing.GroupLayout ConsultationStatsSitesLayout = new javax.swing.GroupLayout(ConsultationStatsSites);
-        ConsultationStatsSites.setLayout(ConsultationStatsSitesLayout);
-        ConsultationStatsSitesLayout.setHorizontalGroup(
-            ConsultationStatsSitesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 800, Short.MAX_VALUE)
-        );
-        ConsultationStatsSitesLayout.setVerticalGroup(
-            ConsultationStatsSitesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 574, Short.MAX_VALUE)
-        );
-
-        mainPanel.add(ConsultationStatsSites, "ConsultationStatsSites");
+        jTableListeSites.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null}
+            },
+            new String [] {
+                "Code", "Nom du site"
+            }
+        ));
+        jScrollPane3.setViewportView(jTableListeSites);
 
         javax.swing.GroupLayout ConsultationListeSitesLayout = new javax.swing.GroupLayout(ConsultationListeSites);
         ConsultationListeSites.setLayout(ConsultationListeSitesLayout);
         ConsultationListeSitesLayout.setHorizontalGroup(
             ConsultationListeSitesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 800, Short.MAX_VALUE)
+            .addGroup(ConsultationListeSitesLayout.createSequentialGroup()
+                .addGap(164, 164, 164)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(184, Short.MAX_VALUE))
         );
         ConsultationListeSitesLayout.setVerticalGroup(
             ConsultationListeSitesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 574, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ConsultationListeSitesLayout.createSequentialGroup()
+                .addContainerGap(231, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(191, 191, 191))
         );
 
         mainPanel.add(ConsultationListeSites, "ConsultationListeSites");
+
+        jTableStatistique.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
+            },
+            new String [] {
+                "Site", "Taux de satisfaction", "Favori"
+            }
+        ));
+        jScrollPane2.setViewportView(jTableStatistique);
+
+        jLabelStatistiques.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabelStatistiques.setText("Statistiques des sites :");
+
+        javax.swing.GroupLayout ConsultationStatsSitesLayout = new javax.swing.GroupLayout(ConsultationStatsSites);
+        ConsultationStatsSites.setLayout(ConsultationStatsSitesLayout);
+        ConsultationStatsSitesLayout.setHorizontalGroup(
+            ConsultationStatsSitesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ConsultationStatsSitesLayout.createSequentialGroup()
+                .addContainerGap(184, Short.MAX_VALUE)
+                .addGroup(ConsultationStatsSitesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabelStatistiques)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(164, 164, 164))
+        );
+        ConsultationStatsSitesLayout.setVerticalGroup(
+            ConsultationStatsSitesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(ConsultationStatsSitesLayout.createSequentialGroup()
+                .addGap(129, 129, 129)
+                .addComponent(jLabelStatistiques)
+                .addGap(55, 55, 55)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(231, Short.MAX_VALUE))
+        );
+
+        mainPanel.add(ConsultationStatsSites, "ConsultationStatsSites");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -242,12 +289,46 @@ public class ClientOffice extends javax.swing.JFrame {
     private void boutonConsulterStatsSitesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boutonConsulterStatsSitesActionPerformed
         CardLayout card = (CardLayout) mainPanel.getLayout();
         card.show(mainPanel, "ConsultationStatsSites");
-    }//GEN-LAST:event_boutonConsulterStatsSitesActionPerformed
+        
+        OfficeDBManager db = new OfficeDBManager();
+        //Récupération de la liste des identifiants des sites de l'office
+        short[] listeIdSites= db.getIdSites();
+        ServiceESSite[] lesServES = new ServiceESSite[listeIdSites.length];
+        String valeurStat;
+        
+        try {
+            /****************** Recherche des Service ES des sites *******************/
+            String nomServES;
+            //Pour chaque site
+            for(int i=0; i<listeIdSites.length; i++) {
+                nomServES = "ES " + db.getCodeSite(listeIdSites[i]);
 
-    private void boutonConsulterLesVentesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boutonConsulterLesVentesActionPerformed
-        CardLayout card = (CardLayout) mainPanel.getLayout();
-        card.show(mainPanel, "ConsultationVentes");
-    }//GEN-LAST:event_boutonConsulterLesVentesActionPerformed
+                org.omg.CosNaming.NameComponent[] nameToFind = new org.omg.CosNaming.NameComponent[1];
+                nameToFind[0] = new org.omg.CosNaming.NameComponent(nomServES, "");
+                org.omg.CORBA.Object distantServES = this.naming.resolve(nameToFind);
+                System.out.println("Objet "+ nomServES + " trouvé auprès du service de noms.");
+                
+                lesServES[i] = ServiceESSiteHelper.narrow(distantServES);
+                
+                //Récupération du taux de satisfaction
+                float tauxSatisfaction = lesServES[i].generateTauxSatisfaction();
+                
+                //Recupération du favoris
+                boolean favoris = lesServES[i].generateEstFavoris();
+
+                /************ Remplissage du tableau *************/
+                //lignes
+                jTableStatistique.getModel().setValueAt(db.getNomSite(listeIdSites[i]),i,0);
+                valeurStat=tauxSatisfaction + " %";
+                jTableStatistique.getModel().setValueAt(valeurStat,i,1);
+                jTableStatistique.getModel().setValueAt(favoris,i,2);
+            }
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+        
+    }//GEN-LAST:event_boutonConsulterStatsSitesActionPerformed
 
     private void boutonAccueilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boutonAccueilActionPerformed
         CardLayout card = (CardLayout) mainPanel.getLayout();
@@ -257,6 +338,20 @@ public class ClientOffice extends javax.swing.JFrame {
     private void boutonConsulterListeSitesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boutonConsulterListeSitesActionPerformed
         CardLayout card = (CardLayout) mainPanel.getLayout();
         card.show(mainPanel, "ConsultationListeSites");
+        
+         OfficeDBManager db = new OfficeDBManager();
+        //Récupération de la liste des identifiants des sites de l'office
+        short[] listeIdSites= db.getIdSites();
+        
+        //Pour chaque site
+        for(int i=0; i<listeIdSites.length; i++) {
+            /************ Remplissage du tableau *************/
+                //lignes
+                jTableListeSites.getModel().setValueAt(db.getCodeSite(listeIdSites[i]),i,0);
+                jTableListeSites.getModel().setValueAt(db.getNomSite(listeIdSites[i]),i,1);
+        }
+        
+        
     }//GEN-LAST:event_boutonConsulterListeSitesActionPerformed
 
     /**
@@ -302,8 +397,22 @@ public class ClientOffice extends javax.swing.JFrame {
         thread_servAchat.start();*/
     
         String nom_office=args[0];
-        //Appel à l'interface graphique
-        new ClientOffice(nom_office).setVisible(true);
+        org.omg.CosNaming.NamingContext nameRoot;
+        try {
+            //1
+            org.omg.CORBA.ORB orb = org.omg.CORBA.ORB.init(args, null);
+            
+            //2 
+            nameRoot = org.omg.CosNaming.NamingContextHelper.narrow(orb.resolve_initial_references("NameService"));
+            
+            //Appel à l'interface graphique
+            new ClientOffice(nom_office, nameRoot).setVisible(true);
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+        
+        
       
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -313,13 +422,17 @@ public class ClientOffice extends javax.swing.JFrame {
     private javax.swing.JPanel ConsultationStatsSites;
     private javax.swing.JPanel ConsultationVentes;
     private javax.swing.JButton boutonAccueil;
-    private javax.swing.JButton boutonConsulterLesVentes;
     private javax.swing.JButton boutonConsulterListeSites;
     private javax.swing.JButton boutonConsulterStatsSites;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabelStatistiques;
     private javax.swing.JLabel jLabelTitreClientOffice;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JTable jTableListeSites;
     private javax.swing.JTable jTableListeVentes;
+    private javax.swing.JTable jTableStatistique;
     private javax.swing.JPanel mainPanel;
     // End of variables declaration//GEN-END:variables
 }
