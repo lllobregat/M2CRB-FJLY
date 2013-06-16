@@ -5,6 +5,7 @@
 package Smartphone;
 
 import AssistanceTouristique.*;
+import Site.ServeurSite;
 
 import Office.ServeurOffice;
 import Office.ServeurServiceAchatOffice;
@@ -1068,7 +1069,7 @@ public class ClientSmartphone extends javax.swing.JFrame {
                 this.monOffice = AssistanceTouristique.OfficeHelper.narrow(distantOffice);
 
                 //Récupération de la liste des sites à visiter
-               /* Site[] siteAVisiter = monOffice.getListeSitesAVisiter(idCarte, coordSmartphone, sitesVisites);
+                Site[] siteAVisiter = monOffice.getListeSitesAVisiter(idCarte, coordSmartphone, sitesVisites);
 
                 for(int i=0;i<siteAVisiter.length;i++) {
                     System.out.println("******************************************************");
@@ -1083,7 +1084,7 @@ public class ClientSmartphone extends javax.swing.JFrame {
                     System.out.println("coord.latitude : " + siteAVisiter[i].coord.latitude);
                     System.out.println("coord.longitude : " + siteAVisiter[i].coord.longitude);
                     System.out.println("******************************************************");       
-                }*/
+                }
                 
                 
                 CardLayout card = (CardLayout) mainPanel.getLayout();
@@ -1249,6 +1250,25 @@ public class ClientSmartphone extends javax.swing.JFrame {
         
         jLabelHeureDebutVisite.setText("Date d'entrée : " + new SimpleDateFormat("dd/MM/yyyy HH:mm").format(new Date()));
         jLabelNumeroCarte.setText("Numéro de carte : " + carte.idCarte);
+        
+        ServeurSite servSite = new ServeurSite();
+        //SiteDBManager db = SiteDBManager("bd_site_histoirenaturelle");
+        try {
+            /*********** Recherche du service E/S du site ***********/
+            /*String nomServES = "ES " + ;
+            
+            org.omg.CosNaming.NameComponent[] nameToFind = new org.omg.CosNaming.NameComponent[1];
+            nameToFind[0] = new org.omg.CosNaming.NameComponent(nom_servAchat, "");
+            org.omg.CORBA.Object distantServAchat = nameRoot.resolve(nameToFind);
+                
+            this.monServAchat = ServiceAchatOfficeHelper.narrow(distantServAchat);
+            
+            this.carte = monServAchat.acheterPrestation(dd, dd, montant);
+            System.out.println("numéro de carte : " + carte.idCarte);*/
+                
+        } 
+        catch (Exception e) {
+        }
         CardLayout card = (CardLayout) mainPanel.getLayout();
         card.show(mainPanel, "EcranSortir");
         

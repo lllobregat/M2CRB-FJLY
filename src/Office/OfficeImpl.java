@@ -22,7 +22,7 @@ public class OfficeImpl extends OfficePOA {
     private int nb_sites;
     //TODO
     private SiteTouristique[] mesSites; 
-    private ServiceESSite[] monServES;
+    private ServiceESSite[] mesServES;
     private OfficeDBManager db;
     //private NamingContext nameRoot;
     
@@ -32,7 +32,7 @@ public class OfficeImpl extends OfficePOA {
         //this.nb_sites=this.listeSite.length;
         this.nb_sites=this.listeSite.size();
         this.mesSites = new SiteTouristique[this.nb_sites];
-        this.monServES = new ServiceESSite[this.nb_sites];
+        this.mesServES = new ServiceESSite[this.nb_sites];
         this.db = new OfficeDBManager();
         
         short idSite;
@@ -62,7 +62,7 @@ public class OfficeImpl extends OfficePOA {
                 nameToFind[0] = new org.omg.CosNaming.NameComponent(nomServES, "");
                 org.omg.CORBA.Object distantServES = nameRoot.resolve(nameToFind);
                 
-                this.monServES[i] = ServiceESSiteHelper.narrow(distantServES);
+                this.mesServES[i] = ServiceESSiteHelper.narrow(distantServES);
                 i++;
              }
         }
@@ -75,24 +75,23 @@ public class OfficeImpl extends OfficePOA {
         //ServeurOffice servOffice = new ServeurOffice(this.nombd);
         // récupération des ids des sites à visiter
         short[] idSites = this.db.getIdSites();
+        Site infoSite;
+        float affluenceCourante;
+        Site[] sitesAVisiter = new Site[idSites.length];
         
         // pour chaque site à visiter, récupération des infos des sites
-        Site[] sitesAVisiter = null;
-        /*for(int j=0; j<this.listeSite.length; j++) {  
+        for(int j=0; j<idSites.length; j++) {  
             // TODO !!! + affluence courante
-            /*Site = infoSite = this.monSite.getInfoSite(this.listeSite[j]);
+            infoSite = this.mesSites[j].getInfoSite();
                    
             //Récupération de l'affluence courante auprès du service ES du site
-            //affluenceCourante = this.monServES.getAffluenceCourante((short)site.getKey());
+            affluenceCourante = this.mesServES[j].getAffluenceCourante();
 
-            affluenceCourante = (float)12.3;
+            //affluenceCourante = (float)12.3;
 
-            siteAVisiter[i] = new Site(infoSite.idSite, infoSite.titre, infoSite.coord, infoSite.horaireOuverture, infoSite.horairesFermeture, infoSite.description, infoSite.adresse, infoSite.telephone, affluenceCourante);
-            i++;*/
-        //}
-            //}
-        
-        
+            sitesAVisiter[j] = new Site(infoSite.idSite, infoSite.titre, infoSite.coord, infoSite.horaireOuverture, infoSite.horairesFermeture, infoSite.description, infoSite.adresse, infoSite.telephone, affluenceCourante);
+        }
+
         return sitesAVisiter; 
     }
     
