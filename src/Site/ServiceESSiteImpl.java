@@ -21,6 +21,7 @@ public class ServiceESSiteImpl extends ServiceESSitePOA {
    
     // enregistrement de la carte sur le site
     public void autoriserEntree(Carte carte) {
+        System.out.println("insersion de la carte dans la base " + this.nombd);
         this.db.autoriserEntree(carte.idCarte, carte.dateDebut, carte.dateFin);
     }
     

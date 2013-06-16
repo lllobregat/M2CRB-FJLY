@@ -58,7 +58,7 @@ public class ClientSmartphone extends javax.swing.JFrame {
         this.idCarte = 0;
         this.db = new SmartphoneDBManager();
         sitesVisites = this.db.getSitesVisites();
-        carte = new Carte();
+        this.carte = new Carte(this.idCarte,"","");
         //sitesVisites[0]=5;
         initComponents();
     }
@@ -124,7 +124,8 @@ public class ClientSmartphone extends javax.swing.JFrame {
         EcranCarte = new javax.swing.JPanel();
         jLabel12 = new javax.swing.JLabel();
         BoutonVoirSite = new javax.swing.JButton();
-        jLabelMessagePaiement = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTextPaneCarte = new javax.swing.JTextPane();
         EcranNFC = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextPaneInstructionsNFC = new javax.swing.JTextPane();
@@ -336,7 +337,7 @@ public class ClientSmartphone extends javax.swing.JFrame {
                 .addComponent(boutonInscription)
                 .addGap(18, 18, 18)
                 .addComponent(boutonMotDePasseOublie)
-                .addGap(0, 54, Short.MAX_VALUE))
+                .addGap(0, 67, Short.MAX_VALUE))
         );
 
         mainPanel.add(EcranIdentification, "EcranIdentification");
@@ -683,31 +684,36 @@ public class ClientSmartphone extends javax.swing.JFrame {
             }
         });
 
+        jScrollPane2.setViewportView(jTextPaneCarte);
+
         javax.swing.GroupLayout EcranCarteLayout = new javax.swing.GroupLayout(EcranCarte);
         EcranCarte.setLayout(EcranCarteLayout);
         EcranCarteLayout.setHorizontalGroup(
             EcranCarteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, EcranCarteLayout.createSequentialGroup()
-                .addGap(44, 44, 44)
+            .addGroup(EcranCarteLayout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(EcranCarteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, EcranCarteLayout.createSequentialGroup()
-                        .addComponent(jLabel12)
-                        .addGap(64, 64, 64))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, EcranCarteLayout.createSequentialGroup()
-                        .addComponent(BoutonVoirSite)
-                        .addGap(93, 93, 93))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, EcranCarteLayout.createSequentialGroup()
-                        .addComponent(jLabelMessagePaiement, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(51, Short.MAX_VALUE))))
+                        .addGap(0, 66, Short.MAX_VALUE)
+                        .addGroup(EcranCarteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, EcranCarteLayout.createSequentialGroup()
+                                .addComponent(jLabel12)
+                                .addGap(64, 64, 64))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, EcranCarteLayout.createSequentialGroup()
+                                .addComponent(BoutonVoirSite)
+                                .addGap(93, 93, 93))))
+                    .addGroup(EcranCarteLayout.createSequentialGroup()
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 294, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         EcranCarteLayout.setVerticalGroup(
             EcranCarteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(EcranCarteLayout.createSequentialGroup()
                 .addGap(59, 59, 59)
                 .addComponent(jLabel12)
-                .addGap(43, 43, 43)
-                .addComponent(jLabelMessagePaiement, javax.swing.GroupLayout.DEFAULT_SIZE, 127, Short.MAX_VALUE)
-                .addGap(63, 63, 63)
+                .addGap(44, 44, 44)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 57, Short.MAX_VALUE)
                 .addComponent(BoutonVoirSite)
                 .addGap(29, 29, 29))
         );
@@ -1047,6 +1053,7 @@ public class ClientSmartphone extends javax.swing.JFrame {
     }//GEN-LAST:event_boutonInscriptionActionPerformed
 
     private void boutonSeConnecterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boutonSeConnecterActionPerformed
+        System.out.println("numéro de carte : " + this.carte.idCarte);
         try {
             //vérification des données de connection ...
             if (fieldIdentifiant.getText().equals("a") && String.valueOf(fieldPassword.getPassword()).equals("a")) {
@@ -1138,7 +1145,8 @@ public class ClientSmartphone extends javax.swing.JFrame {
             this.monServAchat = ServiceAchatOfficeHelper.narrow(distantServAchat);
             
             this.carte = monServAchat.acheterPrestation(dd, dd, montant);
-            System.out.println("numéro de carte : " + carte.idCarte);
+            
+            System.out.println("numéro de carte : " + this.carte.idCarte);
                 
         } 
         catch (Exception e) {
@@ -1149,9 +1157,9 @@ public class ClientSmartphone extends javax.swing.JFrame {
         card.show(mainPanel, "EcranCarte");
         
        // if(this.carte.idCarte > 0) {
-            jLabelMessagePaiement.setText("Le paiement est accepté.\n"
-                    + "Le numéro de la carte est : " + carte.idCarte + ".\n"
-                    + "Vous pouvez accéder à tous les musées du " + carte.dateDebut 
+            jTextPaneCarte.setText("Le paiement est accepté.\n"
+                    + "Le numéro de la carte est : " + this.carte.idCarte + ".\n"
+                    + "Vous pouvez accéder à tous les musées du " + this.carte.dateDebut 
                     + " au " + this.carte.dateFin);
         /*}
         else
@@ -1424,16 +1432,17 @@ public class ClientSmartphone extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabelHeureDebutVisite;
-    private javax.swing.JLabel jLabelMessagePaiement;
     private javax.swing.JLabel jLabelNumeroCarte;
     private javax.swing.JLabel jLabelSatisfaction;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JProgressBar jProgressBarAffluenceSite;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPaneIdentification;
     private javax.swing.JScrollPane jScrollPanePresentationSite;
     private javax.swing.JSlider jSliderSatisfaction;
     private javax.swing.JTextPane jTextPane1;
+    private javax.swing.JTextPane jTextPaneCarte;
     private javax.swing.JTextPane jTextPaneIdentification;
     private javax.swing.JTextPane jTextPaneInstructionsNFC;
     private javax.swing.JLabel labelAffluence;
