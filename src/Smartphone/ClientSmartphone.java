@@ -7,8 +7,6 @@ package Smartphone;
 import AssistanceTouristique.*;
 import Site.ServeurSite;
 
-import Office.ServeurOffice;
-import Office.ServeurServiceAchatOffice;
 import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.HeadlessException;
@@ -39,32 +37,27 @@ public class ClientSmartphone extends javax.swing.JFrame {
     /**
      * Creates new form MainSmartphone
      */
-    //Flux E/S standards
-    /*public  String nom_office;
-     public  BufferedReader entree_std = new BufferedReader(new InputStreamReader(System.in));
-     public  PrintStream sortie_std = new PrintStream(System.out); 
-    
-     public  org.omg.CORBA.Object distantOffice;*/
     private org.omg.CosNaming.NamingContext nameRoot;
-    public  AssistanceTouristique.Office monOffice;
-    public  AssistanceTouristique.ServiceAchatOffice monServAchat;
-    //public  AssistanceTouristique.ServiceBancaire monServBancaire;
-    public  AutresServices.ServeurServiceBancaire serveur_bancaire;
+    private Office monOffice;
+    private ServiceAchatOffice monServAchat;
+    private  AutresServices.ServeurServiceBancaire serveur_bancaire;
     private String nomOffice;
-    public  String dd, df;
-    public  Float montant;
-    //TODO à récupérer dans la base de donnée
-    public  short idCarte = 0;
-    public  Coordonnees coordSmartphone = new Coordonnees((float)10, (float)20);
-    public  short[] sitesVisites;
-    public  Carte carte;
+    private  String dd, df;
+    private  Float montant;
+    private  short idCarte;
+    private  Coordonnees coordSmartphone = new Coordonnees((float)10, (float)20);
+    private  short[] sitesVisites;
+    private Site[] sitesAVisiter;
+    private  Carte carte;
     private float satisfaction = 50;
+    private SmartphoneDBManager db;
 
     public ClientSmartphone(org.omg.CosNaming.NamingContext nameRoot, String nomOffice) {
         this.nameRoot = nameRoot;
-        this.nomOffice=nomOffice;
-        sitesVisites = new short[1];
-        sitesVisites[0] = 0;
+        this.nomOffice= nomOffice;
+        this.idCarte = 0;
+        this.db = new SmartphoneDBManager();
+        sitesVisites = this.db.getSitesVisites();
         carte = new Carte();
         //sitesVisites[0]=5;
         initComponents();
@@ -1069,20 +1062,20 @@ public class ClientSmartphone extends javax.swing.JFrame {
                 this.monOffice = AssistanceTouristique.OfficeHelper.narrow(distantOffice);
 
                 //Récupération de la liste des sites à visiter
-                Site[] siteAVisiter = monOffice.getListeSitesAVisiter(idCarte, coordSmartphone, sitesVisites);
+                this.sitesAVisiter = monOffice.getListeSitesAVisiter(idCarte, coordSmartphone, sitesVisites);
 
-                for(int i=0;i<siteAVisiter.length;i++) {
+                for(int i=0;i<this.sitesAVisiter.length;i++) {
                     System.out.println("******************************************************");
-                    System.out.println("idSite : " + siteAVisiter[i].idSite);
-                    System.out.println("titre : " + siteAVisiter[i].titre);
-                    System.out.println("adresse : " + siteAVisiter[i].adresse);
-                    System.out.println("description : " + siteAVisiter[i].description);
-                    System.out.println("horaireOuverture : " + siteAVisiter[i].horaireOuverture);
-                    System.out.println("horairesFermeture : " + siteAVisiter[i].horairesFermeture);
-                    System.out.println("telephone : " + siteAVisiter[i].telephone);
-                    System.out.println("affluenceCourante : " + siteAVisiter[i].affluenceCourante);
-                    System.out.println("coord.latitude : " + siteAVisiter[i].coord.latitude);
-                    System.out.println("coord.longitude : " + siteAVisiter[i].coord.longitude);
+                    System.out.println("idSite : " + sitesAVisiter[i].idSite);
+                    System.out.println("titre : " + sitesAVisiter[i].titre);
+                    System.out.println("adresse : " + sitesAVisiter[i].adresse);
+                    System.out.println("description : " + sitesAVisiter[i].description);
+                    System.out.println("horaireOuverture : " + sitesAVisiter[i].horaireOuverture);
+                    System.out.println("horairesFermeture : " + sitesAVisiter[i].horairesFermeture);
+                    System.out.println("telephone : " + sitesAVisiter[i].telephone);
+                    System.out.println("affluenceCourante : " + sitesAVisiter[i].affluenceCourante);
+                    System.out.println("coord.latitude : " + sitesAVisiter[i].coord.latitude);
+                    System.out.println("coord.longitude : " + sitesAVisiter[i].coord.longitude);
                     System.out.println("******************************************************");       
                 }
                 
@@ -1251,8 +1244,6 @@ public class ClientSmartphone extends javax.swing.JFrame {
         jLabelHeureDebutVisite.setText("Date d'entrée : " + new SimpleDateFormat("dd/MM/yyyy HH:mm").format(new Date()));
         jLabelNumeroCarte.setText("Numéro de carte : " + carte.idCarte);
         
-        ServeurSite servSite = new ServeurSite();
-        //SiteDBManager db = SiteDBManager("bd_site_histoirenaturelle");
         try {
             /*********** Recherche du service E/S du site ***********/
             /*String nomServES = "ES " + ;
